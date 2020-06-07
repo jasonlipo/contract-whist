@@ -14,12 +14,14 @@ const wss = new Server({ port: process.env.NODE_ENV === 'development' ? 3001 : 8
 wss.on('connection', (ws: WebSocket) => {
   ws.on('message', (data: string) => {
 
-
     let message: Message = JSON.parse(data)
-    let adapter = new FileSync(message.game_id + '.json')
+    let adapter = new FileSync('data/' + message.game_id + '.json')
     let db = low(adapter)
 
-    db.defaults({ players: [] }).write()
+    db.defaults({
+      players: [],
+      started: false
+    }).write()
 
     clients[message.user_id] = ws
 
@@ -30,12 +32,21 @@ wss.on('connection', (ws: WebSocket) => {
           name: message.value
         }).write()
         break;
+      case "start_game":
+        db.set('started', true).write()
+        break;
     }
 
-    const users: WebSocket[] = db.get('players').value().map((p: any) => clients[p.user_id])
+    const users: WebSocket[] = db.get('players').value()
+      .filter((p: any) => p.user_id in clients)
+      .map((p: any) => clients[p.user_id])
 
+    let public_data = db.getState()
+    public_data.players = public_data.players.map((p: any) => p.name)
     users.forEach(client => {
-      client.send(JSON.stringify(db.getState()));
+      if (client) {
+        client.send(JSON.stringify(public_data));
+      }
     });
   });
 });

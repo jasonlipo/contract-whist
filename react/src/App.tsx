@@ -3,17 +3,13 @@ import './App.css';
 import { v4 as uuidv4 } from 'uuid';
 import { deck, PlayingCard } from '@karlandin/playing-cards'
 
-interface Player {
-  user_id: string,
-  name: string
-}
-
 interface AppState {
-  players: Player[],
+  players: string[],
   name: string
   game_id: string,
   entered_game: boolean,
-  user_id: string
+  user_id: string,
+  started: boolean
 }
 
 const URL = 'ws://localhost:3001'
@@ -25,7 +21,8 @@ class App extends Component<{}, AppState> {
     name: null,
     game_id: null,
     entered_game: false,
-    user_id: null
+    user_id: null,
+    started: false
   }
 
   reconnect() {
@@ -34,6 +31,9 @@ class App extends Component<{}, AppState> {
       const ws = new WebSocket(URL)
       ws.onopen = () => {
         console.log('connected')
+        if (this.state.entered_game) {
+          this.sendMessage({ type: "retrieve_game", game_id: this.state.game_id, user_id: this.state.user_id })
+        }
         res()
       }
 
@@ -66,7 +66,8 @@ class App extends Component<{}, AppState> {
   }
 
   sendMessage(data) {
-    this.ws.send(JSON.stringify(data))
+    const { game_id, user_id } = this.state
+    this.ws.send(JSON.stringify({ ...data, game_id, user_id }))
   }
 
   join() {
@@ -74,7 +75,7 @@ class App extends Component<{}, AppState> {
     localStorage.setItem('user_id', user_id)
     localStorage.setItem('game_id', game_id)
     localStorage.setItem('name', name)
-    this.sendMessage({ type: "new_player", value: name, game_id, user_id })
+    this.sendMessage({ type: "new_player", value: name })
   }
 
   logout() {
@@ -82,6 +83,10 @@ class App extends Component<{}, AppState> {
     localStorage.removeItem('game_id')
     localStorage.removeItem('name')
     location.reload()
+  }
+
+  start() {
+    this.sendMessage({ type: "start_game" })
   }
 
   render() {
@@ -101,8 +106,13 @@ class App extends Component<{}, AppState> {
           <div>
             <b>Game ID: {this.state.game_id}</b><br />
             Players:<br />
-            { this.state.players.map(p => <div>{p.name}</div>) }
+            { this.state.players.map(p => <div>{p}</div>) }
             <br /><a href="#" onClick={() => this.logout()}>Logout</a>
+            <br /><br />
+            {
+              this.state.started ? <div>The game has started</div> :
+              <a href="#" onClick={() => this.start()}>Start Game</a>
+            }
           </div>
         }
       </div>
