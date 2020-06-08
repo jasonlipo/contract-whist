@@ -4,7 +4,7 @@ import { IContractWhistState } from './ContractWhist';
 import { Loading } from './Loading';
 import { Login } from './Login';
 
-const URL = 'ws://127.0.0.1:8080'
+const URL = 'ws://127.0.0.1:80'
 
 interface IConnectionProps {
   name: string
