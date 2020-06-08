@@ -16,9 +16,6 @@ mkdir -p ./build/react/
 # Create the data folder
 mkdir -p ./build/data/
 
-# Add package.json
-cp package-build.json ./build/package.json
-
 # Navigate to the react directory
 cd ./react
 
