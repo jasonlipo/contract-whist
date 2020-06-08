@@ -46,11 +46,13 @@ wss.on('connection', (ws: WebSocket) => {
         players: [],
         predictions: [],
         started: false,
-        mode: 'players_joining'
+        mode: 'players_joining',
+        trump_suit: null
       }
     }).write()
 
     clients[message.user_id] = ws
+    let all_players;
 
     switch (message.type) {
       case "new_player":
@@ -72,7 +74,7 @@ wss.on('connection', (ws: WebSocket) => {
         break;
       case "submit_prediction":
         db.get('shared.predictions').push(message.value).write()
-        const all_players = db.get('shared.players').value()
+        all_players = db.get('shared.players').value()
         const current_player_index = all_players.indexOf(message.name)
         if (current_player_index == all_players.length - 1) {
           const predictions = db.get('shared.predictions').value()
@@ -84,6 +86,13 @@ wss.on('connection', (ws: WebSocket) => {
         else {
           db.set('shared.in_play', all_players[current_player_index + 1]).write()
         }
+        break;
+      case "submit_trump":
+        all_players = db.get('shared.players').value()
+        db.set('shared.trump_suit', message.value)
+          .set('shared.in_play', all_players[0])
+          .set('shared.mode', 'play')
+          .write()
         break;
       case "deal":
         deal()

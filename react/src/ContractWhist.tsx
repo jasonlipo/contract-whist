@@ -15,7 +15,8 @@ export interface IContractWhistState {
   hand: string[],
   in_play: string,
   admin: boolean,
-  predictions: number[]
+  predictions: number[],
+  trump_suit: string
 }
 
 export default class ContractWhist extends Component<{}, IContractWhistState> {
@@ -31,7 +32,8 @@ export default class ContractWhist extends Component<{}, IContractWhistState> {
     hand: [],
     in_play: null,
     admin: null,
-    predictions: []
+    predictions: [],
+    trump_suit: null
   }
 
   render() {
