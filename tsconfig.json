@@ -13,6 +13,7 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "esModuleInterop": true,
+    "noImplicitAny": false,
     "types": [
       "node"
     ],
