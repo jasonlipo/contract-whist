@@ -10,7 +10,7 @@ const clients = {};
 const express = require('express');
 const app = express();
 app.use('/', express.static(path.join(__dirname, 'react')));
-const server = app.listen(80);
+const server = app.listen(process.env.PORT || 3000);
 const cartesian = (a, b) => [].concat(...a.map(c => (b.map(d => c.concat(d)))));
 const deck = cartesian(['C', 'H', 'S', 'D'], ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13']);
 const sort_by_suit = (a, b) => {

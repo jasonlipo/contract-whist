@@ -4,7 +4,7 @@ import { IContractWhistState } from './ContractWhist';
 import { Loading } from './Loading';
 import { Login } from './Login';
 
-const URL = 'ws://127.0.0.1:80'
+const URL = location.origin.replace(/^http/, 'ws')
 
 interface IConnectionProps {
   name: string
