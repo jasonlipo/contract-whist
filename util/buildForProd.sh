@@ -15,6 +15,7 @@ mkdir -p ./build/react/
 
 # Create the data folder
 mkdir -p ./build/data/
+touch ./build/data/FILE
 
 # Navigate to the react directory
 cd ./react
