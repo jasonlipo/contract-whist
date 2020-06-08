@@ -10,13 +10,14 @@
   "dependencies": {
     "@overnightjs/core": "^1.6.4",
     "@overnightjs/logger": "^1.1.4",
-    "@types/ws": "^7.2.1",
-    "express": "^4.16.4",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
     "http-status-codes": "^1.3.2",
     "lodash": "^4.17.15",
     "lowdb": "^1.0.0",
+    "path": "^0.12.7",
     "uuid": "^8.1.0",
-    "ws": "^7.3.0"
+    "websocket": "^1.0.31"
   },
   "devDependencies": {
     "@types/body-parser": "^1.17.0",

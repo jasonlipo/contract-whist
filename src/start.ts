@@ -1,8 +1,11 @@
-import WebSocket, { Server } from 'ws'
+const WebSocketServer = require('websocket').server;
 const _ = require('lodash')
+const path = require('path')
 const low = require('lowdb')
 const FileSync = require('lowdb/adapters/FileSync')
-const clients: {[key: string]: WebSocket} = {}
+var http = require('http')
+const fs = require('fs')
+const clients = {}
 
 interface Message {
   game_id: string,
@@ -11,6 +14,11 @@ interface Message {
   value?: string,
   user_id: string
 }
+
+const express = require('express')
+const app = express()
+app.use('/', express.static(path.join(__dirname, 'react')))
+const server = app.listen(8080)
 
 const cartesian = (a, b) => [].concat(...a.map(c => (b.map(d => c.concat(d)))));
 const deck = cartesian(['C', 'H', 'S', 'D'], ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13'])
@@ -24,10 +32,11 @@ const sort_by_suit = (a, b) => {
   return a_suit > b_suit ? 1 : -1
 }
 
-const wss = new Server({ port: process.env.NODE_ENV === 'development' ? 3001 : 8081 });
-wss.on('connection', (ws: WebSocket) => {
-  ws.on('message', (data: string) => {
-    let message: Message = JSON.parse(data)
+const wss = new WebSocketServer({ httpServer: server });
+wss.on('request', ws => {
+  const connection = ws.accept(null, ws.origin);
+  connection.on('message', raw => {
+    let message: Message = JSON.parse(raw.utf8Data)
     let adapter = new FileSync('data/' + message.game_id + '.json')
     let db = low(adapter)
 
@@ -51,7 +60,7 @@ wss.on('connection', (ws: WebSocket) => {
       }
     }).write()
 
-    clients[message.user_id] = ws
+    clients[message.user_id] = connection
     let all_players;
 
     switch (message.type) {
@@ -105,7 +114,7 @@ wss.on('connection', (ws: WebSocket) => {
         let client = clients[user_id]
         if (client) {
           const response = { ...db.get(['private', user_id]).value(), ...db.get('shared').value() }
-          client.send(JSON.stringify(response));
+          client.sendUTF(JSON.stringify(response));
         }
       });
   });

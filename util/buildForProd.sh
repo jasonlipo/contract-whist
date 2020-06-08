@@ -13,14 +13,17 @@ tsc --sourceMap false
 # Create the directory for React
 mkdir -p ./build/react/
 
+# Create the data folder
+mkdir -p ./build/data/
+
 # Navigate to the react directory
 cd ./react
 
 # Build React code
 npm run build
 
-# Rename the folder
+# Rename
 mv build react
 
 # Move the contains to the build/ dir
-mv react ../../../../build/react/
+mv react ../build/
