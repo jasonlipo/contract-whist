@@ -4,7 +4,7 @@
   "scripts": {
     "start": "cd build && node start.js",
     "start-dev": "nodemon --config \"./util/nodemon.json\"/",
-    "build": "sh ./util/buildForProd.sh"
+    "prod": "sh ./util/buildForProd.sh"
   },
   "dependencies": {
     "@overnightjs/core": "^1.6.4",
