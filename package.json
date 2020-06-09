@@ -2,7 +2,7 @@
   "name": "contractwhist",
   "version": "0.0.1",
   "scripts": {
-    "start": "npm run prod && node build/start.js",
+    "start": "node start.js",
     "start-dev": "nodemon --config \"./util/nodemon.json\"/",
     "prod": "sh ./util/buildForProd.sh"
   },

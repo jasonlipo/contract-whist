@@ -1,7 +1,27 @@
 version: 2.1
-orbs:
-  heroku: circleci/heroku@0.0.10
-workflows:
+jobs:
   deploy:
+    docker:
+      - image: circleci/php:7.2-node-browsers
+    steps:
+      - checkout
+      - run:
+          name: Build for production
+          command: |
+            npm install
+            cd react
+            npm install
+            cd ..
+            npm run prod
+      - run:
+          name: Deploy the build folder
+          command: |
+            cd build
+            git init
+            git add .
+            git commit -m "Deploy to Heroku"
+            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+workflows:
+  build-and-deploy:
     jobs:
-      - heroku/deploy-via-git
+      - deploy

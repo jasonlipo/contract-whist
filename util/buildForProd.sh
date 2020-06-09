@@ -13,6 +13,12 @@ tsc --sourceMap false
 # Create the directory for React
 mkdir -p ./build/react/
 
+# Copy package.json
+cp package.json ./build
+cp package-lock.json ./build
+mkdir -p ./build/data/
+touch ./build/data/FILE
+
 # Navigate to the react directory
 cd ./react
 
