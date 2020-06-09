@@ -7,7 +7,12 @@ jobs:
       - checkout
       - run:
           name: Build for production
-          command: npm run prod
+          command: |
+            npm install
+            cd react
+            npm install
+            cd ..
+            npm run prod
       - run:
           name: Use build folder to deploy
           command: |
