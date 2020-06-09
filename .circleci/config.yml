@@ -16,10 +16,8 @@ jobs:
       - run:
           name: Use build folder to deploy
           command: |
-            rm -v !("build"|".git")
-            cd build
-            mv * ..
-            cd ..
+            find . -mindepth 1 ! -regex '^./build\(/.*\)?' -delete
+            mv build/* .
             rm build
 orbs:
   heroku: circleci/heroku@0.0.10
