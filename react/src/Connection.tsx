@@ -13,7 +13,8 @@ else {
 }
 
 interface IConnectionProps {
-  name: string
+  name: string,
+  player_index: number,
   game_id: string,
   entered_game: boolean,
   user_id: string,
@@ -66,8 +67,8 @@ export default class Connection extends Component<IConnectionProps> {
   }
 
   sendMessage(data) {
-    const { game_id, user_id, name } = this.props
-    this.ws.send(JSON.stringify({ ...data, game_id, user_id, name }))
+    const { game_id, user_id, player_index } = this.props
+    this.ws.send(JSON.stringify({ ...data, game_id, user_id, player_index }))
   }
 
   join() {

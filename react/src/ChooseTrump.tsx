@@ -1,32 +1,33 @@
 import React, { useState, FC } from 'react';
-import { IContractWhistState } from './ContractWhist';
+import { IContractWhistState, ITrump } from './ContractWhist';
 
 interface IChooseTrumpProps extends IContractWhistState {
-  onSubmitTrump(suit: string): void
+  onSubmitTrump(trump: ITrump): void
 }
 
-export const ChooseTrump: FC<IChooseTrumpProps> = ({ name, in_play, onSubmitTrump }) => {
-  const [trump, setTrump] = useState<string>("")
+export const ChooseTrump: FC<IChooseTrumpProps> = ({ player_index, in_play, onSubmitTrump, players }) => {
+  const [trump, setTrump] = useState<ITrump>(null)
 
   return (
     <div className="predictions">
       {
-        name == in_play ?
+        player_index == in_play ?
         <>
           <label>You picked the highest prediction, please choose the trump suit</label>
           <br />
-          <select value={trump} onChange={(e) => setTrump(e.target.value)}>
-            <option value="">Select</option>
+          <select value={trump} onChange={(e) => setTrump(e.target.value as ITrump)}>
+            <option>Select</option>
             <option value="C">Clubs</option>
             <option value="H">Hearts</option>
             <option value="D">Diamonds</option>
             <option value="S">Spades</option>
+            <option value="no_trump">No trumps</option>
           </select>
           <br />
           <button onClick={() => onSubmitTrump(trump)}>Submit</button>
         </>
         :
-        <span>{in_play} is currently choosing the trump suit</span>
+        <span>{players[in_play]} is currently choosing the trump suit</span>
       }
     </div>
   )

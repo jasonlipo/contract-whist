@@ -10,7 +10,7 @@ const clients = {}
 interface Message {
   game_id: string,
   type: string,
-  name: string,
+  player_index: number,
   value?: string,
   user_id: string
 }
@@ -53,10 +53,14 @@ wss.on('request', ws => {
       private: {},
       shared: {
         players: [],
+        player_bid_first: 0,
         predictions: [],
         started: false,
         mode: 'players_joining',
-        trump_suit: null
+        trump_suit: null,
+        table: [],
+        tricks_won: [],
+        player_lead_trick: null
       }
     }).write()
 
@@ -69,6 +73,7 @@ wss.on('request', ws => {
         let admin_player = players.size() == 0
         players.push(message.value).write()
         db.set(['private', message.user_id], {
+          player_index: players.size() - 1,
           user_id: message.user_id,
           name: message.value,
           admin: admin_player
@@ -77,29 +82,29 @@ wss.on('request', ws => {
       case "start_game":
         db.set('shared.mode', 'predictions')
           .set('shared.cards_per_hand', 10)
-          .set('shared.in_play', message.name)
+          .set('shared.in_play', 0)
           .write()
         deal()
         break;
       case "submit_prediction":
         db.get('shared.predictions').push(message.value).write()
         all_players = db.get('shared.players').value()
-        const current_player_index = all_players.indexOf(message.name)
-        if (current_player_index == all_players.length - 1) {
+        if (message.player_index == all_players.length - 1) {
           const predictions = db.get('shared.predictions').value()
           const highest_index = predictions.indexOf(Math.max(...predictions))
-          db.set('shared.in_play', all_players[highest_index])
+          db.set('shared.in_play', highest_index)
             .set('shared.mode', 'choose_trump')
             .write()
         }
         else {
-          db.set('shared.in_play', all_players[current_player_index + 1]).write()
+          db.set('shared.in_play', message.player_index + 1).write()
         }
         break;
       case "submit_trump":
         all_players = db.get('shared.players').value()
         db.set('shared.trump_suit', message.value)
-          .set('shared.in_play', all_players[0])
+          .set('shared.player_lead_trick', db.get('shared.player_bid_first').value())
+          .set('shared.in_play', db.get('shared.player_bid_first').value())
           .set('shared.mode', 'play')
           .write()
         break;
