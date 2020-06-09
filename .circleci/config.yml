@@ -1,30 +1,19 @@
 version: 2.1
-jobs:
-  build:
-    docker:
-      - image: circleci/php:7.2-node-browsers
-    steps:
-      - checkout
-      - run:
-          name: Build for production
-          command: |
-            npm install
-            cd react
-            npm install
-            cd ..
-            npm run prod
-      - run:
-          name: Use build folder to deploy
-          command: |
-            find . -mindepth 1 ! -regex '^./build\(/.*\)?' -delete
-            mv build/* .
-            rm -r build
 orbs:
   heroku: circleci/heroku@0.0.10
 workflows:
   build-and-deploy:
     jobs:
-      - build
       - heroku/deploy-via-git:
-          requires:
-            - build
+          pre-steps:
+            - checkout
+            - run:
+                command: |
+                  npm install
+                  cd react
+                  npm install
+                  cd ..
+                  npm run prod
+                  find . -mindepth 1 ! -regex '^./build\(/.*\)?' -delete
+                  mv build/* .
+                  rm -r build
