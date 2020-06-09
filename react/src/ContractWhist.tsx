@@ -52,7 +52,8 @@ export default class ContractWhist extends Component<{}, IContractWhistState> {
 
   render() {
     return (
-      <div className="App">
+      <div className="contract-whist">
+        <div className="title">Contract Whist</div>
         <Connection
           name={this.state.name}
           game_id={this.state.game_id}

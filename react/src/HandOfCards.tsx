@@ -12,7 +12,7 @@ export const HandOfCards: FC<IHandOfCardsProps> = ({ cards }) =>
   <div className="cards_hand">
     {
       cards.map((c, i) =>
-        <PlayingCard key={i} card={findCardById(c)} size="small" />
+        <PlayingCard key={i} card={findCardById(c)} size="fill" />
       )
     }
   </div>

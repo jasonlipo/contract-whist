@@ -1,0 +1,199 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 20px;
+  }
+  
+  
+  .contract-whist {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: url('/bg.jpg');
+      background-size: cover;
+      color: white;
+      display: flex;
+      flex-direction: column;
+  }
+  
+  .title {
+      text-align: center;
+      font-size: 40px;
+      font-weight: bold;
+      letter-spacing: -1px;
+      padding: 30px 0 0;
+  }
+  
+  .connection {
+      text-align: center;
+      padding: 30px 0;
+  }
+  
+  .login {
+      position: absolute;
+      left: 50%;
+      width: 550px;
+      margin-left: -275px;
+      top: 50%;
+      height: 400px;
+      margin-top: -200px;
+      background: #ffffff4f;
+      color: black;
+      border-radius: 5px;
+      text-align: left;
+      padding: 30px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+  }
+  
+  .subtitle {
+      font-weight: bold;
+      text-transform: uppercase;
+      font-size: 23px;
+  }
+  
+  .input-box {
+      margin: 20px 0 0;
+      display: flex;
+      flex-direction: column;
+  }
+  
+  label {
+      font-size: 16px;
+      padding-bottom: 10px;
+  }
+  
+  input[type="text"] {
+      border: none;
+      padding: 10px 15px;
+      outline: none;
+      font-family: 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+      font-size: 16px;
+      border-radius: 4px;
+      max-width: 300px;
+      box-sizing: border-box;
+  }
+  
+  button {
+      border: none;
+      padding: 10px 15px;
+      outline: none;
+      font-family: 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+      font-size: 16px;
+      border-radius: 4px;
+      background: white;
+      cursor: pointer;
+      margin: 5px 0 0;
+      text-align: center;
+      align-self: flex-start;
+      min-width: 75px;
+  }
+  
+  button:hover {
+      opacity:0.7;
+  }
+  
+  button.danger {
+      background: #d66666;
+  }
+
+.game_details {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+}
+
+.login button {
+    margin-top:40px;
+}
+.info {
+    font-size: 14px;
+    background: #ffffff61;
+    padding: 15px 20px;
+    border-radius: 4px;
+    color: black;
+    margin: 33px;
+    display: flex;
+}
+
+.info div:first-child {
+    margin-right: 25px;
+}
+
+.game_details .right {
+    margin: 33px;
+}
+
+.game_play {flex: 1;display: flex;flex-direction: column;}
+
+.control_panel {background: #ffffff2e;border-top: 5px solid black;padding: 30px;font-size: 16px;height: 150px;position: relative;display: flex;}
+
+.table {
+    flex: 1;
+}
+
+.cards_hand {
+    height: 100%;
+    display: flex;
+    align-items: stretch;
+    width: 70%;
+}
+
+.actions {
+    margin-left: 20px;
+    background: #ffffff61;
+    color: black;
+    padding: 15px;
+    font-size: 14px;
+    width: 30%;
+    border-radius: 5px;
+}
+
+.cards_hand svg.card {
+    max-height: 100% !important;
+    width: auto !important;
+    max-width: 100% !important;
+    border-radius: 7px;
+    border: 3px solid transparent;
+    box-sizing: border-box;
+}
+
+.feedback {
+    font-style: italic;
+    font-size: 12px;
+}
+
+select {
+    border: none;
+    padding: 10px 15px;
+    outline: none;
+    font-family: 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    font-size: 16px;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.cards_hand figure {
+    max-height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.cards_hand svg.card:hover {
+    cursor: pointer;
+    border-color: red;
+}

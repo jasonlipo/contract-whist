@@ -12,14 +12,27 @@ interface ILoginProps {
 
 export const Login: FC<ILoginProps> = ({ entered_game, name, game_id, onChangeName, onChangeGameId, onJoin, onLogout }) =>
   !entered_game ?
-  <>
-    Your Name: <input type="text" value={name} onChange={(e) => onChangeName(e.target.value)} /><br />
-    Join a game: <input type="text" value={game_id} onChange={(e) => onChangeGameId(e.target.value)} /><br />
+  <div className="login">
+    <div className="subtitle">Join a game</div>
+    <div className="input-box">
+      <label>Your Name</label>
+      <input type="text" value={name} onChange={(e) => onChangeName(e.target.value)} />
+    </div>
+    <div className="input-box">
+      <label>Game Code</label>
+      <input type="text" value={game_id} onChange={(e) => onChangeGameId(e.target.value.toUpperCase())} />
+    </div>
     <button onClick={() => onJoin()}>Join</button>
-  </>
+  </div>
   :
-  <div>
-    Game ID: <b>{game_id}</b><br />
-    Your Name: <b>{name}</b><br />
-    <a href="#" onClick={() => onLogout()}>Logout</a>
+  <div className="game_details">
+    <div className="left">
+      <div className="info">
+        <div>Game Code: <b>{game_id}</b></div>
+        <div>Your Name: <b>{name}</b></div>
+      </div>
+    </div>
+    <div className="right">
+      <button className="danger" onClick={() => onLogout()}>Leave Game</button>
+    </div>
   </div>

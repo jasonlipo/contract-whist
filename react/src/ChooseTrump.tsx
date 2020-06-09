@@ -9,12 +9,12 @@ export const ChooseTrump: FC<IChooseTrumpProps> = ({ player_index, in_play, onSu
   const [trump, setTrump] = useState<ITrump>(null)
 
   return (
-    <div className="predictions">
+    <div className="trump actions">
       {
         player_index == in_play ?
         <>
           <label>You picked the highest prediction, please choose the trump suit</label>
-          <br />
+          <br /><br />
           <select value={trump} onChange={(e) => setTrump(e.target.value as ITrump)}>
             <option>Select</option>
             <option value="C">Clubs</option>
