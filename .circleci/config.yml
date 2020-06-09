@@ -2,18 +2,6 @@ version: 2.1
 orbs:
   heroku: circleci/heroku@0.0.10
 workflows:
-  build-and-deploy:
+  deploy:
     jobs:
-      - heroku/deploy-via-git:
-          pre-steps:
-            - checkout
-            - run:
-                command: |
-                  npm install
-                  cd react
-                  npm install
-                  cd ..
-                  npm run prod
-                  find . -mindepth 1 ! -regex '^./build\(/.*\)?' -delete
-                  mv build/* .
-                  rm -r build
+      - heroku/deploy-via-git
