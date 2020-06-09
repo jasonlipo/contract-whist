@@ -17,6 +17,9 @@ mkdir -p ./build/react/
 mkdir -p ./build/data/
 touch ./build/data/FILE
 
+# Copy package.json
+cp package.json ./build/
+
 # Navigate to the react directory
 cd ./react
 
