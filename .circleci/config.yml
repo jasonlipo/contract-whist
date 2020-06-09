@@ -18,7 +18,7 @@ jobs:
           command: |
             find . -mindepth 1 ! -regex '^./build\(/.*\)?' -delete
             mv build/* .
-            rm build
+            rm -r build
 orbs:
   heroku: circleci/heroku@0.0.10
 workflows:
