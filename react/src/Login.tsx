@@ -1,16 +1,19 @@
 import React, { FC } from 'react';
+import { IContractWhistState, ITrump } from './ContractWhist';
 
-interface ILoginProps {
-  entered_game: boolean,
-  name: string,
-  game_id: string,
+interface ILoginProps extends IContractWhistState {
   onChangeName(name: string): void,
   onChangeGameId(id: string): void,
   onJoin(): void,
   onLogout(): void
 }
 
-export const Login: FC<ILoginProps> = ({ entered_game, name, game_id, onChangeName, onChangeGameId, onJoin, onLogout }) =>
+const letterToSuit = (trump: ITrump) => {
+  const map = {"C": "Clubs", "H": "Hearts", "D": "Diamonds", "S": "Spades", "no_trumps": "No trumps"}
+  return map[trump] || "N/A"
+}
+
+export const Login: FC<ILoginProps> = ({ entered_game, name, game_id, onChangeName, onChangeGameId, onJoin, onLogout, trump_suit, cards_per_hand}) =>
   !entered_game ?
   <div className="login">
     <div className="subtitle">Join a game</div>
@@ -30,6 +33,8 @@ export const Login: FC<ILoginProps> = ({ entered_game, name, game_id, onChangeNa
       <div className="info">
         <div>Game Code: <b>{game_id}</b></div>
         <div>Your Name: <b>{name}</b></div>
+        <div>Trumps: <b>{letterToSuit(trump_suit)}</b></div>
+        <div>Cards: <b>{cards_per_hand || "N/A"}</b></div>
       </div>
     </div>
     <div className="right">

@@ -6,6 +6,7 @@ export type ISuit = 'C' | 'H' | 'S' | 'D'
 export type ITrump = ISuit | 'no_trump'
 export type ICard = string
 export type IPlayerPosition = number
+export type IMode = 'players_joining' | 'predictions' | 'choose_trump' | 'play' | 'scores'
 
 export interface IContractWhistState {
   players: string[],
@@ -16,7 +17,7 @@ export interface IContractWhistState {
   entered_game: boolean,
   user_id: string,
   cards_per_hand: number,
-  mode: 'players_joining' | 'predictions' | 'choose_trump' | 'play' | 'scores',
+  mode: IMode,
   send: (data: any) => void,
   hand: ICard[],
   in_play: IPlayerPosition,
@@ -55,11 +56,7 @@ export default class ContractWhist extends Component<{}, IContractWhistState> {
       <div className="contract-whist">
         <div className="title">Contract Whist</div>
         <Connection
-          name={this.state.name}
-          game_id={this.state.game_id}
-          user_id={this.state.user_id}
-          player_index={this.state.player_index}
-          entered_game={this.state.entered_game}
+          {...this.state}
           onConnect={send => this.setState({ send })}
           setState={this.setState.bind(this)}
         />

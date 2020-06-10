@@ -12,12 +12,7 @@ else {
   URL = location.origin.replace(/^http/, 'ws')
 }
 
-interface IConnectionProps {
-  name: string,
-  player_index: number,
-  game_id: string,
-  entered_game: boolean,
-  user_id: string,
+interface IConnectionProps extends IContractWhistState {
   onConnect(sendMessage: (data: any) => void): void,
   setState(updates: Partial<IContractWhistState>): void
 }
@@ -94,9 +89,7 @@ export default class Connection extends Component<IConnectionProps> {
           <Loading />
           :
           <Login
-            name={this.props.name}
-            game_id={this.props.game_id}
-            entered_game={this.props.entered_game}
+            {...this.props}
             onChangeName={name => this.props.setState({ name })}
             onChangeGameId={game_id => this.props.setState({ game_id })}
             onJoin={this.join.bind(this)}

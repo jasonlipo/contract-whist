@@ -55,7 +55,6 @@ wss.on('request', ws => {
         players: [],
         player_bid_first: 0,
         predictions: [],
-        started: false,
         mode: 'players_joining',
         trump_suit: null,
         table: [],
@@ -106,10 +105,15 @@ wss.on('request', ws => {
           .set('shared.player_lead_trick', db.get('shared.player_bid_first').value())
           .set('shared.in_play', db.get('shared.player_bid_first').value())
           .set('shared.mode', 'play')
+          .set('shared.table', all_players.map(x => null))
           .write()
         break;
-      case "deal":
-        deal()
+      case "play_card":
+        let new_hand = db.get(['private', message.user_id, 'hand']).value()
+        let dealt_card = new_hand.splice(message.value, 1)
+        db.set(['private', message.user_id, 'hand'], new_hand)
+          .set('shared.in_play', message.player_index + 1)
+          .set(['shared', 'table', message.player_index], dealt_card[0]).write()
         break;
     }
 

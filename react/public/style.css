@@ -125,11 +125,9 @@ body {
     border-radius: 4px;
     color: black;
     margin: 33px;
-    display: flex;
-}
-
-.info div:first-child {
-    margin-right: 25px;
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 20px;
 }
 
 .game_details .right {
@@ -142,6 +140,7 @@ body {
 
 .table {
     flex: 1;
+    position: relative;
 }
 
 .cards_hand {
@@ -187,14 +186,185 @@ select {
     box-sizing: border-box;
 }
 
-.cards_hand figure {
+.cards_hand div, .cards_hand figure {
     max-height: 100%;
     overflow: hidden;
     position: relative;
     flex: 1;
+    display: flex;
 }
 
-.cards_hand svg.card:hover {
+.cards_hand.selectable svg.card:hover {
     cursor: pointer;
     border-color: red;
+}
+
+
+.black_square {
+    width: 70%;
+    height: 400px;
+    background: #0000004f;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -200px -35%;
+}
+
+.my_area {
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    width: 200px;
+    margin-left: -100px;
+    text-align: center;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+}
+
+.player_area {
+    position: absolute;
+    width: 100px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.player_arrangement.players_2 .player_area {
+    left: 50%;
+    margin-left: -50px;
+    top: 50px;
+}
+
+.player_arrangement.players_3 .player_area:nth-child(1) {
+    left: 15%;
+    margin-left: -50px;
+    top: 50px;
+    width: 315px;
+    text-align: left;
+}
+
+.player_arrangement.players_3 .player_area:nth-child(2) {
+    left: 85%;
+    margin-left: -230px;
+    top: 50px;
+    width: 315px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.player_arrangement.players_4 .player_area:nth-child(1) {
+    top: 50%;
+    left: 15%;
+    margin-left: -100px;
+    text-align: right;
+    display: flex;
+    width: 315px;
+    align-items: center;
+}
+
+.player_arrangement.players_4 .player_area:nth-child(2) {
+    left: 50%;
+    margin-left: -50px;
+    top: 50px;
+}
+
+.player_arrangement.players_4 .player_area:nth-child(3) {
+    top: 50%;
+    left: 85%;
+    margin-left: -235px;
+    text-align: left;
+    display: flex;
+    width: 315px;
+    align-items: center;
+    flex-direction: row-reverse;
+}
+
+.player_arrangement.players_5 .player_area:nth-child(1) {
+    top: 55%;
+    left: 15%;
+    margin-left: -100px;
+    display: flex;
+    width: 315px;
+    align-items: center;
+}
+
+.player_arrangement.players_5 .player_area:nth-child(2) {
+    top: 50px;
+    left: 25%;
+}
+
+.player_arrangement.players_5 .player_area:nth-child(3) {
+    top: 50px;
+    left: 65%;
+}
+
+.player_arrangement.players_5 .player_area:nth-child(4) {
+    top: 55%;
+    left: 85%;
+    margin-left: -230px;
+    display: flex;
+    width: 315px;
+    align-items: center;
+    flex-direction: row-reverse;
+}
+
+
+.player_name.in_play {
+    color: #f36363;
+}
+
+.player_card_in_play {
+    width: 100px;
+    height: 135px;
+}
+
+.card_placeholder {
+    background: #b9b9b9a8;
+    width: 100%;
+    height: 100%;
+    border-radius: 7px;
+}
+
+.my_area .player_card_in_play {
+    margin: 60px 0;
+}
+
+.player_arrangement.players_5 .player_area:nth-child(1) .player_card_in_play {
+    margin-left: 110px;
+}
+
+.player_arrangement.players_5 .player_area:nth-child(2) .player_card_in_play {
+    margin: 60px 0;
+}
+
+.player_arrangement.players_5 .player_area:nth-child(3) .player_card_in_play {
+    margin: 60px 0;
+}
+
+.player_arrangement.players_5 .player_area:nth-child(4) .player_card_in_play {
+    margin-right: 80px;
+}
+
+.player_arrangement.players_2 .player_area .player_card_in_play {
+    margin: 60px 0;
+}
+
+.player_arrangement.players_3 .player_area:nth-child(1) .player_card_in_play {margin: 60px 80px;}
+
+.player_arrangement.players_3 .player_area:nth-child(2) .player_card_in_play {
+    margin: 60px 115px;
+}
+
+.player_arrangement.players_4 .player_area:nth-child(1) .player_card_in_play {
+    margin-left: 100px;
+}
+
+.player_arrangement.players_4 .player_area:nth-child(3) .player_card_in_play {
+    margin-right: 80px;
+}
+
+.player_arrangement.players_4 .player_area:nth-child(2) .player_card_in_play {
+    margin: 60px 0;
 }
