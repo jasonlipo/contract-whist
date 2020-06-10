@@ -16,10 +16,17 @@ export const HandOfCards: FC<IHandOfCardsProps> = ({ cards, mode, onClick, in_pl
   const canSelectCard = (id: string): boolean => {
     const card: ICard = findCardById(id)
     if (player_lead_trick == player_index) {
+      // If you are first to lead
       return true
     }
     const suit_leading = findCardById(table[0]).suit
-    return card.suit == suit_leading
+    const cards_of_leading_suit = cards.filter(c => findCardById(c).suit == suit_leading)
+    if (cards_of_leading_suit.length > 0) {
+      // Must follow suit
+      return card.suit == suit_leading
+    }
+    // Can throw away any card or trump
+    return true
   }
 
   return (
