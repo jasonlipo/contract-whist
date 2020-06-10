@@ -6,6 +6,7 @@ import { ChooseTrump } from './ChooseTrump';
 import { AwaitingStart } from './AwaitingStart';
 import { InPlay } from './InPlay';
 import { CardTable } from './CardTable';
+import { EndOfTrick } from './EndOfTrick';
 
 interface IGamePlayProps extends IContractWhistState {
   onStart(): void
@@ -23,6 +24,9 @@ export const GamePlay: FC<IGamePlayProps> = (props) => {
   }
   else if (mode == 'play') {
     ModeComponent = () => <InPlay {...props} />
+  }
+  else if (mode == 'end_of_trick') {
+    ModeComponent = () => <EndOfTrick {...props} />
   }
 
   return (

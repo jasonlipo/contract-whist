@@ -53,7 +53,7 @@ wss.on('request', ws => {
       private: {},
       shared: {
         players: [],
-        player_bid_first: 0,
+        player_bid_first: null,
         predictions: [],
         mode: 'players_joining',
         trump_suit: null,
@@ -80,6 +80,7 @@ wss.on('request', ws => {
         break;
       case "start_game":
         db.set('shared.mode', 'predictions')
+          .set('shared.player_bid_first', 0)
           .set('shared.cards_per_hand', 10)
           .set('shared.in_play', 0)
           .write()
@@ -115,6 +116,33 @@ wss.on('request', ws => {
         db.set(['private', message.user_id, 'hand'], new_hand)
           .set('shared.in_play', message.player_index + 1)
           .set(['shared', 'table', message.player_index], dealt_card[0]).write()
+
+        if (message.player_index + 1 == db.get('shared.players').size()) {
+          // End of trick
+          db.set('shared.mode', 'end_of_trick').write()
+          const table = db.get('shared.table').value()
+          const trump_suit = db.get('shared.trump_suit').value()
+          if (trump_suit != "no_trump") {
+            const find_trump = table.filter(card => card.substr(0, 1) == trump_suit)
+            if (find_trump.length > 0) {
+              const winning_card = _.max(find_trump.map(card => parseInt(card.substr(1))))
+              const winning_player_index = table.indexOf(trump_suit + winning_card.toString())
+              const new_trick_wins = db.get(['shared', 'tricks_won', winning_player_index]).value() + 1
+              db.set('shared.in_play', winning_player_index)
+                .set(['shared', 'tricks_won', winning_player_index], new_trick_wins)
+                .write()
+              break;
+            }
+          }
+          const leading_suit = table[0].substr(0, 1)
+          const find_leading_suit = table.filter(card => card.substr(0, 1) == leading_suit)
+          const winning_card = _.max(find_leading_suit.map(card => parseInt(card.substr(1))))
+          const winning_player_index = table.indexOf(leading_suit + winning_card.toString())
+          const new_trick_wins = db.get(['shared', 'tricks_won', winning_player_index]).value() + 1
+          db.set('shared.in_play', winning_player_index)
+            .set(['shared', 'tricks_won', winning_player_index], new_trick_wins)
+            .write()
+        }
         break;
     }
 

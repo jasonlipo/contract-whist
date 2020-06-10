@@ -9,7 +9,7 @@ interface ILoginProps extends IContractWhistState {
 }
 
 const letterToSuit = (trump: ITrump) => {
-  const map = {"C": "Clubs", "H": "Hearts", "D": "Diamonds", "S": "Spades", "no_trumps": "No trumps"}
+  const map = {"C": "Clubs", "H": "Hearts", "D": "Diamonds", "S": "Spades", "no_trump": "No trumps"}
   return map[trump] || "N/A"
 }
 
