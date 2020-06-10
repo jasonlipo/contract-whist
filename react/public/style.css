@@ -194,7 +194,7 @@ select {
     display: flex;
 }
 
-.cards_hand.selectable svg.card:hover {
+.cards_hand.selectable div:not(.invalid) svg.card:hover {
     cursor: pointer;
     border-color: red;
 }
@@ -367,4 +367,8 @@ select {
 
 .player_arrangement.players_4 .player_area:nth-child(2) .player_card_in_play {
     margin: 60px 0;
+}
+
+.cards_hand .invalid {
+    opacity: 0.1;
 }

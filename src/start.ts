@@ -106,6 +106,7 @@ wss.on('request', ws => {
           .set('shared.in_play', db.get('shared.player_bid_first').value())
           .set('shared.mode', 'play')
           .set('shared.table', all_players.map(x => null))
+          .set('shared.tricks_won', all_players.map(x => 0))
           .write()
         break;
       case "play_card":

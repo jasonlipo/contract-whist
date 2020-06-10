@@ -37,10 +37,8 @@ export const GamePlay: FC<IGamePlayProps> = (props) => {
             :
             <>
               <HandOfCards
+                {...props}
                 cards={hand}
-                mode={mode}
-                in_play={in_play}
-                player_index={player_index}
                 onClick={i => send({ type: "play_card", value: i })}
               />
               <ModeComponent />
