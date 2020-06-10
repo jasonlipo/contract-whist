@@ -191,6 +191,7 @@ select {
     max-height: 100%;
     overflow: hidden;
     position: relative;
+    flex: 1;
 }
 
 .cards_hand svg.card:hover {
