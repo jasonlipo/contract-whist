@@ -54,6 +54,7 @@ wss.on('request', ws => {
       shared: {
         points: [],
         players: [],
+        cards_decreasing: true,
         player_bid_first: null,
         predictions: [],
         mode: 'players_joining',
@@ -190,14 +191,22 @@ wss.on('request', ws => {
       case "next_round":
         all_players = db.get('shared.players').value()
         const new_first_bidder = (db.get('shared.player_bid_first').value() + 1) % all_players.length
+        let new_cards_step = 1
+        if (db.get('shared.cards_decreasing').value()) {
+          new_cards_step = -1
+          if (db.get('shared.cards_per_hand') == 3) {
+            // 2 is the minimum cards before we go back up again
+            db.set('shared.cards_decreasing', false).write()
+          }
+        }
         db.set('shared.mode', 'predictions')
           .set('shared.player_lead_trick', null)
           .set('shared.tricks_won', [])
           .set('shared.trump_suit', null)
           .set('shared.player_bid_first', new_first_bidder)
-          .set('shared.cards_per_hand', db.get('shared.cards_per_hand') - 1)
           .set('shared.in_play', new_first_bidder)
           .set('shared.predictions', all_players.map(x => null))
+          .set('shared.cards_per_hand', db.get('shared.cards_per_hand') + new_cards_step)
           .write()
         deal()
         break;
