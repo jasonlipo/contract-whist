@@ -144,6 +144,12 @@ wss.on('request', ws => {
             .write()
         }
         break;
+      case "next_trick":
+        db.set('shared.mode', 'play')
+          .set('shared.player_lead_trick', db.get('shared.in_play').value())
+          .set('shared.table', [])
+          .write()
+        break;
     }
 
     Object.keys(db.get('private').value())

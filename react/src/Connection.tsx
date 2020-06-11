@@ -6,7 +6,7 @@ import { Login } from './Login';
 
 let URL
 if (process.env.NODE_ENV == "development") {
-  URL = 'ws://192.168.52.128:3000'
+  URL = 'ws://localhost:3000'
 }
 else {
   URL = location.origin.replace(/^http/, 'ws')

@@ -26,7 +26,7 @@ export const GamePlay: FC<IGamePlayProps> = (props) => {
     ModeComponent = () => <InPlay {...props} />
   }
   else if (mode == 'end_of_trick') {
-    ModeComponent = () => <EndOfTrick {...props} />
+    ModeComponent = () => <EndOfTrick onNextTrick={() => send({ type: "next_trick" })} {...props} />
   }
 
   return (
