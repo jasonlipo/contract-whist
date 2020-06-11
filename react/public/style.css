@@ -377,3 +377,43 @@ select {
     font-size: 14px;
     font-weight: normal;
 }
+
+.scores {
+    flex: 1;
+    display: flex;
+}
+
+.deltas, .leaderboard {
+    background: #ffffff59;
+    border-radius: 4px;
+    color: black;
+    padding: 15px;
+    flex: 1;
+}
+
+.deltas {
+    margin-right: 30px;
+}
+
+.score-title {
+    font-weight: bold;
+    margin-bottom: 7px;
+}
+
+.score-row {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px dotted;
+}
+
+.score-row-points {
+    font-weight: bold;
+}
+
+.deltas .score-row-points {
+    color: #1d6f1d;
+}
+
+.deltas .score-row-points.negative {
+    color: #b32727;
+}

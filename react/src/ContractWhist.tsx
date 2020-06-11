@@ -6,7 +6,7 @@ export type ISuit = 'C' | 'H' | 'S' | 'D'
 export type ITrump = ISuit | 'no_trump'
 export type ICard = string
 export type IPlayerPosition = number
-export type IMode = 'players_joining' | 'predictions' | 'choose_trump' | 'play' | 'end_of_trick'
+export type IMode = 'players_joining' | 'predictions' | 'choose_trump' | 'play' | 'end_of_trick' | 'scores'
 
 export interface IContractWhistState {
   players: string[],

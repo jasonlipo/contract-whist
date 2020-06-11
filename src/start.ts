@@ -187,6 +187,20 @@ wss.on('request', ws => {
           .set('shared.in_play', null)
           .write()
         break;
+      case "next_round":
+        all_players = db.get('shared.players').value()
+        const new_first_bidder = (db.get('shared.player_bid_first').value() + 1) % all_players.length
+        db.set('shared.mode', 'predictions')
+          .set('shared.player_lead_trick', null)
+          .set('shared.tricks_won', [])
+          .set('shared.trump_suit', null)
+          .set('shared.player_bid_first', new_first_bidder)
+          .set('shared.cards_per_hand', db.get('shared.cards_per_hand') - 1)
+          .set('shared.in_play', new_first_bidder)
+          .set('shared.predictions', all_players.map(x => null))
+          .write()
+        deal()
+        break;
     }
 
     Object.keys(db.get('private').value())
