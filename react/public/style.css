@@ -1,419 +1,64 @@
-body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', 'Roboto', 'Oxygen',
-      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-      sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    font-size: 20px;
-  }
-  
-  
-  .contract-whist {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: url('/bg.jpg');
-      background-size: cover;
-      color: white;
-      display: flex;
-      flex-direction: column;
-  }
-  
-  .title {
-      text-align: center;
-      font-size: 40px;
-      font-weight: bold;
-      letter-spacing: -1px;
-      padding: 30px 0 0;
-  }
-  
-  .connection {
-      text-align: center;
-      padding: 30px 0;
-  }
-  
-  .login {
-      position: absolute;
-      left: 50%;
-      width: 550px;
-      margin-left: -275px;
-      top: 50%;
-      height: 400px;
-      margin-top: -200px;
-      background: #ffffff4f;
-      color: black;
-      border-radius: 5px;
-      text-align: left;
-      padding: 30px;
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-  }
-  
-  .subtitle {
-      font-weight: bold;
-      text-transform: uppercase;
-      font-size: 23px;
-  }
-  
-  .input-box {
-      margin: 20px 0 0;
-      display: flex;
-      flex-direction: column;
-  }
-  
-  label {
-      font-size: 16px;
-      padding-bottom: 10px;
-  }
-  
-  input[type="text"] {
-      border: none;
-      padding: 10px 15px;
-      outline: none;
-      font-family: 'Segoe UI', 'Roboto', 'Oxygen',
-      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-      sans-serif;
-      font-size: 16px;
-      border-radius: 4px;
-      max-width: 300px;
-      box-sizing: border-box;
-  }
-  
-  button {
-      border: none;
-      padding: 10px 15px;
-      outline: none;
-      font-family: 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-      font-size: 16px;
-      border-radius: 4px;
-      background: white;
-      cursor: pointer;
-      margin: 5px 0 0;
-      text-align: center;
-      align-self: flex-start;
-      min-width: 75px;
-  }
-  
-  button:hover {
-      opacity:0.7;
-  }
-  
-  button.danger {
-      background: #d66666;
-  }
-
-.game_details {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    text-align: left;
-    display: flex;
-    justify-content: space-between;
-}
-
-.login button {
-    margin-top:40px;
-}
-.info {
-    font-size: 14px;
-    background: #ffffff61;
-    padding: 15px 20px;
-    border-radius: 4px;
-    color: black;
-    margin: 33px;
-    display: grid;
-    grid-template-columns: auto auto;
-    column-gap: 20px;
-}
-
-.game_details .right {
-    margin: 33px;
-}
-
-.game_play {flex: 1;display: flex;flex-direction: column;}
-
-.control_panel {background: #ffffff2e;border-top: 5px solid black;padding: 30px;font-size: 16px;height: 150px;position: relative;display: flex;}
-
-.table {
-    flex: 1;
-    position: relative;
-}
-
-.cards_hand {
-    height: 100%;
-    display: flex;
-    align-items: stretch;
-    width: 70%;
-}
-
-.actions {
-    margin-left: 20px;
-    background: #ffffff61;
-    color: black;
-    padding: 15px;
-    font-size: 14px;
-    width: 30%;
-    border-radius: 5px;
-}
-
-.cards_hand svg.card {
-    max-height: 100% !important;
-    width: auto !important;
-    max-width: 100% !important;
-    border-radius: 7px;
-    border: 3px solid transparent;
-    box-sizing: border-box;
-}
-
-.feedback {
-    font-style: italic;
-    font-size: 12px;
-}
-
-select {
-    border: none;
-    padding: 10px 15px;
-    outline: none;
-    font-family: 'Segoe UI', 'Roboto', 'Oxygen',
-      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-      sans-serif;
-    font-size: 16px;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-.cards_hand div, .cards_hand figure {
-    max-height: 100%;
-    overflow: hidden;
-    position: relative;
-    flex: 1;
-    display: flex;
-}
-
-.cards_hand.selectable div:not(.invalid) svg.card:hover {
-    cursor: pointer;
-    border-color: red;
-}
-
-
-.black_square {
-    width: 70%;
-    height: 400px;
-    background: #0000004f;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    margin: -200px -35%;
-}
-
-.my_area {
-    position: absolute;
-    bottom: 50px;
-    left: 50%;
-    width: 200px;
-    margin-left: -100px;
-    text-align: center;
-    font-weight: bold;
-    display: flex;
-    flex-direction: column-reverse;
-    align-items: center;
-}
-
-.player_area {
-    position: absolute;
-    width: 100px;
-    text-align: center;
-    font-weight: bold;
-}
-
-.player_arrangement.players_2 .player_area {
-    left: 50%;
-    margin-left: -50px;
-    top: 50px;
-}
-
-.player_arrangement.players_3 .player_area:nth-child(1) {
-    left: 15%;
-    margin-left: -50px;
-    top: 50px;
-    width: 315px;
-    text-align: left;
-}
-
-.player_arrangement.players_3 .player_area:nth-child(2) {
-    left: 85%;
-    margin-left: -230px;
-    top: 50px;
-    width: 315px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-}
-
-.player_arrangement.players_4 .player_area:nth-child(1) {
-    top: 50%;
-    left: 15%;
-    margin-left: -100px;
-    text-align: right;
-    display: flex;
-    width: 315px;
-    align-items: center;
-}
-
-.player_arrangement.players_4 .player_area:nth-child(2) {
-    left: 50%;
-    margin-left: -50px;
-    top: 50px;
-}
-
-.player_arrangement.players_4 .player_area:nth-child(3) {
-    top: 50%;
-    left: 85%;
-    margin-left: -235px;
-    text-align: left;
-    display: flex;
-    width: 315px;
-    align-items: center;
-    flex-direction: row-reverse;
-}
-
-.player_arrangement.players_5 .player_area:nth-child(1) {
-    top: 55%;
-    left: 15%;
-    margin-left: -100px;
-    display: flex;
-    width: 315px;
-    align-items: center;
-}
-
-.player_arrangement.players_5 .player_area:nth-child(2) {
-    top: 50px;
-    left: 25%;
-}
-
-.player_arrangement.players_5 .player_area:nth-child(3) {
-    top: 50px;
-    left: 65%;
-}
-
-.player_arrangement.players_5 .player_area:nth-child(4) {
-    top: 55%;
-    left: 85%;
-    margin-left: -230px;
-    display: flex;
-    width: 315px;
-    align-items: center;
-    flex-direction: row-reverse;
-}
-
-
-.player_name.in_play {
-    color: #f36363;
-}
-
-.player_card_in_play {
-    width: 100px;
-    height: 135px;
-}
-
-.card_placeholder {
-    background: #b9b9b9a8;
-    width: 100%;
-    height: 100%;
-    border-radius: 7px;
-}
-
-.my_area .player_card_in_play {
-    margin: 60px 0;
-}
-
-.player_arrangement.players_5 .player_area:nth-child(1) .player_card_in_play {
-    margin-left: 110px;
-}
-
-.player_arrangement.players_5 .player_area:nth-child(2) .player_card_in_play {
-    margin: 60px 0;
-}
-
-.player_arrangement.players_5 .player_area:nth-child(3) .player_card_in_play {
-    margin: 60px 0;
-}
-
-.player_arrangement.players_5 .player_area:nth-child(4) .player_card_in_play {
-    margin-right: 80px;
-}
-
-.player_arrangement.players_2 .player_area .player_card_in_play {
-    margin: 60px 0;
-}
-
-.player_arrangement.players_3 .player_area:nth-child(1) .player_card_in_play {margin: 60px 80px;}
-
-.player_arrangement.players_3 .player_area:nth-child(2) .player_card_in_play {
-    margin: 60px 115px;
-}
-
-.player_arrangement.players_4 .player_area:nth-child(1) .player_card_in_play {
-    margin-left: 100px;
-}
-
-.player_arrangement.players_4 .player_area:nth-child(3) .player_card_in_play {
-    margin-right: 80px;
-}
-
-.player_arrangement.players_4 .player_area:nth-child(2) .player_card_in_play {
-    margin: 60px 0;
-}
-
-.cards_hand .invalid {
-    opacity: 0.1;
-}
-
-.prediction_tricks {
-    font-size: 14px;
-    font-weight: normal;
-}
-
-.scores {
-    flex: 1;
-    display: flex;
-}
-
-.deltas, .leaderboard {
-    background: #ffffff59;
-    border-radius: 4px;
-    color: black;
-    padding: 15px;
-    flex: 1;
-}
-
-.deltas {
-    margin-right: 30px;
-}
-
-.score-title {
-    font-weight: bold;
-    margin-bottom: 7px;
-}
-
-.score-row {
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 1px dotted;
-}
-
-.score-row-points {
-    font-weight: bold;
-}
-
-.deltas .score-row-points {
-    color: #1d6f1d;
-}
-
-.deltas .score-row-points.negative {
-    color: #b32727;
-}
+body{margin:0;padding:0;font-family:'Segoe UI','Roboto','Oxygen','Ubuntu','Cantarell','Fira Sans','Droid Sans','Helvetica Neue',sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-size:20px}
+.contract-whist{position:absolute;width:100%;height:100%;background:url(/bg.jpg);background-size:cover;color:#fff;display:flex;flex-direction:column}
+.title{text-align:center;font-size:40px;font-weight:700;letter-spacing:-1px;padding:30px 0 0;line-height:24px}
+.connection{text-align:center;padding:30px 0}
+.login{position:absolute;left:50%;width:550px;margin-left:-275px;top:50%;height:400px;margin-top:-200px;background:#ffffff4f;color:#000;border-radius:5px;text-align:left;padding:30px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center}
+.subtitle{font-weight:700;text-transform:uppercase;font-size:23px}
+.input-box{margin:20px 0 0;display:flex;flex-direction:column}
+label{font-size:16px;padding-bottom:10px}
+input[type="text"]{border:none;padding:10px 15px;outline:none;font-family:'Segoe UI','Roboto','Oxygen','Ubuntu','Cantarell','Fira Sans','Droid Sans','Helvetica Neue',sans-serif;font-size:16px;border-radius:4px;max-width:300px;box-sizing:border-box}
+button{border:none;padding:10px 15px;outline:none;font-family:'Segoe UI','Roboto','Oxygen','Ubuntu','Cantarell','Fira Sans','Droid Sans','Helvetica Neue',sans-serif;font-size:16px;border-radius:4px;background:#fff;cursor:pointer;margin:5px 0 0;text-align:center;align-self:flex-start;min-width:75px}
+button:hover{opacity:.7}
+button.danger{background:#d66666}
+.game_details{position:absolute;top:0;width:100%;text-align:left;display:flex;justify-content:space-between}
+.login button{margin-top:40px}
+.info{font-size:14px;background:#ffffff61;padding:15px 20px;border-radius:4px;color:#000;margin:33px;display:grid;grid-template-columns:auto auto;column-gap:20px}
+.game_details .right{margin:33px}
+.game_play{flex:1;display:flex;flex-direction:column}
+.control_panel{background:#ffffff2e;border-top:5px solid #000;padding:30px;font-size:16px;height:150px;position:relative;display:flex}
+.table{flex:1;position:relative}
+.cards_hand{height:100%;display:flex;align-items:stretch;width:70%}
+.actions{margin-left:20px;background:#ffffff61;color:#000;padding:15px;font-size:14px;width:30%;border-radius:5px}
+.cards_hand svg.card{max-height:100%!important;width:auto!important;max-width:100%!important;border-radius:7px;border:3px solid transparent;box-sizing:border-box}
+.feedback{font-style:italic;font-size:12px}
+select{border:none;padding:10px 15px;outline:none;font-family:'Segoe UI','Roboto','Oxygen','Ubuntu','Cantarell','Fira Sans','Droid Sans','Helvetica Neue',sans-serif;font-size:16px;border-radius:4px;box-sizing:border-box}
+.cards_hand div,.cards_hand figure{max-height:100%;overflow:hidden;position:relative;flex:1;display:flex}
+.cards_hand.selectable div:not(.invalid) svg.card:hover{cursor:pointer;border-color:red}
+.black_square{width:70%;height:400px;background:#0000004f;position:absolute;left:50%;top:50%;margin:-200px -35%}
+.my_area{position:absolute;bottom:50px;left:50%;width:200px;margin-left:-100px;text-align:center;font-weight:700;display:flex;flex-direction:column-reverse;align-items:center}
+.player_area{position:absolute;width:100px;text-align:center;font-weight:700}
+.player_arrangement.players_2 .player_area{left:50%;margin-left:-50px;top:50px}
+.player_arrangement.players_3 .player_area:nth-child(1){left:15%;margin-left:-50px;top:50px;width:315px;text-align:left}
+.player_arrangement.players_3 .player_area:nth-child(2){left:85%;margin-left:-230px;top:50px;width:315px;display:flex;flex-direction:column;align-items:flex-end}
+.player_arrangement.players_4 .player_area:nth-child(1){top:50%;left:15%;margin-left:-100px;text-align:right;display:flex;width:315px;align-items:center}
+.player_arrangement.players_4 .player_area:nth-child(2){left:50%;margin-left:-50px;top:50px}
+.player_arrangement.players_4 .player_area:nth-child(3){top:50%;left:85%;margin-left:-235px;text-align:left;display:flex;width:315px;align-items:center;flex-direction:row-reverse}
+.player_arrangement.players_5 .player_area:nth-child(1){top:55%;left:15%;margin-left:-100px;display:flex;width:315px;align-items:center}
+.player_arrangement.players_5 .player_area:nth-child(2){top:50px;left:25%}
+.player_arrangement.players_5 .player_area:nth-child(3){top:50px;left:65%}
+.player_arrangement.players_5 .player_area:nth-child(4){top:55%;left:85%;margin-left:-230px;display:flex;width:315px;align-items:center;flex-direction:row-reverse}
+.player_name.in_play{color:#f36363}
+.player_card_in_play{width:100px;height:135px}
+.card_placeholder{background:#b9b9b9a8;width:100%;height:100%;border-radius:7px}
+.my_area .player_card_in_play{margin:60px 0}
+.player_arrangement.players_5 .player_area:nth-child(1) .player_card_in_play{margin-left:110px}
+.player_arrangement.players_5 .player_area:nth-child(2) .player_card_in_play{margin:60px 0}
+.player_arrangement.players_5 .player_area:nth-child(3) .player_card_in_play{margin:60px 0}
+.player_arrangement.players_5 .player_area:nth-child(4) .player_card_in_play{margin-right:80px}
+.player_arrangement.players_2 .player_area .player_card_in_play{margin:60px 0}
+.player_arrangement.players_3 .player_area:nth-child(1) .player_card_in_play{margin:60px 80px}
+.player_arrangement.players_3 .player_area:nth-child(2) .player_card_in_play{margin:60px 115px}
+.player_arrangement.players_4 .player_area:nth-child(1) .player_card_in_play{margin-left:100px}
+.player_arrangement.players_4 .player_area:nth-child(3) .player_card_in_play{margin-right:80px}
+.player_arrangement.players_4 .player_area:nth-child(2) .player_card_in_play{margin:60px 0}
+.cards_hand .invalid{opacity:.1}
+.prediction_tricks{font-size:14px;font-weight:400}
+.scores{flex:1;display:flex}
+.deltas,.leaderboard{background:#ffffff59;border-radius:4px;color:#000;padding:15px;flex:1}
+.deltas{margin-right:30px}
+.score-title{font-weight:700;margin-bottom:7px}
+.score-row{display:flex;justify-content:space-between;border-bottom:1px dotted}
+.score-row-points{font-weight:700}
+.deltas .score-row-points{color:#1d6f1d}
+.deltas .score-row-points.negative{color:#b32727}
+.title small{font-size:16px;font-weight:400}

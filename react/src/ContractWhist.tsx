@@ -58,7 +58,7 @@ export default class ContractWhist extends Component<{}, IContractWhistState> {
   render() {
     return (
       <div className="contract-whist">
-        <div className="title">Contract Whist</div>
+        <div className="title">Contract Whist<br /><small>By Jason Lipowicz</small></div>
         <Connection
           {...this.state}
           onConnect={send => this.setState({ send })}
