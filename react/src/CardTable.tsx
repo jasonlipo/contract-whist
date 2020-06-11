@@ -12,7 +12,7 @@ export const CardTable: FC<ICardTableProps> = ({ player_index, in_play, name, pl
   let table_copy = _.clone(table)
   let player_order = players_copy.concat(players_copy.splice(0, player_index))
   let table_order = table_copy.concat(table_copy.splice(0, player_index))
-  let in_play_shifted = ((in_play - player_index) + players.length) % players.length
+  let in_play_shifted = in_play == null ? -1 : ((in_play - player_index) + players.length) % players.length
   return (
     <>
       <div className="black_square"></div>

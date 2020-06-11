@@ -26,12 +26,14 @@ export interface IContractWhistState {
   trump_suit: ITrump,
   table: ICard[],
   tricks_won: number[],
-  player_lead_trick: IPlayerPosition
+  player_lead_trick: IPlayerPosition,
+  points: number[]
 }
 
 export default class ContractWhist extends Component<{}, IContractWhistState> {
   state: IContractWhistState = {
     players: [],
+    points: [],
     name: null,
     player_index: null,
     player_bid_first: null,

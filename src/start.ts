@@ -52,6 +52,7 @@ wss.on('request', ws => {
     db.defaults({
       private: {},
       shared: {
+        points: [],
         players: [],
         player_bid_first: null,
         predictions: [],
@@ -85,6 +86,7 @@ wss.on('request', ws => {
           .set('shared.cards_per_hand', 10)
           .set('shared.in_play', 0)
           .set('shared.predictions', all_players.map(x => null))
+          .set('shared.points', all_players.map(x => 0))
           .write()
         deal()
         break;
@@ -151,6 +153,38 @@ wss.on('request', ws => {
         db.set('shared.mode', 'play')
           .set('shared.player_lead_trick', db.get('shared.in_play').value())
           .set('shared.table', all_players.map(x => null))
+          .write()
+        break;
+      case "get_scores":
+        let new_points = db.get('shared.points').value()
+        let predictions = db.get('shared.predictions').value()
+        let tricks_won = db.get('shared.tricks_won').value()
+        let cards_per_hand = db.get('shared.cards_per_hand').value()
+        new_points = new_points.map((current_points, player_index) => {
+          let prediction = predictions[player_index]
+          let tricks = tricks_won[player_index]
+          if (prediction == tricks) {
+            if (prediction == 0) {
+              let sum_of_predictions = _.sum(predictions)
+              let rounding
+              if (sum_of_predictions > cards_per_hand) {
+                rounding = Math.floor(cards_per_hand / 2)
+              }
+              else {
+                rounding = Math.ceil(cards_per_hand / 2)
+              }
+              return current_points + rounding
+            }
+            return current_points + cards_per_hand + prediction
+          }
+          else {
+            return current_points - Math.abs(prediction - tricks)
+          }
+        })
+        db.set('shared.mode', 'scores')
+          .set('shared.points', new_points)
+          .set('shared.table', [])
+          .set('shared.in_play', null)
           .write()
         break;
     }

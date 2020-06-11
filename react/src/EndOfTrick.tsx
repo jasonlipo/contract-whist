@@ -2,10 +2,11 @@ import React, { FC } from 'react';
 import { IContractWhistState } from './ContractWhist';
 
 interface IEndOfTrickProps extends IContractWhistState {
-  onNextTrick(): void
+  onNextTrick(): void,
+  onGetScores(): void
 }
 
-export const EndOfTrick: FC<IEndOfTrickProps> = ({ admin, player_index, in_play, players, onNextTrick }) => {
+export const EndOfTrick: FC<IEndOfTrickProps> = ({ admin, player_index, in_play, players, onNextTrick, onGetScores, hand }) => {
   return (
     <div className="end_of_trick actions">
       {
@@ -18,7 +19,11 @@ export const EndOfTrick: FC<IEndOfTrickProps> = ({ admin, player_index, in_play,
         admin &&
         <>
           <br /><br />
-          <button onClick={() => onNextTrick()}>Next Trick</button>
+          {
+            hand.length == 0 ?
+            <button onClick={() => onGetScores()}>Show Scores</button> :
+            <button onClick={() => onNextTrick()}>Next Trick</button>
+          }
         </>
       }
     </div>
