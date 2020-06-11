@@ -9,7 +9,7 @@ interface IPredictionsProps extends IContractWhistState {
 export const Predictions: FC<IPredictionsProps> = ({ player_index, in_play, onSubmitPrediction, predictions, cards_per_hand, players }) => {
   const sumOfPreviousPredictions = _.sum(predictions)
   const [prediction, setPrediction] = useState<number>(null)
-  const last_player_to_predict = predictions.length == players.length - 1
+  const last_player_to_predict = predictions.filter(p => p == null).length == 1
 
   return (
     <div className="predictions actions">

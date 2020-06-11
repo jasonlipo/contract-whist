@@ -24,7 +24,9 @@ export const CardTable: FC<ICardTableProps> = ({ player_index, in_play, name, pl
       <div className="my_area">
         <div className={"player_name "+(rotated_in_play == 0 ? "in_play" : "")}>
           {name} (You)
-          <div className="prediction_tricks">{tricks_won[player_index] || "-"} / {predictions[player_index] || "-"} tricks won</div>
+          <div className="prediction_tricks">
+            {tricks_won[player_index] == null ? "-" : tricks_won[player_index]} / {predictions[player_index] == null ? "-" : predictions[player_index]} tricks won
+          </div>
         </div>
         <div className="player_card_in_play">
           {
@@ -42,7 +44,9 @@ export const CardTable: FC<ICardTableProps> = ({ player_index, in_play, name, pl
               <div key={i} className="player_area">
                 <div className={"player_name "+(rotated_in_play == i ? "in_play" : "")}>
                   {player_name}
-                  <div className="prediction_tricks">{rotated_tricks_won[i] || "-"} / {rotated_predictions[i] || "-"} tricks won</div>
+                  <div className="prediction_tricks">
+                    {rotated_tricks_won[i] == null ? "-" : rotated_tricks_won[i]} / {rotated_predictions[i] == null ? "-" : rotated_predictions[i]} tricks won
+                  </div>
                 </div>
                 <div className="player_card_in_play">
                   {
