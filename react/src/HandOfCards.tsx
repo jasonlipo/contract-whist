@@ -1,14 +1,17 @@
 import React, { FC } from 'react';
-import { deck, PlayingCard, ICard } from '@karlandin/playing-cards'
+import { deck, ICard } from '@karlandin/playing-cards'
 import { IContractWhistState } from './ContractWhist';
+import { Card } from './Card';
 
 interface IHandOfCardsProps extends IContractWhistState {
   cards: string[],
   onClick(i: number): void
 }
 
-export const findCardById = (id: string): ICard =>
-  deck.filter(card => card.id == id)[0]
+export const findCardById = (id: string): ICard => {
+  id = id.replace("14", "1")
+  return deck.filter(card => card.id == id)[0]
+}
 
 export const HandOfCards: FC<IHandOfCardsProps> = ({ cards, mode, onClick, in_play, player_index, player_lead_trick, table }) => {
   const my_turn = mode == 'play' && in_play == player_index
@@ -35,11 +38,11 @@ export const HandOfCards: FC<IHandOfCardsProps> = ({ cards, mode, onClick, in_pl
         cards.map((c, i) =>
           my_turn ?
             <div className={!canSelectCard(c) ? "invalid" : ""} key={i} onClick={canSelectCard(c) ? () => onClick(i) : () => {}}>
-              <PlayingCard key={i} card={findCardById(c)} size="fill" />
+              <Card key={i} id={c} />
             </div>
           :
           <div key={i}>
-            <PlayingCard key={i} card={findCardById(c)} size="fill" />
+            <Card key={i} id={c} />
           </div>
         )
       }

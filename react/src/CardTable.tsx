@@ -1,8 +1,7 @@
 import React, { FC } from 'react';
 import { IContractWhistState } from './ContractWhist';
 import _ from 'lodash';
-import { PlayingCard } from '@karlandin/playing-cards';
-import { findCardById } from './HandOfCards';
+import { Card } from './Card';
 
 interface ICardTableProps extends IContractWhistState {
 }
@@ -21,7 +20,7 @@ export const CardTable: FC<ICardTableProps> = ({ player_index, in_play, name, pl
         <div className="player_card_in_play">
           {
             table_order[0] != null ?
-            <PlayingCard card={findCardById(table_order[0])} size="fill" />
+            <Card id={table_order[0]} />
             : <div className="card_placeholder"></div>
           }
         </div>
@@ -36,7 +35,7 @@ export const CardTable: FC<ICardTableProps> = ({ player_index, in_play, name, pl
                 <div className="player_card_in_play">
                   {
                     table_order[i] != null ?
-                    <PlayingCard card={findCardById(table_order[i])} size="fill" />
+                    <Card id={table_order[i]} />
                     : <div className="card_placeholder"></div>
                   }
                 </div>
