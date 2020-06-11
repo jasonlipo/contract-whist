@@ -19,7 +19,7 @@ export const HandOfCards: FC<IHandOfCardsProps> = ({ cards, mode, onClick, in_pl
       // If you are first to lead
       return true
     }
-    const suit_leading = findCardById(table[0]).suit
+    const suit_leading = findCardById(table[player_lead_trick]).suit
     const cards_of_leading_suit = cards.filter(c => findCardById(c).suit == suit_leading)
     if (cards_of_leading_suit.length > 0) {
       // Must follow suit

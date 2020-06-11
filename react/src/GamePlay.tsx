@@ -13,7 +13,7 @@ interface IGamePlayProps extends IContractWhistState {
 }
 
 export const GamePlay: FC<IGamePlayProps> = (props) => {
-  const { mode, hand, admin, onStart, send, in_play, player_index } = props
+  const { mode, hand, admin, onStart, send } = props
 
   let ModeComponent: FC = () => <></>
   if (mode == 'predictions') {
@@ -36,7 +36,7 @@ export const GamePlay: FC<IGamePlayProps> = (props) => {
       </div>
       <div className="control_panel">
         {
-          (hand.length == 0 ?
+          (mode == 'players_joining' ?
             <AwaitingStart admin={admin} onStart={onStart} />
             :
             <>

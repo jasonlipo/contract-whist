@@ -79,17 +79,19 @@ wss.on('request', ws => {
         }).write()
         break;
       case "start_game":
+        all_players = db.get('shared.players').value()
         db.set('shared.mode', 'predictions')
           .set('shared.player_bid_first', 0)
           .set('shared.cards_per_hand', 10)
           .set('shared.in_play', 0)
+          .set('shared.predictions', all_players.map(x => null))
           .write()
         deal()
         break;
       case "submit_prediction":
-        db.get('shared.predictions').push(message.value).write()
+        db.set(['shared', 'predictions', message.player_index], message.value).write()
         all_players = db.get('shared.players').value()
-        if (message.player_index == all_players.length - 1) {
+        if (db.get('shared.predictions').value().filter(x => x == null).length == 0) {
           const predictions = db.get('shared.predictions').value()
           const highest_index = predictions.indexOf(Math.max(...predictions))
           db.set('shared.in_play', highest_index)
@@ -97,7 +99,7 @@ wss.on('request', ws => {
             .write()
         }
         else {
-          db.set('shared.in_play', message.player_index + 1).write()
+          db.set('shared.in_play', (message.player_index + 1) % all_players.length).write()
         }
         break;
       case "submit_trump":
@@ -114,10 +116,10 @@ wss.on('request', ws => {
         let new_hand = db.get(['private', message.user_id, 'hand']).value()
         let dealt_card = new_hand.splice(message.value, 1)
         db.set(['private', message.user_id, 'hand'], new_hand)
-          .set('shared.in_play', message.player_index + 1)
+          .set('shared.in_play', (message.player_index + 1) % db.get('shared.players').size())
           .set(['shared', 'table', message.player_index], dealt_card[0]).write()
 
-        if (message.player_index + 1 == db.get('shared.players').size()) {
+        if (db.get('shared.table').value().filter(x => x == null).length == 0) {
           // End of trick
           db.set('shared.mode', 'end_of_trick').write()
           const table = db.get('shared.table').value()
@@ -134,7 +136,7 @@ wss.on('request', ws => {
               break;
             }
           }
-          const leading_suit = table[0].substr(0, 1)
+          const leading_suit = table[db.get('shared.player_lead_trick').value()].substr(0, 1)
           const find_leading_suit = table.filter(card => card.substr(0, 1) == leading_suit)
           const winning_card = _.max(find_leading_suit.map(card => parseInt(card.substr(1))))
           const winning_player_index = table.indexOf(leading_suit + winning_card.toString())
@@ -145,9 +147,10 @@ wss.on('request', ws => {
         }
         break;
       case "next_trick":
+        all_players = db.get('shared.players').value()
         db.set('shared.mode', 'play')
           .set('shared.player_lead_trick', db.get('shared.in_play').value())
-          .set('shared.table', [])
+          .set('shared.table', all_players.map(x => null))
           .write()
         break;
     }
