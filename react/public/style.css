@@ -372,3 +372,8 @@ select {
 .cards_hand .invalid {
     opacity: 0.1;
 }
+
+.prediction_tricks {
+    font-size: 14px;
+    font-weight: normal;
+}
