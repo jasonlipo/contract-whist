@@ -8,6 +8,10 @@ export type ICard = string
 export type IPlayerPosition = number
 export type IMode = 'players_joining' | 'predictions' | 'choose_trump' | 'play' | 'end_of_trick' | 'scores'
 
+export interface IContractWhistProps {
+  join_game: string
+}
+
 export interface IContractWhistState {
   players: string[],
   name: string,
@@ -32,14 +36,14 @@ export interface IContractWhistState {
   error: string
 }
 
-export default class ContractWhist extends Component<{}, IContractWhistState> {
+export default class ContractWhist extends Component<IContractWhistProps, IContractWhistState> {
   state: IContractWhistState = {
     players: [],
     points: [],
     name: null,
     player_index: null,
     player_bid_first: null,
-    game_id: null,
+    game_id: this.props.join_game || null,
     entered_game: false,
     user_id: null,
     cards_per_hand: null,
@@ -62,6 +66,7 @@ export default class ContractWhist extends Component<{}, IContractWhistState> {
       <div className="contract-whist">
         <div className="title">Contract Whist<br /><small>By Jason Lipowicz</small></div>
         <Connection
+          {...this.props}
           {...this.state}
           onConnect={send => this.setState({ send })}
           setState={this.setState.bind(this)}

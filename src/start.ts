@@ -37,7 +37,16 @@ wss.on('request', ws => {
   const connection = ws.accept(null, ws.origin);
   connection.on('message', raw => {
     let message: Message = JSON.parse(raw.utf8Data)
-    let adapter = new FileSync('data/' + message.game_id + '.json')
+    const filename = 'data/' + message.game_id + '.json'
+    if ((message.type == "join_player" || message.type == "retrieve_game") && !fs.existsSync(filename)) {
+      connection.sendUTF(JSON.stringify({ error: "This game doesn't exist." }));
+      return;
+    }
+    if (message.type == "create_player" && fs.existsSync(filename)) {
+      connection.sendUTF(JSON.stringify({ error: "This game already exists." }));
+      return;
+    }
+    let adapter = new FileSync(filename)
     let db = low(adapter)
 
     const deal = () => {
@@ -52,6 +61,7 @@ wss.on('request', ws => {
     db.defaults({
       private: {},
       shared: {
+        game_id: message.game_id,
         points: [],
         players: [],
         cards_decreasing: true,
@@ -69,7 +79,8 @@ wss.on('request', ws => {
     let all_players;
 
     switch (message.type) {
-      case "new_player":
+      case "create_player":
+      case "join_player":
         const mode = db.get('shared.mode')
         if (mode == 'players_joining') {
           let players = db.get('shared.players')

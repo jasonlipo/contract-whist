@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { IContractWhistState } from './ContractWhist';
+import { IContractWhistState, IContractWhistProps } from './ContractWhist';
 import { Loading } from './Loading';
 import { Login } from './Login';
 
@@ -12,7 +12,7 @@ else {
   URL = location.origin.replace(/^http/, 'ws')
 }
 
-interface IConnectionProps extends IContractWhistState {
+interface IConnectionProps extends IContractWhistProps, IContractWhistState {
   onConnect(sendMessage: (data: any) => void): void,
   setState(updates: Partial<IContractWhistState>): void
 }
@@ -35,6 +35,9 @@ export default class Connection extends Component<IConnectionProps> {
       ws.onmessage = evt => {
         const message = JSON.parse(evt.data)
         console.log('Received', message)
+        if (message.entered_game && message.game_id && location.pathname == "/") {
+          location.href = '/' + message.game_id
+        }
         this.props.setState(message)
       }
 
@@ -51,7 +54,7 @@ export default class Connection extends Component<IConnectionProps> {
     await this.reconnect()
     const user_id = localStorage.getItem('user_id')
     const name = localStorage.getItem('name')
-    const game_id = localStorage.getItem('game_id')
+    const game_id = this.props.join_game || localStorage.getItem('game_id')
     if (user_id && game_id) {
       this.props.setState({ game_id, user_id, name })
       this.sendMessage({ type: "retrieve_game" })
@@ -68,19 +71,19 @@ export default class Connection extends Component<IConnectionProps> {
     this.ws.send(JSON.stringify(message))
   }
 
-  join() {
+  join(verb: 'create' | 'join') {
     const { name, game_id, user_id } = this.props
     localStorage.setItem('user_id', user_id)
     localStorage.setItem('game_id', game_id)
     localStorage.setItem('name', name)
-    this.sendMessage({ type: "new_player", value: name })
+    this.sendMessage({ type: verb + "_player", value: name })
   }
 
   logout() {
     localStorage.removeItem('user_id')
     localStorage.removeItem('game_id')
     localStorage.removeItem('name')
-    location.reload()
+    location.href = '/'
   }
 
   render() {
