@@ -28,7 +28,8 @@ export interface IContractWhistState {
   tricks_won: number[],
   player_lead_trick: IPlayerPosition,
   points: number[],
-  cards_decreasing: boolean
+  cards_decreasing: boolean,
+  error: string
 }
 
 export default class ContractWhist extends Component<{}, IContractWhistState> {
@@ -52,7 +53,8 @@ export default class ContractWhist extends Component<{}, IContractWhistState> {
     table: [],
     tricks_won: [],
     player_lead_trick: null,
-    cards_decreasing: null
+    cards_decreasing: null,
+    error: null
   }
 
   render() {

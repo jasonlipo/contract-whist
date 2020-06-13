@@ -13,7 +13,7 @@ const letterToSuit = (trump: ITrump) => {
   return map[trump] || "N/A"
 }
 
-export const Login: FC<ILoginProps> = ({ entered_game, name, game_id, onChangeName, onChangeGameId, onJoin, onLogout, trump_suit, cards_per_hand}) =>
+export const Login: FC<ILoginProps> = ({ error, entered_game, name, game_id, onChangeName, onChangeGameId, onJoin, onLogout, trump_suit, cards_per_hand}) =>
   !entered_game ?
   <div className="login">
     <div className="subtitle">Join a game</div>
@@ -26,6 +26,10 @@ export const Login: FC<ILoginProps> = ({ entered_game, name, game_id, onChangeNa
       <input type="text" value={game_id} onChange={(e) => onChangeGameId(e.target.value.toUpperCase())} />
     </div>
     <button onClick={() => onJoin()}>Join</button>
+    {
+      error &&
+      <div className="error">{error}</div>
+    }
   </div>
   :
   <div className="game_details">

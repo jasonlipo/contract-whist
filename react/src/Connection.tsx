@@ -34,8 +34,8 @@ export default class Connection extends Component<IConnectionProps> {
 
       ws.onmessage = evt => {
         const message = JSON.parse(evt.data)
-        console.log(message)
-        this.props.setState({ ...message, entered_game: true })
+        console.log('Received', message)
+        this.props.setState(message)
       }
 
       ws.onclose = () => {
@@ -63,7 +63,9 @@ export default class Connection extends Component<IConnectionProps> {
 
   sendMessage(data) {
     const { game_id, user_id, player_index } = this.props
-    this.ws.send(JSON.stringify({ ...data, game_id, user_id, player_index }))
+    const message = { ...data, game_id, user_id, player_index }
+    console.log('Sent', message)
+    this.ws.send(JSON.stringify(message))
   }
 
   join() {

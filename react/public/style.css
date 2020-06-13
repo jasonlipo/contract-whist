@@ -62,3 +62,4 @@ select{border:none;padding:10px 15px;outline:none;font-family:'Segoe UI','Roboto
 .deltas .score-row-points{color:#1d6f1d}
 .deltas .score-row-points.negative{color:#b32727}
 .title small{font-size:16px;font-weight:400}
+.error {color: #9c3535;font-size: 16px;font-weight: bold;padding: 20px 0 0;}

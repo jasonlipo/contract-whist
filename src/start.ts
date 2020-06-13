@@ -70,15 +70,29 @@ wss.on('request', ws => {
 
     switch (message.type) {
       case "new_player":
-        let players = db.get('shared.players')
-        let admin_player = players.size() == 0
-        players.push(message.value).write()
-        db.set(['private', message.user_id], {
-          player_index: players.size() - 1,
-          user_id: message.user_id,
-          name: message.value,
-          admin: admin_player
-        }).write()
+        const mode = db.get('shared.mode')
+        if (mode == 'players_joining') {
+          let players = db.get('shared.players')
+          if (players.size() == 5) {
+            connection.sendUTF(JSON.stringify({ error: "There are already 5 players in this game." }));
+            return;
+          }
+          else {
+            let admin_player = players.size() == 0
+            players.push(message.value).write()
+            db.set(['private', message.user_id], {
+              player_index: players.size() - 1,
+              user_id: message.user_id,
+              name: message.value,
+              admin: admin_player,
+              entered_game: true
+            }).write()
+          }
+        }
+        else {
+          connection.sendUTF(JSON.stringify({ error: "You cannot join a game that's already started." }));
+          return;
+        }
         break;
       case "start_game":
         all_players = db.get('shared.players').value()
