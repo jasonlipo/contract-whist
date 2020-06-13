@@ -5,6 +5,7 @@ const low = require('lowdb')
 const FileSync = require('lowdb/adapters/FileSync')
 var http = require('http')
 const fs = require('fs')
+const moment = require('moment')
 const clients = {}
 
 interface Message {
@@ -45,6 +46,9 @@ wss.on('request', ws => {
     if (message.type == "create_player" && fs.existsSync(filename)) {
       connection.sendUTF(JSON.stringify({ error: "This game already exists." }));
       return;
+    }
+    if (message.type == "create_player") {
+      fs.mkdir('data/history/' + message.game_id, () => {})
     }
     let adapter = new FileSync(filename)
     let db = low(adapter)
@@ -247,6 +251,7 @@ wss.on('request', ws => {
         break;
     }
 
+    fs.copyFile(filename, 'data/history/' + message.game_id + '/' + moment().format('YYYY_MM_DD_HH_mm_ss') + '.json', () => {})
     Object.keys(db.get('private').value())
       .filter(user_id => user_id in clients)
       .forEach(user_id => {
