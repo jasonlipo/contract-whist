@@ -23,7 +23,7 @@ export const Login: FC<ILoginProps> = ({ join_game, error, entered_game, name, g
         <div><br />You are joining <b>{game_id}</b><br /><br /></div> :
         <div className="input-box">
           <label>Game Code</label>
-          <input type="text" value={game_id} onChange={(e) => onChangeGameId(e.target.value.toUpperCase())} disabled={join_game !== ""} />
+          <input type="text" value={game_id} onChange={(e) => onChangeGameId(e.target.value.toUpperCase().replace(' ', '-'))} disabled={join_game !== ""} />
         </div>
       }
       <div className="input-box">

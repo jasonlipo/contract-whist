@@ -20,7 +20,9 @@ export const CardTable: FC<ICardTableProps> = ({ player_index, in_play, name, pl
 
   return (
     <>
+      <div className="gap"></div>
       <div className="black_square"></div>
+      <div className="gap"></div>
       <div className="my_area">
         <div className={"player_name "+(rotated_in_play == 0 ? "in_play" : "")}>
           {name} (You)

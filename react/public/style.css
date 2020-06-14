@@ -1,5 +1,5 @@
 body{margin:0;padding:0;font-family:'Segoe UI','Roboto','Oxygen','Ubuntu','Cantarell','Fira Sans','Droid Sans','Helvetica Neue',sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-size:20px}
-.contract-whist{position:absolute;width:100%;height:100%;background:url(/bg.jpg);background-size:cover;color:#fff;display:flex;flex-direction:column}
+.contract-whist{position:absolute;width:100%;height:100%;background:url(/bg.jpg);background-size:cover;color:#fff;display:flex;flex-direction:column;}
 .title{text-align:center;font-size:40px;font-weight:700;letter-spacing:-1px;padding:30px 0 0;line-height:24px}
 .connection{text-align:center;padding:30px 0}
 .login{position:absolute;left:50%;width:550px;margin-left:-275px;top:50%;height:400px;margin-top:-200px;background:#ffffff4f;color:#000;border-radius:5px;text-align:left;padding:30px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center}
@@ -15,28 +15,28 @@ button.danger{background:#d66666}
 .info{font-size:14px;background:#ffffff61;padding:15px 20px;border-radius:4px;color:#000;margin:33px;display:grid;grid-template-columns:auto auto;column-gap:20px}
 .game_details .right{margin:33px}
 .game_play{flex:1;display:flex;flex-direction:column}
-.control_panel{background:#ffffff2e;border-top:5px solid #000;padding:30px;font-size:16px;height:150px;position:relative;display:flex}
-.table{flex:1;position:relative}
-.cards_hand{height:100%;display:flex;align-items:stretch;width:70%}
+.control_panel{background:#ffffff2e;border-top:5px solid #000;padding:30px;font-size:16px;height: 150px;position:relative;display:flex;}
+.table{flex:1;position:relative;display: flex;flex-direction: column;align-items: center;}
+.cards_hand{height:100%;display:flex;align-items:stretch;width:70%;}
 .actions{margin-left:20px;background:#ffffff61;color:#000;padding:15px;font-size:14px;width:30%;border-radius:5px}
 .cards_hand svg.card{max-height:100%!important;width:auto!important;max-width:100%!important;border-radius:7px;border:3px solid transparent;box-sizing:border-box}
 .feedback{font-style:italic;font-size:12px}
 select{border:none;padding:10px 15px;outline:none;font-family:'Segoe UI','Roboto','Oxygen','Ubuntu','Cantarell','Fira Sans','Droid Sans','Helvetica Neue',sans-serif;font-size:16px;border-radius:4px;box-sizing:border-box}
-.cards_hand div,.cards_hand figure{max-height:100%;overflow:hidden;position:relative;flex:1;display:flex}
+.cards_hand div,.cards_hand figure{max-height:100%;overflow:hidden;position:relative;flex:1;display:flex;}
 .cards_hand.selectable div:not(.invalid) svg.card:hover{cursor:pointer;border-color:red}
-.black_square{width:70%;height:400px;background:#0000004f;position:absolute;left:50%;top:50%;margin:-200px -35%}
-.my_area{position:absolute;bottom:50px;left:50%;width:200px;margin-left:-100px;text-align:center;font-weight:700;display:flex;flex-direction:column-reverse;align-items:center}
+.black_square{width:70%;background:#0000004f;flex: 1;}
+.my_area{position:absolute;bottom: 35px;left:50%;width: 315px;margin-left: -158px;text-align:center;font-weight:700;display:flex;flex-direction:column-reverse;align-items:center;}
 .player_area{position:absolute;width:100px;text-align:center;font-weight:700}
-.player_arrangement.players_2 .player_area{left:50%;margin-left:-50px;top:50px}
-.player_arrangement.players_3 .player_area:nth-child(1){left:15%;margin-left:-50px;top:50px;width:315px;text-align:left}
-.player_arrangement.players_3 .player_area:nth-child(2){left:85%;margin-left:-230px;top:50px;width:315px;display:flex;flex-direction:column;align-items:flex-end}
-.player_arrangement.players_4 .player_area:nth-child(1){top:50%;left:15%;margin-left:-100px;text-align:right;display:flex;width:315px;align-items:center}
-.player_arrangement.players_4 .player_area:nth-child(2){left:50%;margin-left:-50px;top:50px}
-.player_arrangement.players_4 .player_area:nth-child(3){top:50%;left:85%;margin-left:-235px;text-align:left;display:flex;width:315px;align-items:center;flex-direction:row-reverse}
-.player_arrangement.players_5 .player_area:nth-child(1){top:55%;left:15%;margin-left:-100px;display:flex;width:315px;align-items:center}
-.player_arrangement.players_5 .player_area:nth-child(2){top:50px;left:25%}
-.player_arrangement.players_5 .player_area:nth-child(3){top:50px;left:65%}
-.player_arrangement.players_5 .player_area:nth-child(4){top:55%;left:85%;margin-left:-230px;display:flex;width:315px;align-items:center;flex-direction:row-reverse}
+.player_arrangement.players_2 .player_area{left:50%;margin-left:-50px;top: 25px;}
+.player_arrangement.players_3 .player_area:nth-child(1){left:15%;margin-left: -70px;top: 25px;width:315px;text-align:left;}
+.player_arrangement.players_3 .player_area:nth-child(2){left:85%;margin-left:-230px;top: 25px;width:315px;display:flex;flex-direction:column;align-items:flex-end;text-align: right;}
+.player_arrangement.players_4 .player_area:nth-child(1){top:50%;left:15%;margin-left: -125px;text-align:right;display:flex;width:315px;align-items:center;}
+.player_arrangement.players_4 .player_area:nth-child(2){left:50%;margin-left: -158px;top: 25px;width: 315px;display: flex;flex-direction: column;align-items: center;}
+.player_arrangement.players_4 .player_area:nth-child(3){top:50%;left:85%;margin-left: -200px;text-align:left;display:flex;width:315px;align-items:center;flex-direction:row-reverse;}
+.player_arrangement.players_5 .player_area:nth-child(1){top:55%;left:15%;margin-left: -130px;display:flex;width:315px;align-items:center;text-align: right;}
+.player_arrangement.players_5 .player_area:nth-child(2){top: 25px;left: 30%;width: 315px;display: flex;flex-direction: column;align-items: center;margin-left: -158px;}
+.player_arrangement.players_5 .player_area:nth-child(3){top: 25px;left: 70%;width: 315px;display: flex;flex-direction: column;align-items: center;margin-left: -158px;}
+.player_arrangement.players_5 .player_area:nth-child(4){top:55%;left:85%;margin-left: -200px;display:flex;width:315px;align-items:center;flex-direction:row-reverse;text-align: left;}
 .player_name.in_play{color:#f36363}
 .player_card_in_play{width:100px;height:135px}
 .card_placeholder{background:#b9b9b9a8;width:100%;height:100%;border-radius:7px}
@@ -46,7 +46,7 @@ select{border:none;padding:10px 15px;outline:none;font-family:'Segoe UI','Roboto
 .player_arrangement.players_5 .player_area:nth-child(3) .player_card_in_play{margin:60px 0}
 .player_arrangement.players_5 .player_area:nth-child(4) .player_card_in_play{margin-right:80px}
 .player_arrangement.players_2 .player_area .player_card_in_play{margin:60px 0}
-.player_arrangement.players_3 .player_area:nth-child(1) .player_card_in_play{margin:60px 80px}
+.player_arrangement.players_3 .player_area:nth-child(1) .player_card_in_play{margin: 60px 100px;}
 .player_arrangement.players_3 .player_area:nth-child(2) .player_card_in_play{margin:60px 115px}
 .player_arrangement.players_4 .player_area:nth-child(1) .player_card_in_play{margin-left:100px}
 .player_arrangement.players_4 .player_area:nth-child(3) .player_card_in_play{margin-right:80px}
@@ -63,3 +63,44 @@ select{border:none;padding:10px 15px;outline:none;font-family:'Segoe UI','Roboto
 .deltas .score-row-points.negative{color:#b32727}
 .title small{font-size:16px;font-weight:400}
 .error {color: #9c3535;font-size: 16px;font-weight: bold;padding: 20px 0 0;}
+.gap {height: 90px;}
+
+@media only screen and (max-width: 1500px), only screen and (max-height: 900px) {
+  .cards_hand {align-items: center;}
+  .cards_hand div, .cards_hand figure {min-height: 80px;}
+}
+
+@media only screen and (max-width: 1100px), only screen and (max-height: 900px) {
+  .info {display: flex;flex-direction: column;}
+}
+
+@media only screen and (max-width: 960px), only screen and (max-height: 900px) {
+  .gap{display:none}
+  .black_square{display:none}
+  .player_arrangement{display:flex}
+  .player_arrangement .player_area{position:relative!important;width:auto!important;flex-direction:column!important;margin:0!important;left:initial!important;top:initial!important;text-align:center!important;margin-right:15px!important}
+  .my_area{position:relative!important;width:auto;flex-direction:column;margin:0;left:initial;margin-right:15px!important;bottom:0}
+  .table{background:#0000004f;flex-direction:row;justify-content:center}
+  .player_card_in_play{margin:60px 0 0!important}
+  .player_arrangement .player_area:last-child{margin-right:0!important}
+  .game_details{position:relative;flex-direction:column-reverse;text-align:center}
+  .info{margin:0}
+  .game_details .right{margin:0 0 20px}
+  .contract-whist{position:relative;height:initial;display:block}
+  .table{height:300px;flex:initial}
+  .control_panel{height:auto;flex-direction:column}
+  .cards_hand{width:auto;flex-wrap:wrap}
+  .actions{margin:20px 0;width:auto}
+  .cards_hand svg.card{width:100%!important}
+  .cards_hand div{min-width: 85px;max-height: 115px;flex: 0;}
+}
+
+@media only screen and (max-width: 600px), only screen and (max-height: 900px) {
+  .table {flex-direction: column;height: auto;font-size: 16px;padding: 15px 0px !important;}
+  .player_card_in_play {margin: 20px 0 0 !important;}
+  .my_area {margin-bottom: 20px !important;}
+  .player_arrangement {flex-wrap: wrap;padding: 0 20px;justify-content: center;}
+  .player_arrangement .player_area {padding-bottom: 15px !important;}
+  .cards_hand div {flex:0}
+  input[type="text"] {max-width: 100%;}
+}
