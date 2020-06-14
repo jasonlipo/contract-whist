@@ -19,6 +19,7 @@ interface Message {
 const express = require('express')
 const app = express()
 app.use('/', express.static(path.join(__dirname, 'react')))
+app.get('/*', (req, res) => res.sendFile(__dirname + '/react/index.html'))
 const server = app.listen(process.env.PORT || 3000)
 
 const cartesian = (a, b) => [].concat(...a.map(c => (b.map(d => c.concat(d)))));

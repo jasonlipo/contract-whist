@@ -17,7 +17,9 @@ mkdir -p ./build/react/
 cp package.json ./build
 cp package-lock.json ./build
 mkdir -p ./build/data/
+mkdir -p ./build/data/history/
 touch ./build/data/FILE
+touch ./build/data/history/FILE
 
 # Navigate to the react directory
 cd ./react
