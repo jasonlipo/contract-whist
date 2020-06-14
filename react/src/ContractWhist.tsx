@@ -33,7 +33,8 @@ export interface IContractWhistState {
   player_lead_trick: IPlayerPosition,
   points: number[],
   cards_decreasing: boolean,
-  error: string
+  error: string,
+  connection_status: [boolean, string]
 }
 
 export default class ContractWhist extends Component<IContractWhistProps, IContractWhistState> {
@@ -58,26 +59,37 @@ export default class ContractWhist extends Component<IContractWhistProps, IContr
     tricks_won: [],
     player_lead_trick: null,
     cards_decreasing: null,
-    error: null
+    error: null,
+    connection_status: [null, null]
   }
 
   render() {
     return (
-      <div className="contract-whist">
-        <div className="title">Contract Whist<br /><small>By Jason Lipowicz</small></div>
-        <Connection
-          {...this.props}
-          {...this.state}
-          onConnect={send => this.setState({ send })}
-          setState={this.setState.bind(this)}
-        />
-        { this.state.entered_game &&
-          <GamePlay
-            onStart={() => this.state.send({ type: "start_game" })}
+      <>
+      {
+        this.state.connection_status[0] !== null &&
+        (
+          this.state.connection_status[0] ?
+          <div className="connection-status green">{this.state.connection_status[1]}</div> :
+          <div className="connection-status red">{this.state.connection_status[1]}</div>
+        )
+      }
+        <div className="contract-whist">
+          <div className="title">Contract Whist<br /><small>By Jason Lipowicz</small></div>
+          <Connection
+            {...this.props}
             {...this.state}
+            onConnect={send => this.setState({ send })}
+            setState={this.setState.bind(this)}
           />
-        }
-      </div>
+          { this.state.entered_game &&
+            <GamePlay
+              onStart={() => this.state.send({ type: "start_game" })}
+              {...this.state}
+            />
+          }
+        </div>
+      </>
     )
   }
 

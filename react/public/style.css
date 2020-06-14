@@ -1,5 +1,9 @@
 body{margin:0;padding:0;font-family:'Segoe UI','Roboto','Oxygen','Ubuntu','Cantarell','Fira Sans','Droid Sans','Helvetica Neue',sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-size:20px}
 .contract-whist{position:absolute;width:100%;height:100%;background:url(/bg.jpg);background-size:cover;color:#fff;display:flex;flex-direction:column;}
+#root { overflow: hidden; position: absolute; width:100%; height:100%;}
+.connection-status.red {background: #c73030;}
+.connection-status { color:white; width: 100%;padding: 15px 20px;box-sizing: border-box;}
+.connection-status.green {background: #0a8b3e;}
 .title{text-align:center;font-size:40px;font-weight:700;letter-spacing:-1px;padding:30px 0 0;line-height:24px}
 .connection{text-align:center;padding:30px 0}
 .login{position:absolute;left:50%;width:550px;margin-left:-275px;top:50%;height:400px;margin-top:-200px;background:#ffffff4f;color:#000;border-radius:5px;text-align:left;padding:30px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center}
@@ -86,7 +90,7 @@ select{border:none;padding:10px 15px;outline:none;font-family:'Segoe UI','Roboto
   .game_details{position:relative;flex-direction:column-reverse;text-align:center}
   .info{margin:0}
   .game_details .right{margin:0 0 20px}
-  .contract-whist{position:relative;height:initial;display:block}
+  .contract-whist, #root{position:relative;height:initial;display:block}
   .table{height:300px;flex:initial}
   .control_panel{height:auto;flex-direction:column}
   .cards_hand{width:auto;flex-wrap:wrap}

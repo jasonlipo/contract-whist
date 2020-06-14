@@ -2,7 +2,6 @@ import { generate_deck, IMessage, initialise } from './utils';
 import { CreateJoinPlayer, StartGame, SubmitPrediction, SubmitTrump, PlayCard,
          NextTrick, GetScores, NextRound, VerifyGame, BroadcastResponse} from './controllers';
 const WebSocketServer = require('websocket').server;
-const _ = require('lodash')
 const path = require('path')
 const low = require('lowdb')
 const FileSync = require('lowdb/adapters/FileSync')
@@ -11,7 +10,7 @@ const clients = {}
 const express = require('express')
 const app = express()
 app.use('/', express.static(path.join(__dirname, 'react')))
-app.get('/*', (req, res) => res.sendFile(__dirname + '/react/index.html'))
+app.get('/*', (_req, res) => res.sendFile(__dirname + '/react/index.html'))
 const server = app.listen(process.env.PORT || 3000)
 
 const deck = generate_deck()

@@ -26,6 +26,10 @@ export default class Connection extends Component<IConnectionProps> {
       const ws = new WebSocket(URL)
       ws.onopen = () => {
         console.log('connected')
+        if (this.props.connection_status[0] === false) {
+          this.props.setState({ connection_status: [true, "Connected!"] })
+          setTimeout(() => this.props.setState({ connection_status: [null, null] }), 1000)
+        }
         if (this.props.entered_game) {
           this.sendMessage({ type: "retrieve_game" })
         }
@@ -43,6 +47,7 @@ export default class Connection extends Component<IConnectionProps> {
 
       ws.onclose = () => {
         console.log('disconnected')
+        this.props.setState({ connection_status: [false, "You are not connected to the Internet. Reconnecting..."] })
         setTimeout(this.reconnect.bind(this), 1000)
       }
       this.ws = ws
