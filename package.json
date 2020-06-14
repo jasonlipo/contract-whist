@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "scripts": {
     "start": "node start.js",
-    "start-dev": "nodemon --config \"./util/nodemon.json\"/",
-    "prod": "sh ./util/buildForProd.sh"
+    "start-dev": "nodemon --config \"./config/nodemon.json\"/",
+    "prod": "sh ./config/buildForProd.sh"
   },
   "dependencies": {
     "@overnightjs/core": "^1.6.4",
