@@ -96,7 +96,6 @@ export default class Connection extends Component<IConnectionProps> {
           <Login
             {...this.props}
             onChangeName={name => this.props.setState({ name })}
-            onChangeGameId={game_id => this.props.setState({ game_id })}
             onJoin={this.join.bind(this)}
             onLogout={this.logout.bind(this)}
           />

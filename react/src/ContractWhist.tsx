@@ -43,7 +43,7 @@ export default class ContractWhist extends Component<IContractWhistProps, IContr
     name: null,
     player_index: null,
     player_bid_first: null,
-    game_id: this.props.join_game || null,
+    game_id: this.props.join_game ||  Math.random().toString(36).substr(2).toUpperCase(),
     entered_game: false,
     user_id: null,
     cards_per_hand: null,
