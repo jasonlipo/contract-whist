@@ -93,6 +93,8 @@ select{border:none;padding:10px 15px;outline:none;font-family:'Segoe UI','Roboto
   .actions{margin:20px 0;width:auto}
   .cards_hand svg.card{width:100%!important}
   .cards_hand div{min-width: 85px;max-height: 115px;flex: 0;}
+  .login {position: relative;left: initial;margin: 0;top: initial;height: auto;}
+  .connection {display: flex;justify-content: center;padding: 50px 0;}
 }
 
 @media only screen and (max-width: 600px), only screen and (max-height: 900px) {
