@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "scripts": {
     "start": "node start.js",
-    "start-dev": "nodemon --config \"./config/nodemon.json\"/",
+    "dev-be": "nodemon --config \"./config/nodemon.json\"/",
+    "dev-fe": "cd react && npm start",
     "prod": "sh ./config/buildForProd.sh"
   },
   "dependencies": {

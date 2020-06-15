@@ -69,16 +69,25 @@ select{border:none;padding:10px 15px;outline:none;font-family:'Segoe UI','Roboto
 .error {color: #9c3535;font-size: 16px;font-weight: bold;padding: 20px 0 0;}
 .gap {height: 90px;}
 
-@media only screen and (max-width: 1500px), only screen and (max-height: 900px) {
+@media only screen and (max-height: 900px) {
+  .contract-whist { zoom: 0.9; }
+}
+
+@media only screen and (max-height: 800px) {
+  .contract-whist { zoom: 0.8; }
+}
+
+@media only screen and (max-width: 1500px) {
   .cards_hand {align-items: center;}
   .cards_hand div, .cards_hand figure {min-height: 80px;}
 }
 
-@media only screen and (max-width: 1100px), only screen and (max-height: 900px) {
+@media only screen and (max-width: 1100px) {
   .info {display: flex;flex-direction: column;}
 }
 
-@media only screen and (max-width: 960px), only screen and (max-height: 900px) {
+@media only screen and (max-width: 960px), only screen and (max-height: 700px) {
+  .contract-whist { zoom: 1; }
   .gap{display:none}
   .black_square{display:none}
   .player_arrangement{display:flex}
@@ -101,7 +110,7 @@ select{border:none;padding:10px 15px;outline:none;font-family:'Segoe UI','Roboto
   .connection {display: flex;justify-content: center;padding: 50px 0;}
 }
 
-@media only screen and (max-width: 600px), only screen and (max-height: 900px) {
+@media only screen and (max-width: 600px), only screen and (max-height: 700px) {
   .table {flex-direction: column;height: auto;font-size: 16px;padding: 15px 0px !important;}
   .player_card_in_play {margin: 20px 0 0 !important;}
   .my_area {margin-bottom: 20px !important;}
