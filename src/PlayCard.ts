@@ -1,4 +1,4 @@
-import { IMessage } from './utils';
+import { IMessage, log } from './utils';
 import _ from 'lodash';
 
 export const PlayCard = (db: any, message: IMessage ): boolean => {
@@ -7,6 +7,7 @@ export const PlayCard = (db: any, message: IMessage ): boolean => {
   db.set(['private', message.user_id, 'hand'], new_hand)
     .set('shared.in_play', (message.player_index + 1) % db.get('shared.players').size())
     .set(['shared', 'table', message.player_index], dealt_card[0]).write()
+  log(db, message, "played a card")
 
   if (db.get('shared.table').value().filter(x => x == null).length == 0) {
     // End of trick
@@ -22,6 +23,7 @@ export const PlayCard = (db: any, message: IMessage ): boolean => {
         db.set('shared.in_play', winning_player_index)
           .set(['shared', 'tricks_won', winning_player_index], new_trick_wins)
           .write()
+          log(db, { name: db.get('shared.players').value()[winning_player_index] }, "won the trick")
         return true;
       }
     }
@@ -33,6 +35,7 @@ export const PlayCard = (db: any, message: IMessage ): boolean => {
     db.set('shared.in_play', winning_player_index)
       .set(['shared', 'tricks_won', winning_player_index], new_trick_wins)
       .write()
+    log(db, { name: db.get('shared.players').value()[winning_player_index] }, "won the trick")
   }
   return true;
 }

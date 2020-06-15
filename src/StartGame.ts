@@ -1,6 +1,6 @@
-import { deal, fetch_players } from './utils';
+import { deal, fetch_players, log, IMessage } from './utils';
 
-export const StartGame = (db: any, deck: string[]): boolean => {
+export const StartGame = (db: any, message: IMessage, deck: string[]): boolean => {
   const all_players = fetch_players(db)
   db.set('shared.mode', 'predictions')
     .set('shared.player_bid_first', 0)
@@ -10,5 +10,6 @@ export const StartGame = (db: any, deck: string[]): boolean => {
     .set('shared.points', all_players.map(x => 0))
     .write()
   deal(deck, db)
+  log(db, message, "started the round with 10 cards and is first to bid")
   return true;
 }

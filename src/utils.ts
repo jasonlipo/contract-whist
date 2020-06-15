@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import moment from 'moment';
 
 const cartesian = (a, b) => [].concat(...a.map(c => (b.map(d => c.concat(d)))));
 
@@ -13,6 +14,7 @@ const sort_by_suit = (a, b) => {
 
 export interface IMessage {
   game_id: string,
+  name: string,
   type: string,
   player_index: number,
   value?: string,
@@ -37,6 +39,7 @@ export const initialise = (db: any, message: IMessage) =>
   db.defaults({
     private: {},
     shared: {
+      log: [],
       game_id: message.game_id,
       points: [],
       players: [],
@@ -50,3 +53,16 @@ export const initialise = (db: any, message: IMessage) =>
       player_lead_trick: null
     }
   }).write()
+
+export const log = (db: any, message: IMessage | { name: string }, action: string): void => {
+  db.get('shared.log').push({
+    datetime: moment().format('YYYY-MM-DD HH:mm:ss'),
+    player_name: message.name,
+    action
+  }).write()
+}
+
+export const letterToSuit = (trump: string = "") => {
+  const map = {"C": "Clubs", "H": "Hearts", "D": "Diamonds", "S": "Spades", "no_trump": "No trumps"}
+  return map[trump] || "N/A"
+}

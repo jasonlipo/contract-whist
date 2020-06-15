@@ -70,8 +70,8 @@ export default class Connection extends Component<IConnectionProps> {
   }
 
   sendMessage(data) {
-    const { game_id, user_id, player_index } = this.props
-    const message = { ...data, game_id, user_id, player_index }
+    const { game_id, user_id, player_index, name } = this.props
+    const message = { ...data, game_id, user_id, name, player_index }
     console.log('Sent', message)
     this.ws.send(JSON.stringify(message))
   }

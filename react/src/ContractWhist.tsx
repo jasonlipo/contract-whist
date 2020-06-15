@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
 import Connection from './Connection';
 import { GamePlay } from './GamePlay';
+import { Log } from './Log';
 
 export type ISuit = 'C' | 'H' | 'S' | 'D'
 export type ITrump = ISuit | 'no_trump'
 export type ICard = string
 export type IPlayerPosition = number
 export type IMode = 'players_joining' | 'predictions' | 'choose_trump' | 'play' | 'end_of_trick' | 'scores'
+
+export interface ILog {
+  datetime: string,
+  player_name: string,
+  action: string
+}
 
 export interface IContractWhistProps {
   join_game: string
@@ -34,7 +41,8 @@ export interface IContractWhistState {
   points: number[],
   cards_decreasing: boolean,
   error: string,
-  connection_status: [boolean, string]
+  connection_status: [boolean, string],
+  log: ILog[]
 }
 
 export default class ContractWhist extends Component<IContractWhistProps, IContractWhistState> {
@@ -60,35 +68,42 @@ export default class ContractWhist extends Component<IContractWhistProps, IContr
     player_lead_trick: null,
     cards_decreasing: null,
     error: null,
-    connection_status: [null, null]
+    connection_status: [null, null],
+    log: []
   }
 
   render() {
     return (
       <>
-      {
-        this.state.connection_status[0] !== null &&
-        (
-          this.state.connection_status[0] ?
-          <div className="connection-status green">{this.state.connection_status[1]}</div> :
-          <div className="connection-status red">{this.state.connection_status[1]}</div>
-        )
-      }
-        <div className="contract-whist">
-          <div className="title">Contract Whist<br /><small>By Jason Lipowicz</small></div>
-          <Connection
-            {...this.props}
-            {...this.state}
-            onConnect={send => this.setState({ send })}
-            setState={this.setState.bind(this)}
-          />
-          { this.state.entered_game &&
-            <GamePlay
-              onStart={() => this.state.send({ type: "start_game" })}
+      <div className="contract-whist-container">
+        {
+          this.state.connection_status[0] !== null &&
+          (
+            this.state.connection_status[0] ?
+            <div className="connection-status green">{this.state.connection_status[1]}</div> :
+            <div className="connection-status red">{this.state.connection_status[1]}</div>
+          )
+        }
+          <div className="contract-whist">
+            <div className="title">Contract Whist<br /><small>By Jason Lipowicz</small></div>
+            <Connection
+              {...this.props}
               {...this.state}
+              onConnect={send => this.setState({ send })}
+              setState={this.setState.bind(this)}
             />
-          }
+            { this.state.entered_game &&
+              <GamePlay
+                onStart={() => this.state.send({ type: "start_game" })}
+                {...this.state}
+              />
+            }
+          </div>
         </div>
+        {
+          this.state.entered_game &&
+          <Log {...this.state} />
+        }
       </>
     )
   }

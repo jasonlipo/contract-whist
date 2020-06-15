@@ -1,4 +1,5 @@
 import _ from 'lodash';
+
 export const GetScores = (db: any): boolean => {
   let new_points = db.get('shared.points').value()
   let predictions = db.get('shared.predictions').value()

@@ -33,13 +33,13 @@ wss.on('request', ws => {
 
     switch (message.type) {
       case "create_player": case "join_player": controller_action = CreateJoinPlayer(db, connection, message); break;
-      case "start_game": controller_action = StartGame(db, deck); break;
+      case "start_game": controller_action = StartGame(db, message, deck); break;
       case "submit_prediction": controller_action = SubmitPrediction(db, message, deck); break;
       case "submit_trump": controller_action = SubmitTrump(db, message); break;
       case "play_card": controller_action = PlayCard(db, message); break;
       case "next_trick": controller_action = NextTrick(db); break;
       case "get_scores": controller_action = GetScores(db); break;
-      case "next_round": controller_action = NextRound(db, deck);break;
+      case "next_round": controller_action = NextRound(db, message, deck);break;
     }
 
     BroadcastResponse(db, clients, controller_action, filename, message)
