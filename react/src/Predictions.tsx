@@ -16,7 +16,7 @@ export const Predictions: FC<IPredictionsProps> = ({ player_index, in_play, onSu
       {
         player_index == in_play ?
         <>
-          <label>Enter the number of tricks you think you will win</label>
+          <label>Enter your bid</label>
           <br /><br />
           <input type="text" value={prediction} onChange={(e) => setPrediction(isNaN(parseInt(e.target.value)) ? null : parseInt(e.target.value))} />
           {
@@ -24,11 +24,11 @@ export const Predictions: FC<IPredictionsProps> = ({ player_index, in_play, onSu
               (!last_player_to_predict || (last_player_to_predict && (sumOfPreviousPredictions + prediction != cards_per_hand)))
             )
             ? <><br /><button onClick={() => onSubmitPrediction(prediction)}>Submit</button></>
-            : <><br /><br /><div className="feedback">Your prediction is invalid.</div></>
+            : <><br /><br /><div className="feedback">Your bid is invalid.</div></>
           }
         </>
         :
-        <span>{players[in_play]} is currently predicting their expected number of tricks</span>
+        <span>{players[in_play]} is currently entering their bid</span>
       }
     </div>
   )

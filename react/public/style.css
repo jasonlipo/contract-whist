@@ -69,7 +69,7 @@ select{border:none;padding:10px 15px;outline:none;font-family:'Segoe UI','Roboto
 .title small{font-size:16px;font-weight:400}
 .error {color: #9c3535;font-size: 16px;font-weight: bold;padding: 20px 0 0;}
 .gap {height: 90px;}
-.log {background: black;width: 300px;}
+.log {background: black;width: 300px;overflow-y: scroll;}
 .log-item {color: white;font-size: 14px;padding: 10px;}
 .log-date {flex-basis: 100%;color: grey;}
 .log-name {font-weight: bold;color: green;display: inline;}
