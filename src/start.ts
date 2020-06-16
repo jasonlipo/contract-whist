@@ -3,11 +3,12 @@ import { CreateJoinPlayer, StartGame, SubmitPrediction, SubmitTrump, PlayCard,
          NextTrick, GetScores, NextRound, VerifyGame, BroadcastResponse} from './controllers';
 const WebSocketServer = require('websocket').server;
 const path = require('path')
+const s3adapter = require('lowdb-adapter-aws-s3')
 const low = require('lowdb')
 const FileSync = require('lowdb/adapters/FileSync')
 const clients = {}
-
 const express = require('express')
+
 const app = express()
 app.use('/', express.static(path.join(__dirname, 'react')))
 app.get('/*', (_req, res) => res.sendFile(__dirname + '/react/index.html'))
@@ -26,7 +27,17 @@ wss.on('request', ws => {
       controller_action = VerifyGame(connection, message, filename)
       if (!controller_action) return;
 
-      let adapter = new FileSync(filename)
+      let adapter
+      if (process.env.NODE_ENV == "development") {
+        adapter = new FileSync(filename)
+      }
+      else {
+        adapter = new s3adapter(filename, {
+          aws: {
+            bucketName: "contract-whist-lowdb"
+          }
+        })
+      }
       let db = low(adapter)
 
       initialise(db, message)
