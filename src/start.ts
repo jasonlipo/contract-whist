@@ -38,7 +38,6 @@ wss.on('request', ws => {
       const filename = 'data/' + message.game_id + '.json'
       controller_action = await VerifyGame(connection, message, filename, s3client)
       if (!controller_action) return;
-      console.log(message.game_id + " is verified")
 
       let adapter
       if (process.env.NODE_ENV == "development") {
@@ -67,7 +66,7 @@ wss.on('request', ws => {
         case "next_round": controller_action = NextRound(db, message, deck);break;
       }
 
-      BroadcastResponse(db, clients, controller_action, filename, message, s3client)
+      BroadcastResponse(db, clients, controller_action, filename, message)
     }
     catch (e) {
       console.error('Error: ' + e)
