@@ -7,7 +7,7 @@ const file_exists = (filename: string, s3client: any): Promise<boolean> => {
   }
   else {
     return new Promise((resolve, _reject) => {
-      s3client.s3.headObject({ Bucket: "contract-whist-lowdb", Key: filename }, function (err, data) {
+      s3client.headObject({ Bucket: "contract-whist-lowdb", Key: filename }, function (err, data) {
         if (err) {
           resolve(false)
         }
