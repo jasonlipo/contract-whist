@@ -74,6 +74,7 @@ export default class Connection extends Component<IConnectionProps> {
     const message = { ...data, game_id, user_id, name, player_index }
     console.log('Sent', message)
     this.ws.send(JSON.stringify(message))
+    this.props.setState({ mode: 'awaiting_websocket' })
   }
 
   join(verb: 'create' | 'join') {

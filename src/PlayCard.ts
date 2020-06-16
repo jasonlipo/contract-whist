@@ -4,6 +4,13 @@ import _ from 'lodash';
 export const PlayCard = (db: any, message: IMessage ): boolean => {
   let new_hand = db.get(['private', message.user_id, 'hand']).value()
   let dealt_card = new_hand.splice(message.value, 1)
+
+  // Verify dealt card is correct
+  if (dealt_card != message.card_id) return false;
+
+  // Verify that you are in play
+  if (db.get('shared.mode').value() != "play" || db.get('shared.in_play').value() != message.player_index) return false;
+
   db.set(['private', message.user_id, 'hand'], new_hand)
     .set('shared.in_play', (message.player_index + 1) % db.get('shared.players').size())
     .set(['shared', 'table', message.player_index], dealt_card[0]).write()

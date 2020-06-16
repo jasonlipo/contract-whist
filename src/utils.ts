@@ -17,8 +17,9 @@ export interface IMessage {
   name: string,
   type: string,
   player_index: number,
-  value?: string,
-  user_id: string
+  value: string,
+  user_id: string,
+  card_id?: string
 }
 
 export const generate_deck = (): string[] =>

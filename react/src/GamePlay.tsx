@@ -8,6 +8,7 @@ import { InPlay } from './InPlay';
 import { CardTable } from './CardTable';
 import { EndOfTrick } from './EndOfTrick';
 import { Scores } from './Scores';
+import { AwaitingWebsocket } from './AwaitingWebsocket';
 
 interface IGamePlayProps extends IContractWhistState {
   onStart(): void
@@ -32,6 +33,9 @@ export const GamePlay: FC<IGamePlayProps> = (props) => {
   else if (mode == 'scores') {
     ModeComponent = () => <Scores onNextRound={() => send({ type: "next_round" })} {...props} />
   }
+  else if (mode == 'awaiting_websocket') {
+    ModeComponent = () => <AwaitingWebsocket {...props} />
+  }
 
   return (
     <div className="game_play">
@@ -49,7 +53,7 @@ export const GamePlay: FC<IGamePlayProps> = (props) => {
                 <HandOfCards
                   {...props}
                   cards={hand}
-                  onClick={i => send({ type: "play_card", value: i })}
+                  onClick={(i, id) => send({ type: "play_card", value: i, card_id: id })}
                 />
               }
               <ModeComponent />

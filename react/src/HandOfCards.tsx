@@ -5,7 +5,7 @@ import { Card } from './Card';
 
 interface IHandOfCardsProps extends IContractWhistState {
   cards: string[],
-  onClick(i: number): void
+  onClick(i: number, card_id: string): void
 }
 
 export const findCardById = (id: string): ICard => {
@@ -37,7 +37,7 @@ export const HandOfCards: FC<IHandOfCardsProps> = ({ cards, mode, onClick, in_pl
       {
         cards.map((c, i) =>
           my_turn ?
-            <div className={!canSelectCard(c) ? "invalid" : ""} key={i} onClick={canSelectCard(c) ? () => onClick(i) : () => {}}>
+            <div className={!canSelectCard(c) ? "invalid" : ""} key={i} onClick={canSelectCard(c) ? () => onClick(i, c) : () => {}}>
               <Card key={i} id={c} />
             </div>
           :
