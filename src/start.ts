@@ -4,6 +4,7 @@ import { CreateJoinPlayer, StartGame, SubmitPrediction, SubmitTrump, PlayCard,
 const WebSocketServer = require('websocket').server;
 const path = require('path')
 const s3adapter = require('lowdb-adapter-aws-s3')
+const s3 = require('s3-client')
 const low = require('lowdb')
 const FileSync = require('lowdb/adapters/FileSync')
 const clients = {}
@@ -16,15 +17,26 @@ const server = app.listen(process.env.PORT || 3000)
 
 const deck = generate_deck()
 
+let s3client
+if (process.env.NODE_ENV != "development") {
+  s3client = s3.createClient({
+    s3Options: {
+      accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+      region: "eu-west-2"
+    }
+  })
+}
+
 const wss = new WebSocketServer({ httpServer: server });
 wss.on('request', ws => {
   const connection = ws.accept(null, ws.origin);
-  connection.on('message', raw => {
+  connection.on('message', async (raw) => {
     try {
       let controller_action: boolean = true;
       let message: IMessage = JSON.parse(raw.utf8Data)
       const filename = 'data/' + message.game_id + '.json'
-      controller_action = VerifyGame(connection, message, filename)
+      controller_action = await VerifyGame(connection, message, filename, s3client)
       if (!controller_action) return;
 
       let adapter

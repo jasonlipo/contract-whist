@@ -18,6 +18,7 @@
     "lowdb-adapter-aws-s3": "^1.1.2",
     "moment": "^2.26.0",
     "path": "^0.12.7",
+    "s3-client": "^4.4.2",
     "uuid": "^8.1.0",
     "websocket": "^1.0.31"
   },
