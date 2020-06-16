@@ -50,7 +50,7 @@ wss.on('request', ws => {
           }
         })
       }
-      let db = low(adapter)
+      let db = await low(adapter)
 
       initialise(db, message)
       clients[message.user_id] = connection
