@@ -85,7 +85,6 @@ export default class ContractWhist extends Component<IContractWhistProps, IContr
           )
         }
           <div className="contract-whist">
-            <div className="title">Contract Whist<br /><small>By Jason Lipowicz</small></div>
             <Connection
               {...this.props}
               {...this.state}
@@ -93,16 +92,13 @@ export default class ContractWhist extends Component<IContractWhistProps, IContr
               setState={this.setState.bind(this)}
             />
             { this.state.entered_game &&
-              <GamePlay
-                onStart={() => this.state.send({ type: "start_game" })}
-                {...this.state}
-              />
+              <GamePlay {...this.state} />
             }
           </div>
         </div>
         {
           this.state.entered_game &&
-          <Log {...this.state} />
+          <Log onStart={() => this.state.send({ type: "start_game" })} {...this.state} />
         }
       </>
     )

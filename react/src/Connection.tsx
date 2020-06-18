@@ -95,6 +95,10 @@ export default class Connection extends Component<IConnectionProps> {
   render() {
     return (
       <div className="connection">
+        <div className="title">Contract Whist</div>
+        <div className="leave_game">
+          <button className="danger" onClick={() => this.logout()}>Leave Game</button>
+        </div>
         {
           this.props.user_id === null ?
           <Loading />
@@ -103,7 +107,6 @@ export default class Connection extends Component<IConnectionProps> {
             {...this.props}
             onChangeName={name => this.props.setState({ name })}
             onJoin={this.join.bind(this)}
-            onLogout={this.logout.bind(this)}
           />
         }
       </div>

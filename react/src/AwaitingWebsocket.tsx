@@ -6,5 +6,5 @@ interface IAwaitingWebsocketProps extends IContractWhistState {
 
 export const AwaitingWebsocket: FC<IAwaitingWebsocketProps> = () =>
   <div className="awaiting_websocket actions">
-    Please wait...
+    Something is taking a while, please wait...
   </div>

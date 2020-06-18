@@ -6,7 +6,7 @@ interface IAwaitingStartProps {
 }
 
 export const AwaitingStart: FC<IAwaitingStartProps> = ({ admin, onStart }) =>
-  <div className="instruction">
+  <div className="actions instruction">
     {
       admin ?
         <>Players are joining now. When you're ready, click Start below:<br /><button onClick={onStart}>Start</button></> :

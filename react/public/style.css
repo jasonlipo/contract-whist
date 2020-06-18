@@ -5,7 +5,7 @@ body{margin:0;padding:0;font-family:'Segoe UI','Roboto','Oxygen','Ubuntu','Canta
 .connection-status.red {background: #c73030;}
 .connection-status { color:white; width: 100%;padding: 15px 20px;box-sizing: border-box;}
 .connection-status.green {background: #0a8b3e;}
-.title{text-align:center;font-size:40px;font-weight:700;letter-spacing:-1px;padding:30px 0 0;line-height:24px}
+.title{text-align:center;font-size: 30px;font-weight:700;letter-spacing:-1px;position: absolute;top: 27px;left: 31px;}
 .connection{text-align:center;padding:30px 0}
 .login{position:absolute;left:50%;width:550px;margin-left:-275px;top:50%;height:400px;margin-top:-200px;background:#ffffff4f;color:#000;border-radius:5px;text-align:left;padding:30px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center}
 .subtitle{font-weight:700;text-transform:uppercase;font-size:23px}
@@ -15,19 +15,21 @@ input[type="text"]{border:none;padding:10px 15px;outline:none;font-family:'Segoe
 button{border:none;padding:10px 15px;outline:none;font-family:'Segoe UI','Roboto','Oxygen','Ubuntu','Cantarell','Fira Sans','Droid Sans','Helvetica Neue',sans-serif;font-size:16px;border-radius:4px;background:#fff;cursor:pointer;margin:5px 0 0;text-align:center;align-self:flex-start;min-width:75px}
 button:hover{opacity:.7}
 button.danger{background:#d66666}
-.game_details{position:absolute;top:0;width:100%;text-align:left;display:flex;justify-content:space-between}
+.leave_game{position:absolute;top: 15px;right: 40px;}
 .login button{margin-top:40px}
 .info{font-size:14px;background:#ffffff61;padding:15px 20px;border-radius:4px;color:#000;margin:33px;display:grid;grid-template-columns:auto auto;column-gap:20px}
-.game_details .right{margin:33px}
 .game_play{flex:1;display:flex;flex-direction:column}
 .control_panel{background:#ffffff2e;border-top:5px solid #000;padding:30px;font-size:16px;height: 150px;position:relative;display:flex;}
 .table{flex:1;position:relative;display: flex;flex-direction: column;align-items: center;}
-.cards_hand{height:100%;display:flex;align-items:stretch;width:70%;}
-.actions{margin-left:20px;background:#ffffff61;color:#000;padding:15px;font-size:14px;width:30%;border-radius:5px}
-.cards_hand svg.card{max-height:100%!important;width:auto!important;max-width:100%!important;border-radius:7px;border:3px solid transparent;box-sizing:border-box}
+.cards_hand{height:100%;display:flex;flex: 1;width:auto;flex-wrap:wrap; align-items: center; justify-content: space-between;}
+.actions{color: #fff;padding:10px;font-size:14px;}
+.actions label{font-size:14px;}
+.actions input[type="text"], .actions select{min-width: 0; width: 100%; font-size: 14px;padding: 7px 11px;}
+.actions button {font-size:14px;padding: 7 10px;min-width: 60px;margin: 20px 0 0;}
+.cards_hand svg.card{max-height:100%!important;max-width:100%!important;border-radius:7px;border:3px solid transparent;box-sizing:border-box;width:100%!important}
 .feedback{font-style:italic;font-size:12px}
 select{border:none;padding:10px 15px;outline:none;font-family:'Segoe UI','Roboto','Oxygen','Ubuntu','Cantarell','Fira Sans','Droid Sans','Helvetica Neue',sans-serif;font-size:16px;border-radius:4px;box-sizing:border-box}
-.cards_hand div,.cards_hand figure{max-height:100%;overflow:hidden;position:relative;flex:1;display:flex;}
+.cards_hand div,.cards_hand figure{overflow:hidden;position:relative;width: 95px;height: 137px;}
 .cards_hand.selectable div:not(.invalid) svg.card:hover{cursor:pointer;border-color:red}
 .black_square{width:70%;background:#0000004f;flex: 1;}
 .my_area{position:absolute;bottom: 35px;left:50%;width: 315px;margin-left: -158px;text-align:center;font-weight:700;display:flex;flex-direction:column-reverse;align-items:center;}
@@ -70,32 +72,33 @@ select{border:none;padding:10px 15px;outline:none;font-family:'Segoe UI','Roboto
 .title small{font-size:16px;font-weight:400}
 .error {color: #9c3535;font-size: 16px;font-weight: bold;padding: 20px 0 0;}
 .gap {height: 90px;}
-.log {background: black;width: 300px;overflow-y: scroll;}
+.log {background: black;width: 300px;display: flex;flex-direction: column;}
 .log-item {color: white;font-size: 14px;padding: 10px;}
+.log-item.log-border-bottom {border-bottom: 2px solid white;padding-bottom: 15px;background: black;}
 .log-date {flex-basis: 100%;color: grey;}
 .log-name {font-weight: bold;color: green;display: inline;}
 .log-action {padding-left: 3px;display: inline;}
+.log-scrollable{overflow-y:scroll;flex: 1;padding-top: 10px;}
 
-@media only screen and (max-height: 900px) {
+@media only screen and (max-height: 830px) {
   .contract-whist { zoom: 0.9; }
 }
 
-@media only screen and (max-height: 800px) {
+@media only screen and (max-height: 750px) {
   .contract-whist { zoom: 0.8; }
 }
 
-@media only screen and (max-width: 1700px) {
-  .cards_hand {align-items: center;}
-  .cards_hand div, .cards_hand figure {min-height: 80px;}
+@media only screen and (max-width: 1300px) {
+  .contract-whist { zoom: 0.9; }
 }
 
-@media only screen and (max-width: 1375px) {
-  .info {display: flex;flex-direction: column;}
+@media only screen and (max-width: 1160px) {
+  .cards_hand div, .cards_hand figure { width: 79px; height: 114px;}
 }
 
-@media only screen and (max-width: 1250px), only screen and (max-height: 700px) {
-  .log{display: none;}
+@media only screen and (max-width: 1000px), only screen and (max-height: 650px) {
   .contract-whist { zoom: 1; }
+  .log { width: 100%}
   .gap{display:none}
   .black_square{display:none}
   .player_arrangement{display:flex}
@@ -104,26 +107,25 @@ select{border:none;padding:10px 15px;outline:none;font-family:'Segoe UI','Roboto
   .table{background:#0000004f;flex-direction:row;justify-content:center}
   .player_card_in_play{margin:60px 0 0!important}
   .player_arrangement .player_area:last-child{margin-right:0!important}
-  .game_details{position:relative;flex-direction:column-reverse;text-align:center}
   .info{margin:0}
-  .game_details .right{margin:0 0 20px}
   .contract-whist, #root{position:relative;height:initial;display:block}
   .table{height:300px;flex:initial}
-  .control_panel{height:auto;flex-direction:column}
-  .cards_hand{width:auto;flex-wrap:wrap}
+  .control_panel{flex-direction:column;height: auto;min-height: 150px;}
   .actions{margin:20px 0;width:auto}
-  .cards_hand svg.card{width:100%!important}
-  .cards_hand div{min-width: 85px;max-height: 115px;flex: 0;}
   .login {position: relative;left: initial;margin: 0;top: initial;height: auto;}
   .connection {display: flex;justify-content: center;padding: 50px 0;}
+  .cards_hand{justify-content:flex-start;}
+  .cards_hand div, .cards_hand figure { margin: 0 15px 15px 0;}
 }
 
-@media only screen and (max-width: 600px), only screen and (max-height: 700px) {
-  .table {flex-direction: column;height: auto;font-size: 16px;padding: 15px 0px !important;}
+@media only screen and (max-width: 600px), only screen and (max-height: 650px) {
+  .connection { flex-direction: column;}
+  .title {position: relative;top: 0;left: 0;margin: -20px 0 10px;}
+  .leave_game {position: relative;right: 0;top: 0}
+  .table {font-size: 16px;padding: 15px 0px !important;flex-direction: column;height: auto;}
   .player_card_in_play {margin: 20px 0 0 !important;}
   .my_area {margin-bottom: 20px !important;}
   .player_arrangement {flex-wrap: wrap;padding: 0 20px;justify-content: center;}
   .player_arrangement .player_area {padding-bottom: 15px !important;}
-  .cards_hand div {flex:0}
   input[type="text"] {max-width: 100%;}
 }

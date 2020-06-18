@@ -20,10 +20,13 @@ export const SubmitBid = (db: any, message: IMessage, deck: string[]): boolean =
       db.set('shared.in_play', highest_index)
         .set('shared.mode', 'choose_trump')
         .write()
+      log(db, { name: all_players[highest_index] }, `is choosing the trump suit`)
     }
   }
   else {
-    db.set('shared.in_play', (message.player_index + 1) % all_players.length).write()
+    const next_person_to_bid = (message.player_index + 1) % all_players.length
+    db.set('shared.in_play', next_person_to_bid).write()
+    log(db, { name: all_players[next_person_to_bid] }, `is next to bid`)
   }
   return true;
 }
