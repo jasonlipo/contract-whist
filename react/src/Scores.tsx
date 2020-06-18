@@ -6,13 +6,13 @@ interface IScoresProps extends IContractWhistState {
   onNextRound(): void
 }
 
-export const Scores: FC<IScoresProps> = ({ admin, predictions, tricks_won, points, cards_per_hand, onNextRound, players, cards_decreasing, name }) => {
-  const calculate_score = (prediction: number, tricks: number) => {
-    if (prediction == tricks) {
-      if (prediction == 0) {
-        let sum_of_predictions = _.sum(predictions)
+export const Scores: FC<IScoresProps> = ({ admin, bids, tricks_won, points, cards_per_hand, onNextRound, players, cards_decreasing, name }) => {
+  const calculate_score = (bid: number, tricks: number) => {
+    if (bid == tricks) {
+      if (bid == 0) {
+        let sum_of_bids = _.sum(bids)
         let rounding
-        if (sum_of_predictions > cards_per_hand) {
+        if (sum_of_bids > cards_per_hand) {
           rounding = Math.floor(cards_per_hand / 2)
         }
         else {
@@ -20,10 +20,10 @@ export const Scores: FC<IScoresProps> = ({ admin, predictions, tricks_won, point
         }
         return rounding
       }
-      return cards_per_hand + prediction
+      return cards_per_hand + bid
     }
     else {
-      return Math.abs(prediction - tricks) * -1
+      return Math.abs(bid - tricks) * -1
     }
   }
 
@@ -37,9 +37,9 @@ export const Scores: FC<IScoresProps> = ({ admin, predictions, tricks_won, point
           <div className="score-title">This Round</div>
           {
             players.map((name, index) => {
-              let prediction = predictions[index]
+              let bid = bids[index]
               let tricks = tricks_won[index]
-              let this_round = calculate_score(prediction, tricks)
+              let this_round = calculate_score(bid, tricks)
               return (
                 <div className="score-row">
                   <div className="score-row-name">{name}</div>

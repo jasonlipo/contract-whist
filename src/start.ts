@@ -1,5 +1,5 @@
 import { generate_deck, IMessage, initialise } from './utils';
-import { CreateJoinPlayer, StartGame, SubmitPrediction, SubmitTrump, PlayCard,
+import { CreateJoinPlayer, StartGame, SubmitBid, SubmitTrump, PlayCard,
          NextTrick, GetScores, NextRound, VerifyGame, BroadcastResponse} from './controllers';
 const WebSocketServer = require('websocket').server;
 const path = require('path')
@@ -35,7 +35,7 @@ wss.on('request', ws => {
       switch (message.type) {
         case "create_player": case "join_player": controller_action = CreateJoinPlayer(db, connection, message); break;
         case "start_game": controller_action = StartGame(db, message, deck); break;
-        case "submit_prediction": controller_action = SubmitPrediction(db, message, deck); break;
+        case "submit_bid": controller_action = SubmitBid(db, message, deck); break;
         case "submit_trump": controller_action = SubmitTrump(db, message); break;
         case "play_card": controller_action = PlayCard(db, message); break;
         case "next_trick": controller_action = NextTrick(db); break;

@@ -1,6 +1,6 @@
 export * from './CreateJoinPlayer'
 export * from './StartGame'
-export * from './SubmitPrediction'
+export * from './SubmitBid'
 export * from './SubmitTrump'
 export * from './PlayCard'
 export * from './NextTrick'

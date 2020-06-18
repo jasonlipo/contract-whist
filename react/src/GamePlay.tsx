@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { HandOfCards } from './HandOfCards';
 import { IContractWhistState } from './ContractWhist';
-import { Predictions } from './Predictions';
+import { Bids } from './Bids';
 import { ChooseTrump } from './ChooseTrump';
 import { AwaitingStart } from './AwaitingStart';
 import { InPlay } from './InPlay';
@@ -18,8 +18,8 @@ export const GamePlay: FC<IGamePlayProps> = (props) => {
   const { mode, hand, admin, onStart, send } = props
 
   let ModeComponent: FC = () => <></>
-  if (mode == 'predictions') {
-    ModeComponent = () => <Predictions onSubmitPrediction={x => send({ type: "submit_prediction", value: x })} {...props} />
+  if (mode == 'bids') {
+    ModeComponent = () => <Bids onSubmitBid={x => send({ type: "submit_bid", value: x })} {...props} />
   }
   else if (mode == 'choose_trump') {
     ModeComponent = () => <ChooseTrump onSubmitTrump={suit => send({ type: "submit_trump", value: suit })} {...props} />

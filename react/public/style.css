@@ -57,7 +57,7 @@ select{border:none;padding:10px 15px;outline:none;font-family:'Segoe UI','Roboto
 .player_arrangement.players_4 .player_area:nth-child(3) .player_card_in_play{margin-right:80px}
 .player_arrangement.players_4 .player_area:nth-child(2) .player_card_in_play{margin:60px 0}
 .cards_hand .invalid{opacity:.1}
-.prediction_tricks{font-size:14px;font-weight:400}
+.bid_tricks{font-size:14px;font-weight:400}
 .scores{flex:1;display:flex}
 .deltas,.leaderboard{background:#ffffff59;border-radius:4px;color:#000;padding:15px;flex:1}
 .deltas{margin-right:30px}

@@ -12,13 +12,13 @@ export const NextRound = (db: any, message: IMessage,deck: string[]): boolean =>
     }
   }
   const new_cards_per_hand = db.get('shared.cards_per_hand') + new_cards_step
-  db.set('shared.mode', 'predictions')
+  db.set('shared.mode', 'bids')
     .set('shared.player_lead_trick', null)
     .set('shared.tricks_won', [])
     .set('shared.trump_suit', null)
     .set('shared.player_bid_first', new_first_bidder)
     .set('shared.in_play', new_first_bidder)
-    .set('shared.predictions', all_players.map(x => null))
+    .set('shared.bids', all_players.map(x => null))
     .set('shared.cards_per_hand', new_cards_per_hand)
     .write()
   deal(deck, db)

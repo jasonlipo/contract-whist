@@ -46,7 +46,7 @@ export const initialise = (db: any, message: IMessage) =>
       players: [],
       cards_decreasing: true,
       player_bid_first: null,
-      predictions: [],
+      bids: [],
       mode: 'players_joining',
       trump_suit: null,
       table: [],

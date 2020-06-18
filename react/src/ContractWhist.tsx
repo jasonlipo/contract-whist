@@ -7,7 +7,7 @@ export type ISuit = 'C' | 'H' | 'S' | 'D'
 export type ITrump = ISuit | 'no_trump'
 export type ICard = string
 export type IPlayerPosition = number
-export type IMode = 'awaiting_websocket' | 'players_joining' | 'predictions' | 'choose_trump' | 'play' | 'end_of_trick' | 'scores'
+export type IMode = 'awaiting_websocket' | 'players_joining' | 'bids' | 'choose_trump' | 'play' | 'end_of_trick' | 'scores'
 
 export interface ILog {
   datetime: string,
@@ -33,7 +33,7 @@ export interface IContractWhistState {
   hand: ICard[],
   in_play: IPlayerPosition,
   admin: boolean,
-  predictions: number[],
+  bids: number[],
   trump_suit: ITrump,
   table: ICard[],
   tricks_won: number[],
@@ -61,7 +61,7 @@ export default class ContractWhist extends Component<IContractWhistProps, IContr
     hand: [],
     in_play: null,
     admin: null,
-    predictions: [],
+    bids: [],
     trump_suit: null,
     table: [],
     tricks_won: [],
