@@ -43,6 +43,7 @@ select{border:none;padding:10px 15px;outline:none;font-family:'Segoe UI','Roboto
 .player_arrangement.players_5 .player_area:nth-child(3){top: 25px;left: 70%;width: 315px;display: flex;flex-direction: column;align-items: center;margin-left: -158px;}
 .player_arrangement.players_5 .player_area:nth-child(4){top:55%;left:85%;margin-left: -200px;display:flex;width:315px;align-items:center;flex-direction:row-reverse;text-align: left;}
 .player_name.in_play{color:#f36363}
+.player_name.in_play:before{content: "\2022";display: block;font-size: 40px;vertical-align: middle;margin: -33px 0 -13px;}
 .player_card_in_play{width:100px;height:135px}
 .card_placeholder{background:#b9b9b9a8;width:100%;height:100%;border-radius:7px}
 .my_area .player_card_in_play{margin:60px 0}

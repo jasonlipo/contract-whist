@@ -40,7 +40,7 @@ export const Login: FC<ILoginProps> = ({ join_game, error, entered_game, name, g
         <div className="info">
           <div>Game Code: <b>{game_id}</b></div>
           <div>Your Name: <b>{name}</b></div>
-          <div>Trumps: <b>{letterToSuit(trump_suit)}</b></div>
+          <div>Trump Suit: <b>{letterToSuit(trump_suit)}</b></div>
           <div>Cards: <b>{cards_per_hand || "N/A"}</b></div>
         </div>
       </div>
