@@ -20,11 +20,14 @@ export const Bids: FC<IBidsProps> = ({ player_index, in_play, onSubmitBid, bids,
           <br /><br />
           <input type="text" value={bid} onChange={(e) => setBid(isNaN(parseInt(e.target.value)) ? null : parseInt(e.target.value))} />
           {
-            (bid !== null && bid <= cards_per_hand &&
-              (!last_player_to_bid || (last_player_to_bid && (sumOfPreviousBids + bid != cards_per_hand)))
-            )
-            ? <><br /><button onClick={() => onSubmitBid(bid)}>Submit</button></>
-            : <><br /><br /><div className="feedback">Your bid is invalid.</div></>
+            bid === null ?
+              <><br /><br /><div className="feedback">Please enter a bid.</div></>
+            :
+              (bid >= 0 && bid <= cards_per_hand &&
+                (!last_player_to_bid || (last_player_to_bid && (sumOfPreviousBids + bid != cards_per_hand)))
+              )
+              ? <><br /><button onClick={() => onSubmitBid(bid)}>Submit</button></>
+              : <><br /><br /><div className="feedback">Your bid is invalid.</div></>
           }
         </>
         :
