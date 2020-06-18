@@ -14,7 +14,6 @@ export const PlayCard = (db: any, message: IMessage ): boolean => {
   db.set(['private', message.user_id, 'hand'], new_hand)
     .set('shared.in_play', (message.player_index + 1) % db.get('shared.players').size())
     .set(['shared', 'table', message.player_index], dealt_card[0]).write()
-  log(db, message, "played a card")
 
   if (db.get('shared.table').value().filter(x => x == null).length == 0) {
     // End of trick

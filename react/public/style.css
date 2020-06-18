@@ -22,14 +22,14 @@ button.danger{background:#d66666}
 .control_panel{background:#ffffff2e;border-top:5px solid #000;padding:30px;font-size:16px;height: 150px;position:relative;display:flex;}
 .table{flex:1;position:relative;display: flex;flex-direction: column;align-items: center;}
 .cards_hand{height:100%;display:flex;flex: 1;width:auto;flex-wrap:wrap; align-items: center; justify-content: space-between;}
-.actions{color: #fff;padding:10px;font-size:14px;}
+.actions{color: #fff;padding: 10px 10px 0;font-size:14px;}
 .actions label{font-size:14px;}
 .actions input[type="text"], .actions select{min-width: 0; width: 100%; font-size: 14px;padding: 7px 11px;}
 .actions button {font-size:14px;padding: 7 10px;min-width: 60px;margin: 20px 0 0;}
 .cards_hand svg.card{max-height:100%!important;max-width:100%!important;border-radius:7px;border:3px solid transparent;box-sizing:border-box;width:100%!important}
 .feedback{font-style:italic;font-size:12px}
 select{border:none;padding:10px 15px;outline:none;font-family:'Segoe UI','Roboto','Oxygen','Ubuntu','Cantarell','Fira Sans','Droid Sans','Helvetica Neue',sans-serif;font-size:16px;border-radius:4px;box-sizing:border-box}
-.cards_hand div,.cards_hand figure{overflow:hidden;position:relative;width: 95px;height: 137px;}
+.cards_hand div,.cards_hand figure{overflow:hidden;position:relative;width: 95px;height: 137px;margin: 0;}
 .cards_hand.selectable div:not(.invalid) svg.card:hover{cursor:pointer;border-color:red}
 .black_square{width:70%;background:#0000004f;flex: 1;}
 .my_area{position:absolute;bottom: 35px;left:50%;width: 315px;margin-left: -158px;text-align:center;font-weight:700;display:flex;flex-direction:column-reverse;align-items:center;}
@@ -61,11 +61,11 @@ select{border:none;padding:10px 15px;outline:none;font-family:'Segoe UI','Roboto
 .player_arrangement.players_4 .player_area:nth-child(2) .player_card_in_play{margin:60px 0}
 .cards_hand .invalid{opacity:.1}
 .bid_tricks{font-size:14px;font-weight:400}
-.scores{flex:1;display:flex}
-.deltas,.leaderboard{background:#ffffff59;border-radius:4px;color:#000;padding:15px;flex:1}
-.deltas{margin-right:30px}
+.scores{display:flex;flex-direction: column;color: #fff;font-size: 14px;margin-bottom: 20px;}
+.deltas,.leaderboard{border-radius:4px;color: #fff;}
+.deltas {margin-bottom:25px;}
 .score-title{font-weight:700;margin-bottom:7px}
-.score-row{display:flex;justify-content:space-between;border-bottom:1px dotted}
+.score-row{display:flex;justify-content:space-between;border-bottom:1px dotted;margin-bottom: 7px;}
 .score-row-points{font-weight:700}
 .deltas .score-row-points{color:#1d6f1d}
 .deltas .score-row-points.negative{color:#b32727}
@@ -78,7 +78,7 @@ select{border:none;padding:10px 15px;outline:none;font-family:'Segoe UI','Roboto
 .log-date {flex-basis: 100%;color: grey;}
 .log-name {font-weight: bold;color: green;display: inline;}
 .log-action {padding-left: 3px;display: inline;}
-.log-scrollable{overflow-y:scroll;flex: 1;padding-top: 10px;}
+.log-scrollable{overflow-y:scroll;flex: 1;padding-top: 10px;padding-bottom: 40px;}
 
 @media only screen and (max-height: 830px) {
   .contract-whist { zoom: 0.9; }

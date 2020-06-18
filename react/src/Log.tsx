@@ -81,7 +81,7 @@ export class Log extends Component<ILogProps> {
               <div className="log-item">
                 <div className="log-date">[{moment(datetime).format('HH:mm:ss')}]</div>
                 <div className="log-name">{player_name.replace(this.props.name, "You")}</div>
-                <div className="log-action">{this.replaceMyPlayer(action, player_name)}</div>
+                <div className="log-action" dangerouslySetInnerHTML={{__html: this.replaceMyPlayer(action, player_name)}}></div>
               </div>
             )
           }
