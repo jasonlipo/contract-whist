@@ -21,7 +21,7 @@ button.danger{background:#d66666}
 .game_play{flex:1;display:flex;flex-direction:column}
 .control_panel{background:#ffffff2e;border-top:5px solid #000;padding:30px;font-size:16px;height: 150px;position:relative;display:flex;}
 .table{flex:1;position:relative;display: flex;flex-direction: column;align-items: center;}
-.cards_hand{height:100%;display:flex;flex: 1;width:auto;flex-wrap:wrap; align-items: center; justify-content: space-between;}
+.cards_hand{height:100%;display:flex;flex: 1;width:auto;flex-wrap:wrap;align-items: center;justify-content: space-around;}
 .actions{color: #fff;padding: 10px 10px 0;font-size:14px;}
 .actions label{font-size:14px;}
 .actions input[type="text"], .actions select{min-width: 0; width: 100%; font-size: 14px;padding: 7px 11px;}
