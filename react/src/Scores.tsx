@@ -1,7 +1,7 @@
-import React, { useMemo, FC } from 'react';
+import React, { FC } from 'react';
 import { IContractWhistState } from './ContractWhist';
 import _ from 'lodash';
-import { Chart } from 'react-charts'
+import Chart from "react-apexcharts";
 
 interface IScoresProps extends IContractWhistState {
   onNextRound(): void
@@ -11,15 +11,38 @@ export const Scores: FC<IScoresProps> = ({ admin, points, cards_per_hand, onNext
   const player_point_join = points.map((p, i) => ({ points: p, name: players[i] }))
   const sorted_leaderboard = player_point_join.sort((a, b) => b.points - a.points)
 
-
-  const data = useMemo(() => Object.keys(points_history).map(p => ({ label: p, data: points_history[p].map((y, x) => [x + 1, y]) })), [])
-  const series = useMemo(() => ({ showPoints: true }), [])
-  const axes = useMemo(() => [{ primary: true, type: 'linear', position: 'bottom', show: false, hardMin: 1 }, { type: 'linear', position: 'left' }], [])
+  const data = Object.keys(points_history).map(p => ({ name: p, data: points_history[p] }))
+  const options = {
+    chart: {
+      height: 200,
+      type: 'line',
+      toolbar: { show: false },
+      zoom: { enabled: false }
+    },
+    stroke: { curve: 'smooth' },
+    grid: { yaxis: { lines: { show: false } } },
+    markers: { size: 1 },
+    xaxis: {
+      categories: points_history[players[0]].map((_x, i) => i + 1),
+      labels: {
+        style: {
+          colors: 'white'
+        }
+      }
+    },
+    yaxis: { labels: { style: { colors: 'white' } } },
+    legend: { show: true, labels: { colors: 'white' } }
+  }
 
   return (
     <div className="graph">
       <div style={{height: 200, width: 210, marginLeft: 10, marginBottom: 15, boxSizing: 'border-box'}}>
-        <Chart data={data} series={series} axes={axes} tooltip dark />
+        <Chart
+          options={options}
+          series={data}
+          type="line"
+          height={200}
+        />
       </div>
       {
         (cards_per_hand == 10 && !cards_decreasing) ?
