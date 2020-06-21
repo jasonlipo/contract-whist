@@ -12,13 +12,13 @@ export const Scores: FC<IScoresProps> = ({ admin, points, cards_per_hand, onNext
   const sorted_leaderboard = player_point_join.sort((a, b) => b.points - a.points)
 
 
-  const data = useMemo(() => Object.keys(points_history).map(p => ({ label: p, data: points_history[p].map((y, x) => [x, y]) })), [])
-  const series = useMemo(() => ({ showPoints: false }), [])
-  const axes = useMemo(() => [{ primary: true, type: 'linear', position: 'bottom' }, { type: 'linear', position: 'left' }], [])
+  const data = useMemo(() => Object.keys(points_history).map(p => ({ label: p, data: points_history[p].map((y, x) => [x + 1, y]) })), [])
+  const series = useMemo(() => ({ showPoints: true }), [])
+  const axes = useMemo(() => [{ primary: true, type: 'linear', position: 'bottom', show: false, hardMin: 1 }, { type: 'linear', position: 'left' }], [])
 
   return (
     <div className="graph">
-      <div style={{height: 200, width: 210, marginLeft: 10, boxSizing: 'border-box'}}>
+      <div style={{height: 200, width: 210, marginLeft: 10, marginBottom: 15, boxSizing: 'border-box'}}>
         <Chart data={data} series={series} axes={axes} tooltip dark />
       </div>
       {
