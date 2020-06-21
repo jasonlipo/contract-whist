@@ -72,13 +72,15 @@ select{border:none;padding:10px 15px;outline:none;font-family:'Segoe UI','Roboto
 .title small{font-size:16px;font-weight:400}
 .error {color: #9c3535;font-size: 16px;font-weight: bold;padding: 20px 0 0;}
 .gap {height: 90px;}
-.log {background: black;width: 260px;display: flex;flex-direction: column;}
+.log {background: black;display: flex;flex-direction: column;}
 .log-item {color: white;font-size: 14px;padding: 10px;}
 .log-item.log-border-bottom {border-bottom: 2px solid white;padding-bottom: 15px;background: black;}
 .log-date {flex-basis: 100%;color: grey;}
 .log-name {font-weight: bold;color: green;display: inline;}
 .log-action {padding-left: 3px;display: inline;}
 .log-scrollable{overflow-y:scroll;flex: 1;padding-top: 10px;padding-bottom: 40px;overflow-x: hidden;}
+.react-resizable {position: relative;}
+.react-resizable-handle {position: absolute;width: 20px;height: 100%;box-sizing: border-box;padding: 0 3px 3px 0;top: 0;cursor: ew-resize;left: 0;}
 
 @media only screen and (max-height: 830px) {
   .contract-whist { zoom: 0.9; }
@@ -116,6 +118,7 @@ select{border:none;padding:10px 15px;outline:none;font-family:'Segoe UI','Roboto
   .connection {display: flex;justify-content: center;padding: 50px 0;}
   .cards_hand{justify-content:flex-start;}
   .cards_hand div, .cards_hand figure { margin: 0 15px 15px 0;}
+  .react-resizable-handle {display:none;}
 }
 
 @media only screen and (max-width: 600px), only screen and (max-height: 650px) {

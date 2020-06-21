@@ -7,6 +7,7 @@ import { Scores } from './Scores';
 import { AwaitingWebsocket } from './AwaitingWebsocket';
 import moment from 'moment';
 import { AwaitingStart } from './AwaitingStart';
+import { ResizableBox } from 'react-resizable';
 
 interface ILogProps extends IContractWhistState {
   onStart(): void
@@ -67,27 +68,29 @@ export class Log extends Component<ILogProps> {
     }
 
     return (
-      <div className="log">
-        <div className="log-item log-border-bottom">
-          <div className="log-name" style={{display: 'inline-block', width: '125px'}}>Trump Suit</div>
-          <div className="log-action">{this.letterToSuit(trump_suit)}</div>
-          <br />
-          <div className="log-name" style={{display: 'inline-block', width: '125px'}}>Cards This Round</div>
-          <div className="log-action">{cards_per_hand || "N/A"}</div>
+      <ResizableBox width={260} height={Infinity} axis='x' resizeHandles={['w']}>
+        <div className="log">
+          <div className="log-item log-border-bottom">
+            <div className="log-name" style={{display: 'inline-block', width: '125px'}}>Trump Suit</div>
+            <div className="log-action">{this.letterToSuit(trump_suit)}</div>
+            <br />
+            <div className="log-name" style={{display: 'inline-block', width: '125px'}}>Cards This Round</div>
+            <div className="log-action">{cards_per_hand || "N/A"}</div>
+          </div>
+          <div className="log-scrollable" ref={this.boxRef}>
+            {
+              this.props.log.map(({ datetime, player_name, action }, i) =>
+                <div key={i} className="log-item">
+                  <div className="log-date">[{moment(datetime).format('HH:mm:ss')}]</div>
+                  <div className="log-name">{player_name.replace(this.props.name, "You")}</div>
+                  <div className="log-action" dangerouslySetInnerHTML={{__html: this.replaceMyPlayer(action, player_name)}}></div>
+                </div>
+              )
+            }
+            <ModeComponent />
+          </div>
         </div>
-        <div className="log-scrollable" ref={this.boxRef}>
-          {
-            this.props.log.map(({ datetime, player_name, action }, i) =>
-              <div key={i} className="log-item">
-                <div className="log-date">[{moment(datetime).format('HH:mm:ss')}]</div>
-                <div className="log-name">{player_name.replace(this.props.name, "You")}</div>
-                <div className="log-action" dangerouslySetInnerHTML={{__html: this.replaceMyPlayer(action, player_name)}}></div>
-              </div>
-            )
-          }
-          <ModeComponent />
-        </div>
-      </div>
+      </ResizableBox>
     )
   }
 }
