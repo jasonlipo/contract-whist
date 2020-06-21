@@ -72,7 +72,7 @@ select{border:none;padding:10px 15px;outline:none;font-family:'Segoe UI','Roboto
 .title small{font-size:16px;font-weight:400}
 .error {color: #9c3535;font-size: 16px;font-weight: bold;padding: 20px 0 0;}
 .gap {height: 90px;}
-.log {background: black;display: flex;flex-direction: column;}
+.log {background: black;display: flex;height: 100%;flex-direction: column;}
 .log-item {color: white;font-size: 14px;padding: 10px;}
 .log-item.log-border-bottom {border-bottom: 2px solid white;padding-bottom: 15px;background: black;}
 .log-date {flex-basis: 100%;color: grey;}
