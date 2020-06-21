@@ -42,7 +42,8 @@ export interface IContractWhistState {
   cards_decreasing: boolean,
   error: string,
   connection_status: [boolean, string],
-  log: ILog[]
+  log: ILog[],
+  points_history: {[name: string]: number[]}
 }
 
 export default class ContractWhist extends Component<IContractWhistProps, IContractWhistState> {
@@ -69,7 +70,8 @@ export default class ContractWhist extends Component<IContractWhistProps, IContr
     cards_decreasing: null,
     error: null,
     connection_status: [null, null],
-    log: []
+    log: [],
+    points_history: {}
   }
 
   render() {

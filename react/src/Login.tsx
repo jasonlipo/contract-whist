@@ -6,7 +6,7 @@ interface ILoginProps extends IContractWhistProps, IContractWhistState {
   onJoin(verb: 'create' | 'join'): void
 }
 
-export const Login: FC<ILoginProps> = ({ join_game, error, entered_game, name, game_id, onChangeName, onJoin, trump_suit, cards_per_hand}) => {
+export const Login: FC<ILoginProps> = ({ join_game, error, entered_game, name, game_id, onChangeName, onJoin }) => {
   return !entered_game && (
     <div className="login">
       <div className="subtitle">{join_game ? "Join a game" : "Create a game"}</div>
@@ -16,7 +16,7 @@ export const Login: FC<ILoginProps> = ({ join_game, error, entered_game, name, g
       }
       <div className="input-box">
         <label>Your Name</label>
-        <input type="text" value={name} onChange={(e) => onChangeName(e.target.value)} />
+        <input type="text" value={name || ""} onChange={(e) => onChangeName(e.target.value)} />
       </div>
       {
         name &&

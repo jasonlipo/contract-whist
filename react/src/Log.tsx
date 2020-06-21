@@ -77,8 +77,8 @@ export class Log extends Component<ILogProps> {
         </div>
         <div className="log-scrollable" ref={this.boxRef}>
           {
-            this.props.log.map(({ datetime, player_name, action }) =>
-              <div className="log-item">
+            this.props.log.map(({ datetime, player_name, action }, i) =>
+              <div key={i} className="log-item">
                 <div className="log-date">[{moment(datetime).format('HH:mm:ss')}]</div>
                 <div className="log-name">{player_name.replace(this.props.name, "You")}</div>
                 <div className="log-action" dangerouslySetInnerHTML={{__html: this.replaceMyPlayer(action, player_name)}}></div>

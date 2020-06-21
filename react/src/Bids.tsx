@@ -15,7 +15,7 @@ export const Bids: FC<IBidsProps> = ({ player_index, in_play, onSubmitBid, bids,
     <div className="bids actions">
       <label>Enter your bid</label>
       <br /><br />
-      <input type="text" value={bid} onChange={(e) => setBid(isNaN(parseInt(e.target.value)) ? null : parseInt(e.target.value))} />
+      <input type="text" value={bid || ""} onChange={(e) => setBid(isNaN(parseInt(e.target.value)) ? null : parseInt(e.target.value))} />
       {
         bid === null ?
           <><br /><br /><div className="feedback">Please enter a bid.</div></>

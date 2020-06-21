@@ -43,6 +43,7 @@ export const initialise = (db: any, message: IMessage) =>
       log: [],
       game_id: message.game_id,
       points: [],
+      points_history: {},
       players: [],
       cards_decreasing: true,
       player_bid_first: null,
