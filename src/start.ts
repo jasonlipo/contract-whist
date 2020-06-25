@@ -4,6 +4,7 @@ import { CreateJoinPlayer, StartGame, SubmitBid, SubmitTrump, PlayCard,
 const WebSocketServer = require('websocket').server;
 const path = require('path')
 const fs = require('fs')
+const glob = require("glob")
 const bodyParser = require('body-parser')
 const clients = {}
 
@@ -12,6 +13,12 @@ const app = express()
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use('/', express.static(path.join(__dirname, 'react')))
+app.get('/files', (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin',  "http://localhost:3001");
+  glob("data/*.json", {}, function (err, files) {
+    res.send({ files: files.map(f => f.replace("data/", "").replace(".json", "")) })
+  })
+})
 app.get('/fetch/:id', (req, res) => {
   res.setHeader('Access-Control-Allow-Origin',  "http://localhost:3001");
   res.send({

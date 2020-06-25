@@ -10,7 +10,7 @@ else {
   URL = ""
 }
 
-export const Admin: FC = () => {
+export const AdminGame: FC = () => {
   const { id } = useParams()
   const monaco = useRef(null)
 
