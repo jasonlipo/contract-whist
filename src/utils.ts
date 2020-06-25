@@ -1,5 +1,7 @@
 import _ from 'lodash';
 import moment from 'moment';
+const low = require('lowdb')
+const FileSync = require('lowdb/adapters/FileSync')
 
 const cartesian = (a, b) => [].concat(...a.map(c => (b.map(d => c.concat(d)))));
 
@@ -67,4 +69,9 @@ export const log = (db: any, message: IMessage | { name: string }, action: strin
 export const letterToSuit = (trump: string = "") => {
   const map = {"C": "Clubs", "H": "Hearts", "D": "Diamonds", "S": "Spades", "no_trump": "No trumps"}
   return map[trump] || "N/A"
+}
+
+export const generate_db = (filename: string) => {
+  let adapter = new FileSync(filename)
+  return low(adapter)
 }

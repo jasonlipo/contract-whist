@@ -1,15 +1,30 @@
-import { generate_deck, IMessage, initialise } from './utils';
+import { generate_deck, IMessage, initialise, generate_db } from './utils';
 import { CreateJoinPlayer, StartGame, SubmitBid, SubmitTrump, PlayCard,
          NextTrick, GetScores, NextRound, VerifyGame, BroadcastResponse} from './controllers';
 const WebSocketServer = require('websocket').server;
 const path = require('path')
-const low = require('lowdb')
-const FileSync = require('lowdb/adapters/FileSync')
+const fs = require('fs')
+const bodyParser = require('body-parser')
 const clients = {}
 
 const express = require('express')
 const app = express()
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
 app.use('/', express.static(path.join(__dirname, 'react')))
+app.get('/fetch/:id', (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin',  "http://localhost:3001");
+  res.send({
+    code: fs.readFileSync('data/' + req.params.id + '.json', 'utf8')
+  })
+})
+app.post('/fetch/:id', (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin',  "http://localhost:3001");
+  fs.writeFileSync('data/' + req.params.id + '.json', JSON.parse(req.body.code).toString())
+  res.send({
+    response: true
+  })
+})
 app.get('/*', (_req, res) => res.sendFile(__dirname + '/react/index.html'))
 const server = app.listen(process.env.PORT || 3000)
 
@@ -26,8 +41,7 @@ wss.on('request', ws => {
       controller_action = VerifyGame(connection, message, filename)
       if (!controller_action) return;
 
-      let adapter = new FileSync(filename)
-      let db = low(adapter)
+      let db = generate_db(filename)
 
       initialise(db, message)
       clients[message.user_id] = connection
