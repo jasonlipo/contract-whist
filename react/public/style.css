@@ -100,7 +100,7 @@ select{border:none;padding:10px 15px;outline:none;font-family:'Segoe UI','Roboto
 
 @media only screen and (max-width: 1000px), only screen and (max-height: 650px) {
   .contract-whist { zoom: 1; }
-  .log { width: 100%}
+  .react-resizable { width: 100% !important; }
   .gap{display:none}
   .black_square{display:none}
   .player_arrangement{display:flex}
