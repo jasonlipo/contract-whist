@@ -1,6 +1,6 @@
 import { IMessage, log } from '../utils';
 
-export const CreateJoinPlayer = (db: any, connection: any, message: IMessage): boolean => {
+export const CreateJoinPlayer = async (db: any, connection: any, message: IMessage): Promise<boolean> => {
   const mode = db.get('shared.mode')
   if (mode == 'players_joining') {
     let players = db.get('shared.players')
@@ -11,14 +11,14 @@ export const CreateJoinPlayer = (db: any, connection: any, message: IMessage): b
     else {
       let admin_player = players.size() == 0
       if (admin_player) {
-        log(db, message, "created the game")
+        await log(db, message, "created the game")
       }
       else {
-        log(db, message, "joined the game")
+        await log(db, message, "joined the game")
       }
-      players.push(message.value).write()
-      db.set(['shared', 'points_history', message.value], []).write()
-      db.set(['private', message.user_id], {
+      await players.push(message.value).write()
+      await db.set(['shared', 'points_history', message.value], []).write()
+      await db.set(['private', message.user_id], {
         player_index: players.size() - 1,
         user_id: message.user_id,
         name: message.value,

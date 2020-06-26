@@ -20,14 +20,14 @@ export const websocket_server = (http: any, clients: any, deck: any) => {
         clients[message.user_id] = connection
 
         switch (message.type) {
-          case "create_player": case "join_player": controller_action = CreateJoinPlayer(db, connection, message); break;
-          case "start_game": controller_action = StartGame(db, message, deck); break;
-          case "submit_bid": controller_action = SubmitBid(db, message, deck); break;
-          case "submit_trump": controller_action = SubmitTrump(db, message); break;
-          case "play_card": controller_action = PlayCard(db, message); break;
-          case "next_trick": controller_action = NextTrick(db); break;
-          case "get_scores": controller_action = GetScores(db); break;
-          case "next_round": controller_action = NextRound(db, message, deck);break;
+          case "create_player": case "join_player": controller_action = await CreateJoinPlayer(db, connection, message); break;
+          case "start_game": controller_action = await StartGame(db, message, deck); break;
+          case "submit_bid": controller_action = await SubmitBid(db, message, deck); break;
+          case "submit_trump": controller_action = await SubmitTrump(db, message); break;
+          case "play_card": controller_action = await PlayCard(db, message); break;
+          case "next_trick": controller_action = await NextTrick(db); break;
+          case "get_scores": controller_action = await GetScores(db); break;
+          case "next_round": controller_action = await NextRound(db, message, deck);break;
         }
 
         await BroadcastResponse(db, clients, controller_action, message)
