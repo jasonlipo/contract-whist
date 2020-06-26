@@ -38,20 +38,20 @@ npm install
 
 #### Running the back-end server
 ```
-cd /path/to/contact-whist
+cd /path/to/contract-whist
 npm run dev-be
 ```
 
 #### Running the front-end server
 ```
-cd /path/to/contact-whist
+cd /path/to/contract-whist
 npm run dev-fe
 ```
 
 ### Deploy to production
 #### Build and serve
 ```
-cd /path/to/contact-whist
+cd /path/to/contract-whist
 npm run prod
 ```
 
