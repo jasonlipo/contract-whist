@@ -1,7 +1,8 @@
 const { Pool } = require('pg')
 const connectionString = process.env.DATABASE_URL
-const pool = new Pool({ connectionString })
 const Base = require('lowdb/adapters/Base')
+
+export const pool = new Pool({ connectionString })
 
 export class PostgresAsync extends Base {
   constructor(id: string) {

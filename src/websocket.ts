@@ -11,8 +11,7 @@ export const websocket_server = (http: any, clients: any, deck: any) => {
       try {
         let controller_action: boolean = true;
         let message: IMessage = JSON.parse(raw.utf8Data)
-        const filename = 'data/' + message.game_id + '.json'
-        controller_action = VerifyGame(connection, message, filename)
+        controller_action = await VerifyGame(connection, message, message.game_id)
         if (!controller_action) return;
 
         let db = await generate_db(message.game_id)
@@ -31,7 +30,7 @@ export const websocket_server = (http: any, clients: any, deck: any) => {
           case "next_round": controller_action = NextRound(db, message, deck);break;
         }
 
-        BroadcastResponse(db, clients, controller_action, filename, message)
+        await BroadcastResponse(db, clients, controller_action, message)
       }
       catch (e) {
         console.error('Error: ' + e)
