@@ -35,6 +35,8 @@ app.post('/fetch/:id', (req, res) => {
 app.get('/*', (_req, res) => res.sendFile(__dirname + '/react/index.html'))
 const server = app.listen(process.env.PORT || 3000)
 
+process.env.TZ = "Europe/London"
+
 const deck = generate_deck()
 
 const wss = new WebSocketServer({ httpServer: server });
