@@ -1,4 +1,4 @@
-import { deal, fetch_players, IMessage, log } from './utils';
+import { deal, fetch_players, IMessage, log } from '../utils';
 
 export const NextRound = (db: any, message: IMessage,deck: string[]): boolean => {
   const all_players = fetch_players(db)

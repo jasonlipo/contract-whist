@@ -1,4 +1,4 @@
-import { IMessage, fetch_players, log, letterToSuit } from './utils';
+import { IMessage, fetch_players, log, letterToSuit } from '../utils';
 
 export const SubmitTrump = (db: any, message: IMessage ): boolean => {
   const all_players = fetch_players(db)

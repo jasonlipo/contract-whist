@@ -1,4 +1,4 @@
-import { deal, IMessage, fetch_players, log } from './utils';
+import { deal, IMessage, fetch_players, log } from '../utils';
 
 export const SubmitBid = (db: any, message: IMessage, deck: string[]): boolean => {
   db.set(['shared', 'bids', message.player_index], message.value).write()

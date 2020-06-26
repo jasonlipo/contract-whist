@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { log, fetch_players } from './utils';
+import { log, fetch_players } from '../utils';
 
 export const GetScores = (db: any): boolean => {
 

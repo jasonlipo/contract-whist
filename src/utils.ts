@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import moment from 'moment';
+import { PostgresSync } from './database'
 const low = require('lowdb')
 const FileSync = require('lowdb/adapters/FileSync')
 
@@ -71,7 +72,13 @@ export const letterToSuit = (trump: string = "") => {
   return map[trump] || "N/A"
 }
 
-export const generate_db = (filename: string) => {
-  let adapter = new FileSync(filename)
+export const generate_db = (id: string) => {
+  let adapter
+  if (process.env.NODE_ENV == "development") {
+    adapter = new FileSync("data/" + id + ".json")
+  }
+  else {
+    adapter = new PostgresSync(id)
+  }
   return low(adapter)
 }

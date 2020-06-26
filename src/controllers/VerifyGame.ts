@@ -1,5 +1,5 @@
 const fs = require('fs')
-import { IMessage } from './utils';
+import { IMessage } from '../utils';
 
 export const VerifyGame = (connection: any, message: IMessage, filename: string): boolean => {
   if ((message.type == "join_player" || message.type == "retrieve_game") && !fs.existsSync(filename)) {
@@ -10,8 +10,10 @@ export const VerifyGame = (connection: any, message: IMessage, filename: string)
     connection.sendUTF(JSON.stringify({ error: "This game already exists." }));
     return false;
   }
-  if (message.type == "create_player") {
-    fs.mkdir('data/history/' + message.game_id, () => {})
+  if (process.env.NODE_ENV == "development") {
+    if (message.type == "create_player") {
+      fs.mkdir('data/history/' + message.game_id, () => {})
+    }
   }
   return true;
 }

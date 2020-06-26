@@ -1,4 +1,4 @@
-import { IMessage, log } from './utils';
+import { IMessage, log } from '../utils';
 
 export const CreateJoinPlayer = (db: any, connection: any, message: IMessage): boolean => {
   const mode = db.get('shared.mode')

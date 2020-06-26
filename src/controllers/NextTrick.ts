@@ -1,4 +1,4 @@
-import { fetch_players, log } from './utils';
+import { fetch_players, log } from '../utils';
 
 export const NextTrick = (db: any): boolean => {
   const all_players = fetch_players(db)

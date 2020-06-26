@@ -1,4 +1,4 @@
-import { IMessage, log } from './utils';
+import { IMessage, log } from '../utils';
 import _ from 'lodash';
 
 export const PlayCard = (db: any, message: IMessage ): boolean => {
