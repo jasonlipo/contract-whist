@@ -12,19 +12,21 @@ export const ChooseTrump: FC<IChooseTrumpProps> = ({ player_index, in_play, onSu
     <div className="trump actions">
       <label>Your bid was the highest, please choose the trump suit</label>
       <br /><br />
-      <select value={trump || ""} onChange={(e) => setTrump((e.target.value || null) as ITrump)}>
-        <option value="">Select</option>
-        <option value="C">Clubs</option>
-        <option value="H">Hearts</option>
-        <option value="D">Diamonds</option>
-        <option value="S">Spades</option>
-        <option value="no_trump">No trumps</option>
-      </select>
-      <br />
-      {
-        trump &&
-        <button onClick={() => onSubmitTrump(trump)}>Submit</button>
-      }
+      <form onSubmit={() => onSubmitTrump(trump)}>
+        <select value={trump || ""} onChange={(e) => setTrump((e.target.value || null) as ITrump)}>
+          <option value="">Select</option>
+          <option value="C">Clubs</option>
+          <option value="H">Hearts</option>
+          <option value="D">Diamonds</option>
+          <option value="S">Spades</option>
+          <option value="no_trump">No trumps</option>
+        </select>
+        <br />
+        {
+          trump &&
+          <button type="submit">Submit</button>
+        }
+      </form>
     </div>
   )
 }

@@ -14,18 +14,20 @@ export const Login: FC<ILoginProps> = ({ join_game, error, entered_game, name, g
         join_game &&
         <div><br />You are joining <b>{game_id}</b><br /><br /></div>
       }
-      <div className="input-box">
-        <label>Your Name</label>
-        <input type="text" value={name || ""} onChange={(e) => onChangeName(e.target.value)} />
-      </div>
-      {
-        name &&
-        <button onClick={() => onJoin(join_game ? "join" : "create")}>{join_game ? "Join" : "Create"}</button>
-      }
-      {
-        error &&
-        <div className="error">{error}</div>
-      }
+      <form onSubmit={() => onJoin(join_game ? "join" : "create")}>
+        <div className="input-box">
+          <label>Your Name</label>
+          <input type="text" value={name || ""} onChange={(e) => onChangeName(e.target.value)} />
+        </div>
+        {
+          name &&
+          <button type="submit">{join_game ? "Join" : "Create"}</button>
+        }
+        {
+          error &&
+          <div className="error">{error}</div>
+        }
+      </form>
     </div>
   )
 }
