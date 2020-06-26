@@ -40,7 +40,7 @@ export const http_server = () => {
       fs.writeFileSync('data/' + req.params.id + '.json', JSON.parse(req.body.code).toString())
     }
     else {
-      await pool.query("UPDATE games SET data=$1 WHERE game_id=$2", [req.body.code, req.params.id])
+      await pool.query("UPDATE games SET data=$1 WHERE game_id=$2", [JSON.parse(req.body.code).toString(), req.params.id])
     }
     res.send({
       response: true
