@@ -38,6 +38,8 @@ export const GetScores = (db: any): boolean => {
     }
   })
 
+  leaderboard = leaderboard.sort((a, b) => b.value - a.value)
+
   db.set('shared.mode', 'scores')
     .set('shared.points', new_points)
     .set('shared.table', [])
