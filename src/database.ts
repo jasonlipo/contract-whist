@@ -14,7 +14,7 @@ export class PostgresSync extends Base {
       pool.query("INSERT INTO games (data, game_id) VALUES ($1, $2)", [this.serialize(this.defaultValue), this.source])
       return this.defaultValue
     }
-    return this.deserialize(result.rows[0].data)
+    return result.rows[0].data.trim() ? this.deserialize(result.rows[0].data.trim()) : this.defaultValue
   }
 
   async write(data) {
