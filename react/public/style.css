@@ -94,11 +94,22 @@ select{border:none;padding:10px 15px;outline:none;font-family:'Segoe UI','Roboto
   .contract-whist { zoom: 0.9; }
 }
 
-@media only screen and (max-width: 1160px) {
-  .cards_hand div, .cards_hand figure { width: 79px; height: 114px;}
+@media only screen and (max-width: 1175px) {
+  .contract-whist { zoom: 0.8; }
 }
 
-@media only screen and (max-width: 1000px), only screen and (max-height: 650px) {
+@media only screen and (max-width: 1100px) {
+  .react-resizable { width: 180px !important; }
+  .log-item { font-size: 12px; }
+}
+
+@media only screen and (max-width: 1000px) {
+  .control_panel { height: 240px; }
+  .cards_hand{justify-content:flex-start;}
+  .cards_hand div, .cards_hand figure { width: 97px;height: 133px;}
+}
+
+@media only screen and (max-width: 800px), only screen and (max-height: 650px) {
   .contract-whist { zoom: 1; }
   .react-resizable { width: 100% !important; }
   .gap{display:none}
@@ -116,8 +127,8 @@ select{border:none;padding:10px 15px;outline:none;font-family:'Segoe UI','Roboto
   .actions{margin:20px 0;width:auto}
   .login {position: relative;left: initial;margin: 0;top: initial;height: auto;}
   .connection {display: flex;justify-content: center;padding: 50px 0;}
-  .cards_hand{justify-content:flex-start;}
   .cards_hand div, .cards_hand figure { margin: 0 15px 15px 0;}
+  .log-item { font-size: 14px; }
   .react-resizable-handle {display:none;}
 }
 
