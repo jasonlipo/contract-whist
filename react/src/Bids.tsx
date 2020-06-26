@@ -12,7 +12,7 @@ export const Bids: FC<IBidsProps> = ({ player_index, in_play, onSubmitBid, bids,
   const last_player_to_bid = bids.filter(p => p == null).length == 1
 
   return player_index == in_play && (
-    <div className="bids actions">
+    <div className="bids actions" style={{ height: 128 }}>
       <label>Enter your bid</label>
       <br /><br />
       <input type="text" value={bid == null ? "" : bid} onChange={(e) => setBid(e.target.value)} />

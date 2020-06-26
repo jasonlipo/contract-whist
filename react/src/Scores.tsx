@@ -19,9 +19,9 @@ export const Scores: FC<IScoresProps> = ({ admin, points, cards_per_hand, onNext
       toolbar: { show: false },
       zoom: { enabled: false }
     },
-    stroke: { curve: 'smooth' },
+    stroke: { curve: 'smooth', width: 2 },
     grid: { yaxis: { lines: { show: false } } },
-    markers: { size: 1 },
+    markers: { size: 0 },
     xaxis: {
       categories: points_history[players[0]].map((_x, i) => i + 1),
       labels: {
