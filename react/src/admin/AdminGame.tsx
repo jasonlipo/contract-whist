@@ -26,13 +26,18 @@ export const AdminGame: FC = () => {
   })
 
   const reload = () => {
-    fetch(`${URL}/fetch/${id}`).then(r => r.json()).then(response => {
+    fetch(`${URL}/fetch/${id}?token=${localStorage.getItem('admin_token')}`).then(r => r.json()).then(response => {
+      if (response.error) {
+        localStorage.removeItem('admin_token')
+        location.href = '/admin/login'
+        return;
+      }
       setCode(response.code)
     })
   }
 
   const save = () => {
-    fetch(`${URL}/fetch/${id}`, { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' }, body: "code="+JSON.stringify(code) }).then(r => r.json()).then(() => {
+    fetch(`${URL}/fetch/${id}?token=${localStorage.getItem('admin_token')}`, { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' }, body: "code="+JSON.stringify(code) }).then(r => r.json()).then(() => {
       reload()
     })
   }

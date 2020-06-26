@@ -21,7 +21,12 @@ export const AdminList: FC = () => {
 
   useEffect(() => {
     if (files == null) {
-      fetch(`${URL}/files`).then(r => r.json()).then(response => {
+      fetch(`${URL}/files?token=${localStorage.getItem('admin_token')}`).then(r => r.json()).then(response => {
+        if (response.error) {
+          localStorage.removeItem('admin_token')
+          location.href = '/admin/login'
+          return;
+        }
         setFiles(response.files)
       })
     }

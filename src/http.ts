@@ -18,8 +18,13 @@ export const http_server = () => {
       })
     }
     else {
-      const result = await pool.query("SELECT game_id FROM games")
-      res.send({ files: result.rows.map(r => r.game_id )})
+      if (req.params.token == process.env.ADMIN_TOKEN) {
+        const result = await pool.query("SELECT game_id FROM games")
+        res.send({ files: result.rows.map(r => r.game_id )})
+      }
+      else {
+        res.send({ error: "Not logged in as admin" })
+      }
     }
   })
   app.get('/fetch/:id', async (req, res) => {
@@ -30,21 +35,34 @@ export const http_server = () => {
       })
     }
     else {
-      const result = await pool.query("SELECT data FROM games WHERE game_id=$1", [req.params.id])
-      res.send({ code: JSON.stringify(result.rows[0].data, null, 2) })
+      if (req.params.token == process.env.ADMIN_TOKEN) {
+        const result = await pool.query("SELECT data FROM games WHERE game_id=$1", [req.params.id])
+        res.send({ code: JSON.stringify(result.rows[0].data, null, 2) })
+      }
+      else {
+        res.send({ error: "Not logged in as admin" })
+      }
     }
   })
   app.post('/fetch/:id', async (req, res) => {
     if (process.env.NODE_ENV == "development") {
       res.setHeader('Access-Control-Allow-Origin',  "http://localhost:3001");
       fs.writeFileSync('data/' + req.params.id + '.json', JSON.parse(req.body.code).toString())
+      res.send({
+        response: true
+      })
     }
     else {
-      await pool.query("UPDATE games SET data=$1 WHERE game_id=$2", [JSON.parse(req.body.code).toString(), req.params.id])
+      if (req.params.token == process.env.ADMIN_TOKEN) {
+        await pool.query("UPDATE games SET data=$1 WHERE game_id=$2", [JSON.parse(req.body.code).toString(), req.params.id])
+        res.send({
+          response: true
+        })
+      }
+      else {
+        res.send({ error: "Not logged in as admin" })
+      }
     }
-    res.send({
-      response: true
-    })
   })
   app.get('/*', (_req, res) => res.sendFile(__dirname + '/react/index.html'))
   const server = app.listen(process.env.PORT || 3000)
