@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import moment from 'moment';
-import { PostgresSync } from './database'
+import { PostgresAsync } from './database'
 const low = require('lowdb')
-const FileSync = require('lowdb/adapters/FileSync')
+const FileAsync = require('lowdb/adapters/FileAsync')
 
 const cartesian = (a, b) => [].concat(...a.map(c => (b.map(d => c.concat(d)))));
 
@@ -28,18 +28,18 @@ export interface IMessage {
 export const generate_deck = (): string[] =>
   cartesian(['C', 'H', 'S', 'D'], ['2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14'])
 
-export const deal = (deck: string[], db: any) => {
+export const deal = async (deck: string[], db: any) => {
   let this_deck: string[] = _.shuffle(_.clone(deck))
   const cards_per_hand = db.get('shared.cards_per_hand').value()
-  Object.keys(db.get('private').value()).forEach(user_id => {
+  Object.keys(db.get('private').value()).forEach(async (user_id) => {
     let this_hand = this_deck.splice(0, cards_per_hand)
-    db.set(['private', user_id, 'hand'], this_hand.sort(sort_by_suit)).write()
+    await db.set(['private', user_id, 'hand'], this_hand.sort(sort_by_suit)).write()
   })
 }
 
 export const fetch_players = (db: any) => db.get('shared.players').value()
 
-export const initialise = (db: any, message: IMessage) =>
+export const initialise = async (db: any, message: IMessage) =>
   db.defaults({
     private: {},
     shared: {
@@ -59,26 +59,25 @@ export const initialise = (db: any, message: IMessage) =>
     }
   }).write()
 
-export const log = (db: any, message: IMessage | { name: string }, action: string): void => {
+export const log = async (db: any, message: IMessage | { name: string }, action: string) =>
   db.get('shared.log').push({
     datetime: moment().format('YYYY-MM-DD HH:mm:ss'),
     player_name: message.name,
     action
   }).write()
-}
 
 export const letterToSuit = (trump: string = "") => {
   const map = {"C": "Clubs", "H": "Hearts", "D": "Diamonds", "S": "Spades", "no_trump": "No trumps"}
   return map[trump] || "N/A"
 }
 
-export const generate_db = (id: string) => {
+export const generate_db = async (id: string) => {
   let adapter
   if (process.env.NODE_ENV == "development") {
-    adapter = new FileSync("data/" + id + ".json")
+    adapter = new FileAsync("data/" + id + ".json")
   }
   else {
-    adapter = new PostgresSync(id)
+    adapter = new PostgresAsync(id)
   }
   return low(adapter)
 }

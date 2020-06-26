@@ -47,3 +47,12 @@ npm run dev-be
 cd /path/to/contact-whist
 npm run dev-fe
 ```
+
+### Deploy to production
+#### Build and serve
+```
+cd /path/to/contact-whist
+npm run prod
+```
+
+Deploy the `build` folder to a web server and serve on port `3000`

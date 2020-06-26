@@ -7,7 +7,7 @@ export const websocket_server = (http: any, clients: any, deck: any) => {
   const wss = new WebSocketServer({ httpServer: http });
   wss.on('request', ws => {
     const connection = ws.accept(null, ws.origin);
-    connection.on('message', raw => {
+    connection.on('message', async (raw) => {
       try {
         let controller_action: boolean = true;
         let message: IMessage = JSON.parse(raw.utf8Data)
@@ -15,9 +15,9 @@ export const websocket_server = (http: any, clients: any, deck: any) => {
         controller_action = VerifyGame(connection, message, filename)
         if (!controller_action) return;
 
-        let db = generate_db(message.game_id)
+        let db = await generate_db(message.game_id)
 
-        initialise(db, message)
+        await initialise(db, message)
         clients[message.user_id] = connection
 
         switch (message.type) {
