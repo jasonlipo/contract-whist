@@ -8,22 +8,22 @@ interface IBidsProps extends IContractWhistState {
 
 export const Bids: FC<IBidsProps> = ({ player_index, in_play, onSubmitBid, bids, cards_per_hand, players }) => {
   const sumOfPreviousBids = _.sum(bids)
-  const [bid, setBid] = useState<number>(null)
+  const [bid, setBid] = useState<string>(null)
   const last_player_to_bid = bids.filter(p => p == null).length == 1
 
   return player_index == in_play && (
     <div className="bids actions">
       <label>Enter your bid</label>
       <br /><br />
-      <input type="text" value={bid || ""} onChange={(e) => setBid(isNaN(parseInt(e.target.value)) ? null : parseInt(e.target.value))} />
+      <input type="text" value={bid == null ? "" : bid} onChange={(e) => setBid(e.target.value)} />
       {
-        bid === null ?
+        (bid == null || isNaN(parseInt(bid))) ?
           <><br /><br /><div className="feedback">Please enter a bid.</div></>
         :
-          (bid >= 0 && bid <= cards_per_hand &&
-            (!last_player_to_bid || (last_player_to_bid && (sumOfPreviousBids + bid != cards_per_hand)))
+          (parseInt(bid) >= 0 && parseInt(bid) <= cards_per_hand &&
+            (!last_player_to_bid || (last_player_to_bid && (sumOfPreviousBids + parseInt(bid) != cards_per_hand)))
           )
-          ? <><br /><button onClick={() => onSubmitBid(bid)}>Submit</button></>
+          ? <><br /><button onClick={() => onSubmitBid(parseInt(bid))}>Submit</button></>
           : <><br /><br /><div className="feedback">Your bid is invalid.</div></>
       }
     </div>
