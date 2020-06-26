@@ -14,7 +14,7 @@ export const Login: FC<ILoginProps> = ({ join_game, error, entered_game, name, g
         join_game &&
         <div><br />You are joining <b>{game_id}</b><br /><br /></div>
       }
-      <form onSubmit={() => onJoin(join_game ? "join" : "create")}>
+      <form onSubmit={(e) => { e.preventDefault(); onJoin(join_game ? "join" : "create"); return false }}>
         <div className="input-box">
           <label>Your Name</label>
           <input type="text" value={name || ""} onChange={(e) => onChangeName(e.target.value)} />
