@@ -18,7 +18,7 @@ export const http_server = () => {
       })
     }
     else {
-      if (req.params.token == process.env.ADMIN_TOKEN) {
+      if (req.query.token == process.env.ADMIN_TOKEN) {
         const result = await pool.query("SELECT game_id FROM games")
         res.send({ files: result.rows.map(r => r.game_id )})
       }
@@ -35,7 +35,7 @@ export const http_server = () => {
       })
     }
     else {
-      if (req.params.token == process.env.ADMIN_TOKEN) {
+      if (req.query.token == process.env.ADMIN_TOKEN) {
         const result = await pool.query("SELECT data FROM games WHERE game_id=$1", [req.params.id])
         res.send({ code: JSON.stringify(result.rows[0].data, null, 2) })
       }
@@ -53,7 +53,7 @@ export const http_server = () => {
       })
     }
     else {
-      if (req.params.token == process.env.ADMIN_TOKEN) {
+      if (req.query.token == process.env.ADMIN_TOKEN) {
         await pool.query("UPDATE games SET data=$1 WHERE game_id=$2", [JSON.parse(req.body.code).toString(), req.params.id])
         res.send({
           response: true
