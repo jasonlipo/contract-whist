@@ -43,7 +43,8 @@ export interface IContractWhistState {
   error: string,
   connection_status: [boolean, string],
   log: ILog[],
-  points_history: {[name: string]: number[]}
+  points_history: {[name: string]: number[]},
+  editing_name: boolean
 }
 
 export default class ContractWhist extends Component<IContractWhistProps, IContractWhistState> {
@@ -71,7 +72,8 @@ export default class ContractWhist extends Component<IContractWhistProps, IContr
     error: null,
     connection_status: [null, null],
     log: [],
-    points_history: {}
+    points_history: {},
+    editing_name: false
   }
 
   render() {
@@ -94,7 +96,10 @@ export default class ContractWhist extends Component<IContractWhistProps, IContr
               setState={this.setState.bind(this)}
             />
             { this.state.entered_game &&
-              <GamePlay {...this.state} />
+              <GamePlay
+                onSwitchEditName={value => this.setState({ editing_name: value })}
+                {...this.state}
+              />
             }
           </div>
         </div>

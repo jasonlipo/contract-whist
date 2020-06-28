@@ -1,7 +1,7 @@
 const WebSocketServer = require('websocket').server;
 import { IMessage, initialise, generate_db } from './utils';
 import { CreateJoinPlayer, StartGame, SubmitBid, SubmitTrump, PlayCard,
-         NextTrick, GetScores, NextRound, VerifyGame, BroadcastResponse} from './controllers';
+         NextTrick, GetScores, NextRound, VerifyGame, BroadcastResponse, ChangeName } from './controllers';
 
 export const websocket_server = (http: any, clients: any, deck: any) => {
   const wss = new WebSocketServer({ httpServer: http });
@@ -27,7 +27,8 @@ export const websocket_server = (http: any, clients: any, deck: any) => {
           case "play_card": controller_action = await PlayCard(db, message); break;
           case "next_trick": controller_action = await NextTrick(db); break;
           case "get_scores": controller_action = await GetScores(db); break;
-          case "next_round": controller_action = await NextRound(db, message, deck);break;
+          case "next_round": controller_action = await NextRound(db, message, deck); break;
+          case "change_name": controller_action = await ChangeName(db, message); break;
         }
 
         await BroadcastResponse(db, clients, controller_action, message)

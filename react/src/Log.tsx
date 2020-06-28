@@ -82,7 +82,7 @@ export class Log extends Component<ILogProps> {
               this.props.log.map(({ datetime, player_name, action }, i) =>
                 <div key={i} className="log-item">
                   <div className="log-date">[{moment(datetime).format('HH:mm:ss')}]</div>
-                  <div className="log-name">{player_name.replace(this.props.name, "You")}</div>
+                  <div className="log-name">{player_name.replace(new RegExp('^' + this.props.name + '$'), "You")}</div>
                   <div className="log-action" dangerouslySetInnerHTML={{__html: this.replaceMyPlayer(action, player_name)}}></div>
                 </div>
               )

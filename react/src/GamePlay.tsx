@@ -4,6 +4,7 @@ import { IContractWhistState } from './ContractWhist';
 import { CardTable } from './CardTable';
 
 interface IGamePlayProps extends IContractWhistState {
+  onSwitchEditName: (value: boolean) => void
 }
 
 export const GamePlay: FC<IGamePlayProps> = (props) => {
