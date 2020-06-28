@@ -55,7 +55,8 @@ export const initialise = async (db: any, message: IMessage) =>
       trump_suit: null,
       table: [],
       tricks_won: [],
-      player_lead_trick: null
+      player_lead_trick: null,
+      timer_seconds: 30
     }
   }).write()
 

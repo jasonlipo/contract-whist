@@ -44,7 +44,8 @@ export interface IContractWhistState {
   connection_status: [boolean, string],
   log: ILog[],
   points_history: {[name: string]: number[]},
-  editing_name: boolean
+  editing_name: boolean,
+  timer_seconds: number
 }
 
 export default class ContractWhist extends Component<IContractWhistProps, IContractWhistState> {
@@ -73,7 +74,8 @@ export default class ContractWhist extends Component<IContractWhistProps, IContr
     connection_status: [null, null],
     log: [],
     points_history: {},
-    editing_name: false
+    editing_name: false,
+    timer_seconds: null
   }
 
   render() {
