@@ -8,6 +8,10 @@ export const CreateJoinPlayer = async (db: any, connection: any, message: IMessa
       connection.sendUTF(JSON.stringify({ error: "There are already 5 players in this game." }));
       return false;
     }
+    else if (players.value().indexOf(message.value) > -1) {
+      connection.sendUTF(JSON.stringify({ error: "Someone in the game already has this name" }));
+      return false;
+    }
     else {
       let admin_player = players.size() == 0
       if (admin_player) {
