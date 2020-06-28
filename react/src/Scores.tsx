@@ -2,12 +2,13 @@ import React, { FC } from 'react';
 import { IContractWhistState } from './ContractWhist';
 import _ from 'lodash';
 import Chart from "react-apexcharts";
+import { CountdownTimer } from './CountdownTimer';
 
 interface IScoresProps extends IContractWhistState {
   onNextRound(): void
 }
 
-export const Scores: FC<IScoresProps> = ({ admin, points, cards_per_hand, onNextRound, players, cards_decreasing, name, points_history }) => {
+export const Scores: FC<IScoresProps> = ({ admin, points, cards_per_hand, onNextRound, players, cards_decreasing, name, points_history, timer_seconds }) => {
   const player_point_join = points.map((p, i) => ({ points: p, name: players[i] }))
   const sorted_leaderboard = player_point_join.sort((a, b) => b.points - a.points)
 
@@ -60,6 +61,10 @@ export const Scores: FC<IScoresProps> = ({ admin, points, cards_per_hand, onNext
             <div className="next_round actions">
               The scores are in! Click the button below to deal the next round.<br /><br />
               <button onClick={() => onNextRound()}>Next Round</button>
+              {
+                timer_seconds !== null &&
+                <CountdownTimer seconds={timer_seconds} onComplete={() => onNextRound()} />
+              }
             </div>
             : <></>
           )

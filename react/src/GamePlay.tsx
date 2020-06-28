@@ -19,7 +19,6 @@ export const GamePlay: FC<IGamePlayProps> = (props) => {
           (mode != 'scores' && mode != 'players_joining') &&
             <HandOfCards
               {...props}
-              cards={hand}
               onClick={(i, id) => send({ type: "play_card", value: i, card_id: id })}
             />
         }

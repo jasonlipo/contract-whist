@@ -1,11 +1,12 @@
 import React, { useState, FC } from 'react';
 import { IContractWhistState, ITrump } from './ContractWhist';
+import { CountdownTimer } from './CountdownTimer';
 
 interface IChooseTrumpProps extends IContractWhistState {
   onSubmitTrump(trump: ITrump): void
 }
 
-export const ChooseTrump: FC<IChooseTrumpProps> = ({ player_index, in_play, onSubmitTrump, players }) => {
+export const ChooseTrump: FC<IChooseTrumpProps> = ({ player_index, in_play, onSubmitTrump, timer_seconds }) => {
   const [trump, setTrump] = useState<ITrump>(null)
 
   return player_index == in_play && (
@@ -27,6 +28,10 @@ export const ChooseTrump: FC<IChooseTrumpProps> = ({ player_index, in_play, onSu
           <button type="submit">Submit</button>
         }
       </form>
+      {
+        timer_seconds !== null &&
+        <CountdownTimer seconds={timer_seconds} onComplete={() => onSubmitTrump("no_trump")} />
+      }
     </div>
   )
 }

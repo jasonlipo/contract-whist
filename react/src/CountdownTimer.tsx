@@ -13,12 +13,13 @@ export const CountdownTimer: FC<ICountdownTimerProps> = ({ seconds, onComplete }
   useEffect(() => {
     let timer = setTimeout(() => {
       if (remaining <= 0) {
-        clearInterval(timer)
+        clearTimeout(timer)
         onComplete()
         return
       }
       setRemaining(Math.max(remaining - decrement, 0))
     }, decrement)
+    return () => clearTimeout(timer)
   }, [remaining])
 
   return (

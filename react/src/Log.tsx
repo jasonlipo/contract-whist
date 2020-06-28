@@ -8,6 +8,8 @@ import { AwaitingWebsocket } from './AwaitingWebsocket';
 import moment from 'moment';
 import { AwaitingStart } from './AwaitingStart';
 import { ResizableBox } from 'react-resizable';
+import { CountdownTimer } from './CountdownTimer';
+import { InPlay } from './InPlay';
 
 interface ILogProps extends IContractWhistState {
   onStart(): void
@@ -46,7 +48,7 @@ export class Log extends Component<ILogProps> {
   }
 
   render() {
-    const { mode, send, admin, onStart, trump_suit, cards_per_hand } = this.props
+    const { mode, send, admin, onStart, trump_suit, cards_per_hand, in_play, player_index, timer_seconds } = this.props
     let ModeComponent: FC = () => <></>
     if (mode == 'players_joining') {
       ModeComponent = () => <AwaitingStart admin={admin} onStart={onStart} />
@@ -65,6 +67,9 @@ export class Log extends Component<ILogProps> {
     }
     else if (mode == 'awaiting_websocket') {
       ModeComponent = () => <AwaitingWebsocket {...this.props} />
+    }
+    else if (mode == 'play') {
+      ModeComponent = () => <InPlay {...this.props} />
     }
 
     return (
