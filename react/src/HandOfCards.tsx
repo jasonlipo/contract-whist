@@ -30,7 +30,10 @@ export const canSelectCard = (table, player_lead_trick, player_index, hand) => (
 
 export const HandOfCards: FC<IHandOfCardsProps> = ({ hand, mode, onClick, in_play, player_index, player_lead_trick, table }) => {
   const my_turn = mode == 'play' && in_play == player_index
-  const can_select = canSelectCard(table, player_lead_trick, player_index, hand)
+  let can_select
+  if (my_turn) {
+    can_select = canSelectCard(table, player_lead_trick, player_index, hand)
+  }
 
   return (
     <div className={"cards_hand "+(my_turn ? "selectable" : "")}>
