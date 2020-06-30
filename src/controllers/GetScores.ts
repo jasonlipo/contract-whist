@@ -38,6 +38,7 @@ export const GetScores = async (db: any): Promise<boolean> => {
     }
   })
 
+  new_points = await Promise.all(new_points)
   leaderboard = leaderboard.sort((a, b) => b.value - a.value)
 
   await db.set('shared.mode', 'scores')
