@@ -15,6 +15,9 @@ export const CardTable: FC<ICardTableProps> = ({ player_index, in_play, name, pl
     return copy.concat(copy.splice(0, player_index))
   }
 
+  const valid_name = (name: string) =>
+    /^[0-9a-zA-Z\-\s]+$/.test(name)
+
   let rotated_in_play = in_play == null ? -1 : ((in_play - player_index) + players.length) % players.length
   let rotated_players = rotate(players)
   let rotated_table = rotate(table)
@@ -30,14 +33,17 @@ export const CardTable: FC<ICardTableProps> = ({ player_index, in_play, name, pl
         <div className={"player_name "+(rotated_in_play == 0 ? "in_play" : "")}>
           {
             editing_name ?
-            <form onSubmit={e => { e.preventDefault(); onSwitchEditName(false); send({ type: "change_name", value: newName }); return false;}}>
+            <form onSubmit={e => { e.preventDefault(); if (newName && valid_name(newName)) { onSwitchEditName(false); send({ type: "change_name", value: newName }); } return false;}}>
               <input value={newName} onChange={e => setNewName(e.target.value)} className="edit-input" type="text" />
-              <label>
-                <input type="submit" style={{ display: "none" }} />
-                <svg className="save-edit" viewBox="0 0 515.556 515.556">
-                  <path d="m0 274.226 176.549 176.886 339.007-338.672-48.67-47.997-290.337 290-128.553-128.552z"/>
-                </svg>
-              </label>
+              {
+                (newName && valid_name(newName)) &&
+                  <label>
+                    <input type="submit" style={{ display: "none" }} />
+                    <svg className="save-edit" viewBox="0 0 515.556 515.556">
+                      <path d="m0 274.226 176.549 176.886 339.007-338.672-48.67-47.997-290.337 290-128.553-128.552z"/>
+                    </svg>
+                  </label>
+              }
             </form>
             :
             <>

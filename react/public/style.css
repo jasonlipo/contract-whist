@@ -34,8 +34,9 @@ select{border:none;padding:10px 15px;outline:none;font-family:'Segoe UI','Roboto
 .black_square{width:70%;background:#0000004f;flex: 1;}
 .my_area{position:absolute;bottom: 35px;left:50%;width: 315px;margin-left: -158px;text-align:center;font-weight:700;display:flex;flex-direction:column-reverse;align-items:center;}
 .edit, .save-edit {fill: white;height: 15px;margin: 5px 10px;position: absolute; cursor: pointer; }
-input.edit-input[type="text"] { font-size:12px; margin-bottom: 10px;}
+input.edit-input[type="text"] {font-size:12px;margin-bottom: 10px;width: 150px;}
 .player_area{position:absolute;width:100px;text-align:center;font-weight:700}
+.player_name{max-width: 200px;overflow: hidden;text-overflow: ellipsis;}
 .player_arrangement.players_2 .player_area{left:50%;margin-left:-50px;top: 25px;}
 .player_arrangement.players_3 .player_area:nth-child(1){left:15%;margin-left: -70px;top: 25px;width:315px;text-align:left;}
 .player_arrangement.players_3 .player_area:nth-child(2){left:85%;margin-left:-230px;top: 25px;width:315px;display:flex;flex-direction:column;align-items:flex-end;text-align: right;}

@@ -6,6 +6,9 @@ interface ILoginProps extends IContractWhistProps, IContractWhistState {
   onJoin(verb: 'create' | 'join'): void
 }
 
+export const valid_name = (name: string) =>
+/^[0-9a-zA-Z\-\s]+$/.test(name)
+
 export const Login: FC<ILoginProps> = ({ join_game, error, entered_game, name, game_id, onChangeName, onJoin }) => {
   return !entered_game && (
     <div className="login">
@@ -14,10 +17,14 @@ export const Login: FC<ILoginProps> = ({ join_game, error, entered_game, name, g
         join_game &&
         <div><br />You are joining <b>{game_id}</b><br /><br /></div>
       }
-      <form onSubmit={(e) => { e.preventDefault(); onJoin(join_game ? "join" : "create"); return false }}>
+      <form onSubmit={(e) => { e.preventDefault(); if (name && valid_name(name)) { onJoin(join_game ? "join" : "create"); } return false }}>
         <div className="input-box">
           <label>Your Name</label>
           <input type="text" value={name || ""} onChange={(e) => onChangeName(e.target.value)} />
+          {
+            (!name || !valid_name(name)) &&
+            <small><br /><em>Your name is invalid</em></small>
+          }
         </div>
         {
           name &&
