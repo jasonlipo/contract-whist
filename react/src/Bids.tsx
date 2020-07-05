@@ -21,7 +21,7 @@ export const Bids: FC<IBidsProps> = ({ player_index, in_play, onSubmitBid, bids,
     <div className="bids actions" style={{ height: 128 }}>
       <label>Enter your bid</label>
       <br /><br />
-      <form onSubmit={(e) => { e.preventDefault(); onSubmitBid(parseInt(bid)); return false; }}>
+      <form onSubmit={(e) => { e.preventDefault(); if (is_valid_bid(parseInt(bid))) { onSubmitBid(parseInt(bid)); } return false; }}>
         <input type="text" value={bid == null ? "" : bid} onChange={(e) => setBid(e.target.value)} />
         {
           (bid == null || isNaN(parseInt(bid))) ?

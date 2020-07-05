@@ -13,7 +13,7 @@ export const ChooseTrump: FC<IChooseTrumpProps> = ({ player_index, in_play, onSu
     <div className="trump actions">
       <label>Your bid was the highest, please choose the trump suit</label>
       <br /><br />
-      <form onSubmit={(e) => { e.preventDefault(); onSubmitTrump(trump); return false; }}>
+      <form onSubmit={(e) => { e.preventDefault(); if (trump) { onSubmitTrump(trump); } return false; }}>
         <select value={trump || ""} onChange={(e) => setTrump((e.target.value || null) as ITrump)}>
           <option value="">Select</option>
           <option value="C">Clubs</option>
