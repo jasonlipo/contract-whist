@@ -97,7 +97,10 @@ export default class Connection extends Component<IConnectionProps> {
       <div className="connection">
         <div className="title">Contract Whist</div>
         <div className="leave_game">
-          <button className="danger" onClick={() => this.logout()}>Leave Game</button>
+          {
+            this.props.entered_game &&
+            <button className="danger" onClick={() => this.logout()}>Leave Game</button>
+          }
         </div>
         {
           this.props.user_id === null ?
