@@ -1,10 +1,11 @@
-import { IMessage, log } from '../utils';
+import { IMessage, log, ELogAction } from '../utils';
 
 export const CreateJoinPlayer = async (db: any, connection: any, message: IMessage): Promise<boolean> => {
   const mode = db.get('shared.mode')
   if (mode == 'players_joining') {
     let players = db.get('shared.players')
-    if (players.size() == 5) {
+    const new_player_index = players.size().value()
+    if (new_player_index == 5) {
       connection.sendUTF(JSON.stringify({ error: "There are already 5 players in this game." }));
       return false;
     }
@@ -13,17 +14,16 @@ export const CreateJoinPlayer = async (db: any, connection: any, message: IMessa
       return false;
     }
     else {
-      let admin_player = players.size() == 0
+      let admin_player = new_player_index == 0
       if (admin_player) {
-        await log(db, message, "created the game")
+        await log(db, new_player_index, ELogAction.CREATE_GAME)
       }
       else {
-        await log(db, message, "joined the game")
+        await log(db, new_player_index, ELogAction.JOIN_GAME)
       }
       await players.push(message.value).write()
-      await db.set(['shared', 'points_history', message.value], []).write()
       await db.set(['private', message.user_id], {
-        player_index: players.size() - 1,
+        player_index: new_player_index,
         user_id: message.user_id,
         name: message.value,
         admin: admin_player,

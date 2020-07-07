@@ -8,7 +8,7 @@ interface IGamePlayProps extends IContractWhistState {
 }
 
 export const GamePlay: FC<IGamePlayProps> = (props) => {
-  const { mode, hand, send } = props
+  const { mode, send } = props
   return (
     <div className="game_play">
       <div className="table">

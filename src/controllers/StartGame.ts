@@ -1,4 +1,4 @@
-import { deal, fetch_players, log, IMessage } from '../utils';
+import { deal, fetch_players, log, IMessage, ELogAction } from '../utils';
 
 export const StartGame = async (db: any, message: IMessage, deck: string[]): Promise<boolean> => {
   const all_players = fetch_players(db)
@@ -10,6 +10,6 @@ export const StartGame = async (db: any, message: IMessage, deck: string[]): Pro
     .set('shared.points', all_players.map(x => 0))
     .write()
   deal(deck, db)
-  await log(db, message, "started the round with 10 cards and is first to bid")
+  await log(db, message.player_index, ELogAction.START_FIRST_ROUND)
   return true;
 }

@@ -1,4 +1,4 @@
-import { deal, fetch_players, IMessage, log } from '../utils';
+import { deal, fetch_players, IMessage, log, ELogAction } from '../utils';
 
 export const NextRound = async (db: any, message: IMessage,deck: string[]): Promise<boolean> => {
   const all_players = fetch_players(db)
@@ -22,7 +22,7 @@ export const NextRound = async (db: any, message: IMessage,deck: string[]): Prom
     .set('shared.cards_per_hand', new_cards_per_hand)
     .write()
   deal(deck, db)
-  await log(db, message, `started the round with ${new_cards_per_hand} cards`)
-  await log(db, { name: all_players[new_first_bidder] }, "is first to bid")
+  await log(db, message.player_index, ELogAction.START_ROUND, new_cards_per_hand)
+  await log(db, new_first_bidder, ELogAction.FIRST_BIDDER)
   return true;
 }

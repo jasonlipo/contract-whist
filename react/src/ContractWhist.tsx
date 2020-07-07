@@ -9,11 +9,7 @@ export type ICard = string
 export type IPlayerPosition = number
 export type IMode = 'awaiting_websocket' | 'players_joining' | 'bids' | 'choose_trump' | 'play' | 'end_of_trick' | 'scores'
 
-export interface ILog {
-  datetime: string,
-  player_name: string,
-  action: string
-}
+export type ILog = [number, number, number, string?]
 
 export interface IContractWhistProps {
   join_game: string
@@ -43,7 +39,7 @@ export interface IContractWhistState {
   error: string,
   connection_status: [boolean, string],
   log: ILog[],
-  points_history: {[name: string]: number[]},
+  points_history: number[][],
   editing_name: boolean,
   timer_seconds: number
 }
@@ -73,7 +69,7 @@ export default class ContractWhist extends Component<IContractWhistProps, IContr
     error: null,
     connection_status: [null, null],
     log: [],
-    points_history: {},
+    points_history: [],
     editing_name: false,
     timer_seconds: null
   }

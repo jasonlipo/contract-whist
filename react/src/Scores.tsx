@@ -8,11 +8,42 @@ interface IScoresProps extends IContractWhistState {
   onNextRound(): void
 }
 
+export const print_scores_log = (index: number, players: string[], points_history: number[][]) => {
+  const deltas = points_history[index]
+  const leaderboard = players.map((_p, i) => points_history.slice(0, index + 1).map(history => history[i])).map(scores => _.sum(scores))
+  return (
+    <div className="scores">
+      <div className="deltas">
+        <div className="score-title">This Round</div>
+        {
+          deltas.map((v, i) =>
+            <div key={i} className="score-row">
+              <div className="score-row-name">{players[i]}</div>
+              <div className={`score-row-points ${v < 0 ? "negative": ""}`}>{v}</div>
+            </div>
+          )
+        }
+      </div>
+      <div className="leaderboard">
+        <div className="score-title">Leaderboard</div>
+        {
+          leaderboard.map((v, i) =>
+            <div key={i} className="score-row">
+              <div className="score-row-name">{players[i]}</div>
+              <div className="score-row-points">{v}</div>
+            </div>
+          )
+        }
+      </div>
+    </div>
+  )
+}
+
 export const Scores: FC<IScoresProps> = ({ admin, points, cards_per_hand, onNextRound, players, cards_decreasing, name, points_history, timer_seconds }) => {
   const player_point_join = points.map((p, i) => ({ points: p, name: players[i] }))
   const sorted_leaderboard = player_point_join.sort((a, b) => b.points - a.points)
 
-  const data = Object.keys(points_history).map(p => ({ name: p, data: points_history[p] }))
+  const data = players.map((player, i) => ({ name: player, data: points_history.map(history => history[i]) }))
   const options = {
     chart: {
       height: 200,
@@ -24,7 +55,7 @@ export const Scores: FC<IScoresProps> = ({ admin, points, cards_per_hand, onNext
     grid: { yaxis: { lines: { show: false } } },
     markers: { size: 0 },
     xaxis: {
-      categories: points_history[players[0]].map((_x, i) => i + 1),
+      categories: points_history.map((_x, i) => i + 1),
       labels: {
         style: {
           colors: 'white'

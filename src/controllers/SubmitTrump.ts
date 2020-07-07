@@ -1,4 +1,4 @@
-import { IMessage, fetch_players, log, letterToSuit } from '../utils';
+import { IMessage, fetch_players, log, letterToSuit, ELogAction } from '../utils';
 
 export const SubmitTrump = async (db: any, message: IMessage ): Promise<boolean> => {
   const all_players = fetch_players(db)
@@ -10,7 +10,7 @@ export const SubmitTrump = async (db: any, message: IMessage ): Promise<boolean>
     .set('shared.table', all_players.map(x => null))
     .set('shared.tricks_won', all_players.map(x => 0))
     .write()
-  await log(db, message, `set the trump suit to ${letterToSuit(message.value)}`)
-  await log(db, { name: all_players[player_bid_first] }, "is leading the first trick")
+  await log(db, message.player_index, ELogAction.CHOSEN_TRUMP, letterToSuit(message.value))
+  await log(db, player_bid_first, ELogAction.LEADING_FIRST_TRICK)
   return true;
 }

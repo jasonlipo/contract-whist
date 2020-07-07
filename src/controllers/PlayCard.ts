@@ -1,4 +1,4 @@
-import { IMessage, log } from '../utils';
+import { IMessage, log, ELogAction } from '../utils';
 import _ from 'lodash';
 
 export const PlayCard = async (db: any, message: IMessage ): Promise<boolean> => {
@@ -12,7 +12,7 @@ export const PlayCard = async (db: any, message: IMessage ): Promise<boolean> =>
   if (db.get('shared.mode').value() != "play" || db.get('shared.in_play').value() != message.player_index) return false;
 
   await db.set(['private', message.user_id, 'hand'], new_hand)
-    .set('shared.in_play', (message.player_index + 1) % db.get('shared.players').size())
+    .set('shared.in_play', (message.player_index + 1) % db.get('shared.players').size().value())
     .set(['shared', 'table', message.player_index], dealt_card[0]).write()
 
   if (db.get('shared.table').value().filter(x => x == null).length == 0) {
@@ -29,7 +29,7 @@ export const PlayCard = async (db: any, message: IMessage ): Promise<boolean> =>
         await db.set('shared.in_play', winning_player_index)
           .set(['shared', 'tricks_won', winning_player_index], new_trick_wins)
           .write()
-        await log(db, { name: db.get('shared.players').value()[winning_player_index] }, "won the trick")
+        await log(db, winning_player_index, ELogAction.WON_TRICK)
         return true;
       }
     }
@@ -41,7 +41,7 @@ export const PlayCard = async (db: any, message: IMessage ): Promise<boolean> =>
     await db.set('shared.in_play', winning_player_index)
       .set(['shared', 'tricks_won', winning_player_index], new_trick_wins)
       .write()
-    await log(db, { name: db.get('shared.players').value()[winning_player_index] }, "won the trick")
+    await log(db, winning_player_index, ELogAction.WON_TRICK)
   }
   return true;
 }

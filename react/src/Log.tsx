@@ -3,13 +3,30 @@ import { IContractWhistState, ITrump } from './ContractWhist';
 import { Bids } from './Bids';
 import { ChooseTrump } from './ChooseTrump';
 import { EndOfTrick } from './EndOfTrick';
-import { Scores } from './Scores';
+import { Scores, print_scores_log } from './Scores';
 import { AwaitingWebsocket } from './AwaitingWebsocket';
 import moment from 'moment';
 import { AwaitingStart } from './AwaitingStart';
 import { ResizableBox } from 'react-resizable';
-import { CountdownTimer } from './CountdownTimer';
 import { InPlay } from './InPlay';
+
+export enum ELogMessages {
+  CREATE_GAME = "created the game",
+  JOIN_GAME = "joined the game",
+  RENAME_PLAYER = "changed their name to [X]",
+  PRINT_SCORES = "",
+  START_FIRST_ROUND = "started the game with 10 cards",
+  START_ROUND = "started a new round with [X] cards",
+  FIRST_BIDDER = "is first to bid",
+  NEXT_TO_BID = "is next to bid",
+  MADE_BID = "made a bid of [X]",
+  BID_ZERO_REDEAL = "bid 0 which means the cards are re-dealt",
+  CHOOSING_TRUMP = "is choosing the trump suit",
+  CHOSEN_TRUMP = "set the trump suit to [X]",
+  LEADING_FIRST_TRICK = "is leading the first trick",
+  LEADING_TRICK = "is leading this trick",
+  WON_TRICK = "won the trick"
+}
 
 interface ILogProps extends IContractWhistState {
   onStart(): void
@@ -27,11 +44,15 @@ export class Log extends Component<ILogProps> {
 		this.boxRef.current.scrollTop = this.boxRef.current.scrollHeight;
   }
 
-  replaceMyPlayer = (action: string, player: string) => {
-    if (player == this.props.name) {
-      return action.replace("is ", "are ")
+  replaceMyPlayer = (action: number, player: number, data?: string) => {
+    let action_string = ELogMessages[Object.keys(ELogMessages)[action]]
+    if (data) {
+      action_string = action_string.replace("[X]", data)
     }
-    return action
+    if (player == this.props.player_index) {
+      return action_string.replace("is ", "are ")
+    }
+    return action_string
   }
 
   componentDidMount() {
@@ -48,7 +69,7 @@ export class Log extends Component<ILogProps> {
   }
 
   render() {
-    const { mode, send, admin, onStart, trump_suit, cards_per_hand, in_play, player_index, timer_seconds } = this.props
+    const { mode, send, admin, onStart, trump_suit, cards_per_hand, players, points_history, points } = this.props
     let ModeComponent: FC = () => <></>
     if (mode == 'players_joining') {
       ModeComponent = () => <AwaitingStart admin={admin} onStart={onStart} />
@@ -84,11 +105,17 @@ export class Log extends Component<ILogProps> {
           </div>
           <div className="log-scrollable" ref={this.boxRef}>
             {
-              this.props.log.map(({ datetime, player_name, action }, i) =>
+              this.props.log.map(([ datetime, player_index, action, data ], i) =>
                 <div key={i} className="log-item">
                   <div className="log-date">[{moment(datetime).format('HH:mm:ss')}]</div>
-                  <div className="log-name">{player_name.replace(new RegExp('^' + this.props.name + '$'), "You")}</div>
-                  <div className="log-action" dangerouslySetInnerHTML={{__html: this.replaceMyPlayer(action, player_name)}}></div>
+                  {
+                    (player_index == -1 && action == Object.keys(ELogMessages).indexOf("PRINT_SCORES")) ?
+                    print_scores_log(parseInt(data), players, points_history) :
+                    <>
+                      <div className="log-name">{players[player_index].replace(new RegExp('^' + this.props.name + '$'), "You")}</div>
+                      <div className="log-action">{this.replaceMyPlayer(action, player_index, data)}</div>
+                    </>
+                  }
                 </div>
               )
             }

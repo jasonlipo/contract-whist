@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { log, fetch_players } from '../utils';
+import { log, fetch_players, ELogAction } from '../utils';
 
 export const GetScores = async (db: any): Promise<boolean> => {
 
@@ -8,13 +8,12 @@ export const GetScores = async (db: any): Promise<boolean> => {
   let bids = db.get('shared.bids').value()
   let tricks_won = db.get('shared.tricks_won').value()
   let cards_per_hand = db.get('shared.cards_per_hand').value()
-  let deltas: { name: string, value: number }[] = []
-  let leaderboard: { name: string, value: number }[] = []
+  const points_history_index = db.get('shared.points_history').value().length
+
+  await db.get('shared.points_history').push(all_players.map(_x => 0)).write()
 
   const store_scores = async (player_index: number, current: number, delta: number) => {
-    deltas.push({ name: all_players[player_index], value: delta })
-    leaderboard.push({ name: all_players[player_index], value: current + delta })
-    await db.get(['shared', 'points_history', all_players[player_index]]).push(current + delta).write()
+    await db.set(['shared', 'points_history', points_history_index, player_index], delta).write()
     return current + delta
   }
 
@@ -39,45 +38,12 @@ export const GetScores = async (db: any): Promise<boolean> => {
   })
 
   new_points = await Promise.all(new_points)
-  leaderboard = leaderboard.sort((a, b) => b.value - a.value)
 
   await db.set('shared.mode', 'scores')
     .set('shared.points', new_points)
     .set('shared.table', [])
     .set('shared.in_play', null)
     .write()
-  await log(db, { name: "The round is over. "}, "Here are the scores")
-
-  const scores_log = `
-  <div class="scores">
-    <div class="deltas">
-      <div class="score-title">This Round</div>
-      ${
-        deltas.map(({ name, value }) =>
-          `
-          <div class="score-row">
-            <div class="score-row-name">${name}</div>
-            <div class="score-row-points ${value < 0 ? "negative": ""}">${value}</div>
-          </div>
-          `
-        ).join("")
-      }
-    </div>
-    <div class="leaderboard">
-      <div class="score-title">Leaderboard</div>
-      ${
-        leaderboard.map(({ name, value }) =>
-          `
-          <div class="score-row">
-            <div class="score-row-name">${name}</div>
-            <div class="score-row-points">${value}</div>
-          </div>
-          `
-        ).join("")
-      }
-    </div>
-  </div>
-  `
-  await log(db, { name: "" }, scores_log)
+  await log(db, -1, ELogAction.PRINT_SCORES, points_history_index.toString())
   return true;
 }

@@ -46,7 +46,7 @@ export const initialise = async (db: any, message: IMessage) =>
       log: [],
       game_id: message.game_id,
       points: [],
-      points_history: {},
+      points_history: [],
       players: [],
       cards_decreasing: true,
       player_bid_first: null,
@@ -60,12 +60,17 @@ export const initialise = async (db: any, message: IMessage) =>
     }
   }).write()
 
-export const log = async (db: any, message: IMessage | { name: string }, action: string) =>
-  db.get('shared.log').push({
-    datetime: moment().format('YYYY-MM-DD HH:mm:ss'),
-    player_name: message.name,
+export const log = async (db: any, player: number, action: ELogAction, data?: string) => {
+  let entry: any[] = [
+    moment().unix(),
+    player,
     action
-  }).write()
+  ]
+  if (data) {
+    entry.push(data)
+  }
+  return db.get('shared.log').push(entry).write()
+}
 
 export const letterToSuit = (trump: string = "") => {
   const map = {"C": "Clubs", "H": "Hearts", "D": "Diamonds", "S": "Spades", "no_trump": "No trumps"}
@@ -81,4 +86,22 @@ export const generate_db = async (id: string) => {
     adapter = new PostgresAsync(id)
   }
   return low(adapter)
+}
+
+export enum ELogAction {
+  CREATE_GAME,
+  JOIN_GAME,
+  RENAME_PLAYER,
+  PRINT_SCORES,
+  START_FIRST_ROUND,
+  START_ROUND,
+  FIRST_BIDDER,
+  NEXT_TO_BID,
+  MADE_BID,
+  BID_ZERO_REDEAL,
+  CHOOSING_TRUMP,
+  CHOSEN_TRUMP,
+  LEADING_FIRST_TRICK,
+  LEADING_TRICK,
+  WON_TRICK
 }

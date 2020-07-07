@@ -1,4 +1,4 @@
-import { fetch_players, log } from '../utils';
+import { fetch_players, log, ELogAction } from '../utils';
 
 export const NextTrick = async (db: any): Promise<boolean> => {
   const all_players = fetch_players(db)
@@ -7,6 +7,6 @@ export const NextTrick = async (db: any): Promise<boolean> => {
     .set('shared.player_lead_trick', player_to_lead)
     .set('shared.table', all_players.map(x => null))
     .write()
-    await log(db, { name: all_players[player_to_lead] }, "is leading this trick")
+    await log(db, player_to_lead, ELogAction.LEADING_TRICK)
   return true;
 }
