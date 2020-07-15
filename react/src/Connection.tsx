@@ -3,6 +3,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { IContractWhistState, IContractWhistProps } from './ContractWhist';
 import { Loading } from './Loading';
 import { Login } from './Login';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCog } from '@fortawesome/free-solid-svg-icons';
 
 let URL
 if (process.env.NODE_ENV == "development") {
@@ -100,6 +102,12 @@ export default class Connection extends Component<IConnectionProps> {
           {
             this.props.entered_game &&
             <button className="danger" onClick={() => this.logout()}>Leave Game</button>
+          }
+          {
+            this.props.admin &&
+            <button className="settings" onClick={() => this.props.setState({ admin_settings_open: true })}>
+              <FontAwesomeIcon icon={faCog} />
+            </button>
           }
         </div>
         {

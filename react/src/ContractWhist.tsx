@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import Connection from './Connection';
 import { GamePlay } from './GamePlay';
 import { Log } from './Log';
+import { AdminSettings } from './AdminSettings';
 
 export type ISuit = 'C' | 'H' | 'S' | 'D'
 export type ITrump = ISuit | 'no_trump'
 export type ICard = string
 export type IPlayerPosition = number
 export type IMode = 'awaiting_websocket' | 'players_joining' | 'bids' | 'choose_trump' | 'play' | 'end_of_trick' | 'scores'
+export type IScoringMethod = 'fixed' | 'variable'
 
 export type ILog = [number, number, number, string?]
 
@@ -41,7 +43,13 @@ export interface IContractWhistState {
   log: ILog[],
   points_history: number[][],
   editing_name: boolean,
-  timer_seconds: number
+  timer_seconds: number,
+  admin_settings_open: boolean,
+  enable_timer: boolean,
+  scoring_method: IScoringMethod,
+  show_other_bids: boolean,
+  show_other_tricks_won: boolean,
+  double_points_no_trumps: boolean
 }
 
 export default class ContractWhist extends Component<IContractWhistProps, IContractWhistState> {
@@ -71,7 +79,13 @@ export default class ContractWhist extends Component<IContractWhistProps, IContr
     log: [],
     points_history: [],
     editing_name: false,
-    timer_seconds: null
+    timer_seconds: null,
+    admin_settings_open: false,
+    enable_timer: false,
+    scoring_method: null,
+    show_other_bids: false,
+    show_other_tricks_won: false,
+    double_points_no_trumps: false
   }
 
   render() {
@@ -97,6 +111,20 @@ export default class ContractWhist extends Component<IContractWhistProps, IContr
               <GamePlay
                 onSwitchEditName={value => this.setState({ editing_name: value })}
                 {...this.state}
+              />
+            }
+            {
+              (this.state.admin_settings_open && this.state.admin) &&
+              <AdminSettings
+                player_index={this.state.player_index}
+                players={this.state.players}
+                enable_timer={this.state.enable_timer}
+                timer_seconds={this.state.timer_seconds}
+                scoring_method={this.state.scoring_method}
+                show_other_bids={this.state.show_other_bids}
+                show_other_tricks_won={this.state.show_other_tricks_won}
+                double_points_no_trumps={this.state.double_points_no_trumps}
+                onClose={() => this.setState({ admin_settings_open: false })}
               />
             }
           </div>
