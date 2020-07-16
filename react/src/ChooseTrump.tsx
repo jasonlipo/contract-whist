@@ -6,7 +6,7 @@ interface IChooseTrumpProps extends IContractWhistState {
   onSubmitTrump(trump: ITrump): void
 }
 
-export const ChooseTrump: FC<IChooseTrumpProps> = ({ player_index, in_play, onSubmitTrump, timer_seconds }) => {
+export const ChooseTrump: FC<IChooseTrumpProps> = ({ player_index, in_play, onSubmitTrump, timer_seconds, enable_timer }) => {
   const [trump, setTrump] = useState<ITrump>(null)
 
   return player_index == in_play && (
@@ -29,7 +29,7 @@ export const ChooseTrump: FC<IChooseTrumpProps> = ({ player_index, in_play, onSu
         }
       </form>
       {
-        timer_seconds !== null &&
+        (enable_timer && timer_seconds !== null) &&
         <CountdownTimer seconds={timer_seconds} onComplete={() => onSubmitTrump("no_trump")} />
       }
     </div>

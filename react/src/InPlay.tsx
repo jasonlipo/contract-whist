@@ -7,7 +7,7 @@ import _ from 'lodash';
 interface IInPlayProps extends IContractWhistState {
 }
 
-export const InPlay: FC<IInPlayProps> = ({ in_play, player_index, timer_seconds, hand, send, table, player_lead_trick }) => {
+export const InPlay: FC<IInPlayProps> = ({ in_play, player_index, timer_seconds, hand, send, table, player_lead_trick, enable_timer }) => {
   let can_select
   if (in_play == player_index) {
     can_select = canSelectCard(table, player_lead_trick, player_index, hand)
@@ -17,7 +17,7 @@ export const InPlay: FC<IInPlayProps> = ({ in_play, player_index, timer_seconds,
       automatic_play_card++
     }
 
-    return in_play == player_index && timer_seconds !== null && (
+    return in_play == player_index && enable_timer && timer_seconds !== null && (
       <div className="actions">
         <CountdownTimer
           seconds={timer_seconds}

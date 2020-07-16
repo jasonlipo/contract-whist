@@ -7,7 +7,7 @@ interface IBidsProps extends IContractWhistState {
   onSubmitBid(x: number): void
 }
 
-export const Bids: FC<IBidsProps> = ({ player_index, in_play, onSubmitBid, bids, cards_per_hand, timer_seconds }) => {
+export const Bids: FC<IBidsProps> = ({ player_index, in_play, onSubmitBid, bids, cards_per_hand, timer_seconds, enable_timer }) => {
   const sumOfPreviousBids = _.sum(bids)
   const [bid, setBid] = useState<string>(null)
   const last_player_to_bid = bids.filter(p => p == null).length == 1
@@ -33,7 +33,7 @@ export const Bids: FC<IBidsProps> = ({ player_index, in_play, onSubmitBid, bids,
         }
       </form>
       {
-        timer_seconds !== null &&
+        (enable_timer && timer_seconds !== null) &&
         <CountdownTimer seconds={timer_seconds} onComplete={() => onSubmitBid(run_out_of_time_bid)} />
       }
     </div>

@@ -39,7 +39,7 @@ export const print_scores_log = (index: number, players: string[], points_histor
   )
 }
 
-export const Scores: FC<IScoresProps> = ({ admin, points, cards_per_hand, onNextRound, players, cards_decreasing, name, points_history, timer_seconds }) => {
+export const Scores: FC<IScoresProps> = ({ admin, points, cards_per_hand, onNextRound, players, cards_decreasing, name, points_history, timer_seconds, enable_timer }) => {
   const player_point_join = points.map((p, i) => ({ points: p, name: players[i] }))
   const sorted_leaderboard = player_point_join.sort((a, b) => b.points - a.points)
 
@@ -93,7 +93,7 @@ export const Scores: FC<IScoresProps> = ({ admin, points, cards_per_hand, onNext
               The scores are in! Click the button below to deal the next round.<br /><br />
               <button onClick={() => onNextRound()}>Next Round</button>
               {
-                timer_seconds !== null &&
+                (enable_timer && timer_seconds !== null) &&
                 <CountdownTimer seconds={timer_seconds} onComplete={() => onNextRound()} />
               }
             </div>

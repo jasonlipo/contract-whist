@@ -7,7 +7,7 @@ interface IEndOfTrickProps extends IContractWhistState {
   onGetScores(): void
 }
 
-export const EndOfTrick: FC<IEndOfTrickProps> = ({ admin, onNextTrick, onGetScores, hand, timer_seconds }) => {
+export const EndOfTrick: FC<IEndOfTrickProps> = ({ admin, onNextTrick, onGetScores, hand, timer_seconds, enable_timer }) => {
   return admin && (
     <div className="end_of_trick actions">
       {
@@ -16,7 +16,7 @@ export const EndOfTrick: FC<IEndOfTrickProps> = ({ admin, onNextTrick, onGetScor
         <button onClick={() => onNextTrick()}>Next Trick</button>
       }
       {
-        timer_seconds !== null &&
+        (enable_timer && timer_seconds !== null) &&
         <CountdownTimer seconds={timer_seconds} onComplete={() => hand.length == 0 ? onGetScores() : onNextTrick()} />
       }
     </div>
