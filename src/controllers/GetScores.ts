@@ -26,6 +26,9 @@ export const GetScores = async (db: any): Promise<boolean> => {
     if (bid == tricks) {
       if (bid == 0) {
         let sum_of_bids = _.sum(bids)
+        if (db.get('shared.scoring_method').value() == "fixed") {
+          cards_per_hand = 10
+        }
         if (sum_of_bids > cards_per_hand) {
           return await store_scores(player_index, current_points, Math.floor(cards_per_hand / 2))
         }
