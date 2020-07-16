@@ -1,18 +1,13 @@
 import React, { useState, FC } from 'react';
-import { IPlayerPosition, IScoringMethod } from './ContractWhist';
+import { IPlayerPosition, IScoringMethod, IAdminSettingsSaveable } from './ContractWhist';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import Switch from 'react-input-switch';
 
-interface IAdminSettingsProps {
+interface IAdminSettingsProps extends IAdminSettingsSaveable {
+  send: (data: any) => void,
   players: string[],
   player_index: IPlayerPosition,
-  enable_timer: boolean,
-  timer_seconds: number,
-  scoring_method: IScoringMethod,
-  show_other_bids: boolean,
-  show_other_tricks_won: boolean,
-  double_points_no_trumps: boolean
   onClose: () => void
 }
 
@@ -25,7 +20,16 @@ const positiveInteger = (str: string): number => {
 
 const switchValue = (bool: boolean): number => bool ? 1 : 0
 
-export const AdminSettings: FC<IAdminSettingsProps> = ({ enable_timer, timer_seconds, scoring_method, onClose, show_other_bids, show_other_tricks_won, double_points_no_trumps }) => {
+export const AdminSettings: FC<IAdminSettingsProps> = ({
+  send,
+  enable_timer,
+  timer_seconds,
+  scoring_method,
+  onClose,
+  show_other_bids,
+  show_other_tricks_won,
+  double_points_no_trumps
+}) => {
   const [enableTimerLocal, setEnableTimerLocal] = useState<boolean>(enable_timer)
   const [timerSecondsLocal, setTimerSecondsLocal] = useState<number>(timer_seconds)
   const [scoringMethodLocal, setScoringMethodLocal] = useState<IScoringMethod>(scoring_method)
@@ -35,6 +39,19 @@ export const AdminSettings: FC<IAdminSettingsProps> = ({ enable_timer, timer_sec
 
   const toggleScoring = () => setScoringMethodLocal(scoringMethodLocal == 'fixed' ? 'variable' : 'fixed')
   const style = { container: { height: 6, width: 32 }, button: { right: 18 }, buttonChecked: { left: 18 } }
+
+  const onSaveAndClose = () => {
+    const data: IAdminSettingsSaveable = {
+      enable_timer: enableTimerLocal,
+      timer_seconds: timerSecondsLocal,
+      scoring_method: scoringMethodLocal,
+      show_other_bids: showOtherBidsLocal,
+      show_other_tricks_won: showOtherTricksWonLocal,
+      double_points_no_trumps: doublePointsNoTrumpsLocal
+    }
+    send({ type: "change_settings", value: data })
+    onClose()
+  }
 
   return (
     <>
@@ -78,7 +95,7 @@ export const AdminSettings: FC<IAdminSettingsProps> = ({ enable_timer, timer_sec
           </div>
         </div>
         <div className="admin-settings-save">
-          <button>
+          <button onClick={onSaveAndClose}>
             Save
           </button>
         </div>

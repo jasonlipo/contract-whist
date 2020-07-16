@@ -25,7 +25,8 @@ export enum ELogMessages {
   CHOSEN_TRUMP = "set the trump suit to [X]",
   LEADING_FIRST_TRICK = "is leading the first trick",
   LEADING_TRICK = "is leading this trick",
-  WON_TRICK = "won the trick"
+  WON_TRICK = "won the trick",
+  CHANGE_SETTINGS = "changed the game settings"
 }
 
 interface ILogProps extends IContractWhistState {

@@ -56,7 +56,12 @@ export const initialise = async (db: any, message: IMessage) =>
       table: [],
       tricks_won: [],
       player_lead_trick: null,
-      timer_seconds: 30
+      timer_seconds: 30,
+      enable_timer: true,
+      scoring_method: 'variable',
+      show_other_bids: true,
+      show_other_tricks_won: true,
+      double_points_no_trumps: false
     }
   }).write()
 
@@ -103,5 +108,6 @@ export enum ELogAction {
   CHOSEN_TRUMP,
   LEADING_FIRST_TRICK,
   LEADING_TRICK,
-  WON_TRICK
+  WON_TRICK,
+  CHANGE_SETTINGS
 }

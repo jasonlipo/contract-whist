@@ -13,11 +13,20 @@ export type IScoringMethod = 'fixed' | 'variable'
 
 export type ILog = [number, number, number, string?]
 
+export interface IAdminSettingsSaveable {
+  enable_timer: boolean,
+  timer_seconds: number,
+  scoring_method: IScoringMethod,
+  show_other_bids: boolean,
+  show_other_tricks_won: boolean,
+  double_points_no_trumps: boolean
+}
+
 export interface IContractWhistProps {
   join_game: string
 }
 
-export interface IContractWhistState {
+export interface IContractWhistState extends IAdminSettingsSaveable {
   players: string[],
   name: string,
   player_index: IPlayerPosition,
@@ -43,13 +52,7 @@ export interface IContractWhistState {
   log: ILog[],
   points_history: number[][],
   editing_name: boolean,
-  timer_seconds: number,
   admin_settings_open: boolean,
-  enable_timer: boolean,
-  scoring_method: IScoringMethod,
-  show_other_bids: boolean,
-  show_other_tricks_won: boolean,
-  double_points_no_trumps: boolean
 }
 
 export default class ContractWhist extends Component<IContractWhistProps, IContractWhistState> {
@@ -116,6 +119,7 @@ export default class ContractWhist extends Component<IContractWhistProps, IContr
             {
               (this.state.admin_settings_open && this.state.admin) &&
               <AdminSettings
+                send={this.state.send}
                 player_index={this.state.player_index}
                 players={this.state.players}
                 enable_timer={this.state.enable_timer}
