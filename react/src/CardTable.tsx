@@ -7,7 +7,20 @@ interface ICardTableProps extends IContractWhistState {
   onSwitchEditName: (value: boolean) => void
 }
 
-export const CardTable: FC<ICardTableProps> = ({ player_index, in_play, name, players, table, bids, tricks_won, onSwitchEditName, editing_name, send }) => {
+export const CardTable: FC<ICardTableProps> = ({
+  player_index,
+  in_play,
+  name,
+  players,
+  table,
+  bids,
+  tricks_won,
+  onSwitchEditName,
+  editing_name,
+  send,
+  show_other_bids,
+  show_other_tricks_won
+}) => {
   const [newName, setNewName] = useState<string>(name)
 
   const rotate = (array: any[]) => {
@@ -76,7 +89,15 @@ export const CardTable: FC<ICardTableProps> = ({ player_index, in_play, name, pl
                 <div className={"player_name "+(rotated_in_play == i ? "in_play" : "")}>
                   {player_name}
                   <div className="bid_tricks">
-                    {rotated_tricks_won[i] == null ? "-" : rotated_tricks_won[i]} / {rotated_bids[i] == null ? "-" : rotated_bids[i]} tricks won
+                    {
+                      show_other_tricks_won ?
+                      (rotated_tricks_won[i] == null ? "-" : rotated_tricks_won[i]) :
+                      "?"
+                    } / {
+                      show_other_bids ?
+                      (rotated_bids[i] == null ? "-" : rotated_bids[i]) :
+                      "?"
+                    } tricks won
                   </div>
                 </div>
                 <div className="player_card_in_play">
