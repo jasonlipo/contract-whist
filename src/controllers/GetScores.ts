@@ -13,6 +13,9 @@ export const GetScores = async (db: any): Promise<boolean> => {
   await db.get('shared.points_history').push(all_players.map(_x => 0)).write()
 
   const store_scores = async (player_index: number, current: number, delta: number) => {
+    if (db.get('shared.trump_suit').value() == "no_trump" && db.get('shared.double_points_no_trumps').value()) {
+      delta *= 2
+    }
     await db.set(['shared', 'points_history', points_history_index, player_index], delta).write()
     return current + delta
   }
