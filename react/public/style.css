@@ -94,6 +94,7 @@ input.edit-input[type="text"] {font-size:12px;margin-bottom: 10px;width: 150px;}
 .admin-settings-content {margin: 40px 0 0;font-size: 14px;flex: 1;}
 .admin-settings-item {margin-bottom: 20px;width: 270px;justify-content: space-between;display: flex;align-items: center;}
 .admin-settings-item input {width: 44px;padding: 5px 7px;font-size: 14px;}
+.admin-settings-item select { padding: 5px 7px;font-size: 14px;}
 
 @media only screen and (max-height: 830px) {
   .contract-whist { zoom: 0.9; }

@@ -28,7 +28,9 @@ export const AdminSettings: FC<IAdminSettingsProps> = ({
   onClose,
   show_other_bids,
   show_other_tricks_won,
-  double_points_no_trumps
+  double_points_no_trumps,
+  players,
+  player_index
 }) => {
   const [enableTimerLocal, setEnableTimerLocal] = useState<boolean>(enable_timer)
   const [timerSecondsLocal, setTimerSecondsLocal] = useState<number>(timer_seconds)
@@ -36,18 +38,20 @@ export const AdminSettings: FC<IAdminSettingsProps> = ({
   const [showOtherBidsLocal, setShowOtherBidsLocal] = useState<boolean>(show_other_bids)
   const [showOtherTricksWonLocal, setShowOtherTricksWonLocal] = useState<boolean>(show_other_tricks_won)
   const [doublePointsNoTrumpsLocal, setDoublePointsNoTrumpsLocal] = useState<boolean>(double_points_no_trumps)
+  const [adminPlayer, setAdminPlayer] = useState<number>(player_index)
 
   const toggleScoring = () => setScoringMethodLocal(scoringMethodLocal == 'fixed' ? 'variable' : 'fixed')
   const style = { container: { height: 6, width: 32 }, button: { right: 18 }, buttonChecked: { left: 18 } }
 
   const onSaveAndClose = () => {
-    const data: IAdminSettingsSaveable = {
+    const data = {
       enable_timer: enableTimerLocal,
       timer_seconds: timerSecondsLocal,
       scoring_method: scoringMethodLocal,
       show_other_bids: showOtherBidsLocal,
       show_other_tricks_won: showOtherTricksWonLocal,
-      double_points_no_trumps: doublePointsNoTrumpsLocal
+      double_points_no_trumps: doublePointsNoTrumpsLocal,
+      admin_player: adminPlayer
     }
     send({ type: "change_settings", value: data })
     onClose()
@@ -62,6 +66,16 @@ export const AdminSettings: FC<IAdminSettingsProps> = ({
           <FontAwesomeIcon icon={faTimes} onClick={onClose} />
         </div>
         <div className="admin-settings-content">
+          <div className="admin-settings-item">
+              Game controller
+              <select onChange={e => setAdminPlayer(parseInt(e.target.value))}>
+                {
+                  players.map((p, i) =>
+                    <option value={i} selected={adminPlayer == i}>{p}</option>
+                  )
+                }
+              </select>
+          </div>
           <div className="admin-settings-item">
             Enable time limit for players
             <Switch value={switchValue(enableTimerLocal)} onChange={(value: number) => setEnableTimerLocal(value === 1)} styles={style} />
