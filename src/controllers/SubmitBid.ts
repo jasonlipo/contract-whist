@@ -16,7 +16,18 @@ export const SubmitBid = async (db: any, message: IMessage, deck: string[]): Pro
     }
     else {
       const bids = db.get('shared.bids').value()
-      const highest_index = bids.indexOf(Math.max(...bids))
+      // Decide who chooses trump suit
+      const max_bid = Math.max(...bids)
+      let count_bids = 0
+      let highest_index = db.get('shared.player_bid_first').value()
+      while (count_bids < all_players.length) {
+        if (bids[highest_index] == max_bid) {
+          break;
+        }
+        highest_index++;
+        highest_index %= all_players.length;
+        count_bids++;
+      }
       await db.set('shared.in_play', highest_index)
         .set('shared.mode', 'choose_trump')
         .write()
