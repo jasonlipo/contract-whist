@@ -80,7 +80,7 @@ input.edit-input[type="text"] {font-size:12px;margin-bottom: 10px;width: 150px;}
 .log-item {color: white;font-size: 14px;padding: 10px;}
 .log-item.log-border-bottom {border-bottom: 2px solid white;padding-bottom: 15px;background: black;}
 .log-date {flex-basis: 100%;color: grey;}
-.log-name {font-weight: bold;color: green;display: inline;}
+.log-name {font-weight: bold;color: green;display: inline-block;overflow: hidden;text-overflow: ellipsis;max-width: 130px;vertical-align: -4px;}
 .log-action {padding-left: 3px;display: inline;}
 .log-scrollable{overflow-y:scroll;flex: 1;padding-top: 10px;padding-bottom: 40px;overflow-x: hidden;}
 .react-resizable {position: relative;}
