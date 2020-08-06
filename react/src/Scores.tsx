@@ -27,10 +27,10 @@ export const print_scores_log = (index: number, players: string[], points_histor
       <div className="leaderboard">
         <div className="score-title">Leaderboard</div>
         {
-          leaderboard.map((v, i) =>
+          _.orderBy(leaderboard.map((v, i) => ({ player: players[i], score: v })), ['score'], ['desc']).map(({ player, score }, i) =>
             <div key={i} className="score-row">
-              <div className="score-row-name">{players[i]}</div>
-              <div className="score-row-points">{v}</div>
+              <div className="score-row-name">{player}</div>
+              <div className="score-row-points">{score}</div>
             </div>
           )
         }
