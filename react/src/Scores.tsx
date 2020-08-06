@@ -42,11 +42,13 @@ export const print_scores_log = (index: number, players: string[], points_histor
 export const Scores: FC<IScoresProps> = ({ admin, points, cards_per_hand, onNextRound, players, cards_decreasing, name, points_history, timer_seconds, enable_timer }) => {
   const player_point_join = points.map((p, i) => ({ points: p, name: players[i] }))
   const sorted_leaderboard = player_point_join.sort((a, b) => b.points - a.points)
-  const cumulativeSum = (sum => value => sum += value)(0);
 
   const data = players
     .map((player, i) => ({ name: player, data: points_history.map(history => history[i]) }))
-    .map(({ name, data }) => ({ name, data: data.map(cumulativeSum) }))
+    .map(({ name, data }) => {
+      const cumulativeSum = (sum => value => sum += value)(0);
+      return { name, data: data.map(cumulativeSum) }
+    })
 
   const options = {
     chart: {
