@@ -21,7 +21,7 @@ export const NextRound = async (db: any, message: IMessage,deck: string[]): Prom
     .set('shared.bids', all_players.map(x => null))
     .set('shared.cards_per_hand', new_cards_per_hand)
     .write()
-  deal(deck, db)
+  await deal(deck, db)
   await log(db, message.player_index, ELogAction.START_ROUND, new_cards_per_hand)
   await log(db, new_first_bidder, ELogAction.FIRST_BIDDER)
   return true;

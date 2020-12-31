@@ -1,7 +1,7 @@
 import { deal, IMessage, fetch_players, log, ELogAction } from '../utils';
 
 export const SubmitBid = async (db: any, message: IMessage, deck: string[]): Promise<boolean> => {
-  db.set(['shared', 'bids', message.player_index], message.value).write()
+  await db.set(['shared', 'bids', message.player_index], message.value).write()
   await log(db, message.player_index, ELogAction.MADE_BID, message.value)
   const all_players = fetch_players(db)
   if (db.get('shared.bids').value().filter(x => x == null).length == 0) {
@@ -11,7 +11,7 @@ export const SubmitBid = async (db: any, message: IMessage, deck: string[]): Pro
       await db.set('shared.in_play', db.get('shared.player_bid_first').value())
         .set('shared.bids', all_players.map(x => null))
         .write()
-      deal(deck, db)
+      await deal(deck, db)
       await log(db, message.player_index, ELogAction.BID_ZERO_REDEAL)
     }
     else {
