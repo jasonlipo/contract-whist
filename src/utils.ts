@@ -31,10 +31,11 @@ export const generate_deck = (): string[] =>
 export const deal = async (deck: string[], db: any) => {
   let this_deck: string[] = _.shuffle(_.clone(deck))
   const cards_per_hand = db.get('shared.cards_per_hand').value()
-  Object.keys(db.get('private').value()).forEach(async (user_id) => {
+  const promises = Object.keys(db.get('private').value()).map(async (user_id) => {
     let this_hand = this_deck.splice(0, cards_per_hand)
     await db.set(['private', user_id, 'hand'], this_hand.sort(sort_by_suit)).write()
   })
+  await Promise.all(promises);
 }
 
 export const fetch_players = (db: any) => db.get('shared.players').value()
