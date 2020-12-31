@@ -9,7 +9,7 @@ export const StartGame = async (db: any, message: IMessage, deck: string[]): Pro
     .set('shared.bids', all_players.map(x => null))
     .set('shared.points', all_players.map(x => 0))
     .write()
-  deal(deck, db)
+  await deal(deck, db)
   await log(db, message.player_index, ELogAction.START_FIRST_ROUND)
   return true;
 }
