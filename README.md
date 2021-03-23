@@ -1,5 +1,5 @@
 # Contract Whist
-An open-source online version of the popular Contract Whist
+An open-source online version of the popular Contract Whist.
 
 https://whist.jasonlipowicz.tech
 
